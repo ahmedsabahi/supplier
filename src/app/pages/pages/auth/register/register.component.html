@@ -2,31 +2,89 @@
   <div @fadeInUp class="card overflow-hidden w-full max-w-md">
     <div class="p-6 pb-0 flex flex-col items-center justify-center">
       <div class="fill-current text-center">
-        <img class="w-16" src="assets/img/logo/logo.svg" />
+        <img class="w-80" src="assets/img/logo/logo.svg" />
       </div>
     </div>
 
     <div class="text-center mt-4">
-      <h2 class="title m-0">Register for an account</h2>
-      <h4 class="body-2 text-secondary m-0">Simply fill out the form below</h4>
+      <h2 class="title m-0">{{ "registerForAnAccount" | translate }}</h2>
+      <h4 class="body-2 text-secondary m-0">
+        {{ "simplyFillOutTheFormBelow" | translate }}
+      </h4>
     </div>
 
-    <div
-      [formGroup]="form"
-      class="p-6 flex flex-col gap-4 flex-auto flex flex-col">
-      <div>
-        <mat-form-field class="flex-1 block">
-          <mat-label>Name</mat-label>
-          <input formControlName="name" matInput required />
+    <div [formGroup]="registerationForm" class="p-6 flex flex-col">
+      <div class="flex flex-col sm:flex-row sm:gap-4 mb-3">
+        <mat-form-field class="flex-auto">
+          <mat-label>{{ "fullname" | translate }}</mat-label>
+          <input formControlName="fullname" matInput required />
+          <mat-error
+            *ngIf="registerationForm.controls['fullname'].hasError('required')">
+            {{ "requiredFullname" | translate }}
+          </mat-error>
+          <mat-error
+            *ngIf="
+              registerationForm.controls['fullname'].hasError('minlength')
+            ">
+            {{ "minLengthFullname" | translate }}
+          </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="flex-1 block">
-          <mat-label>E-Mail</mat-label>
-          <input formControlName="email" matInput required />
+        <mat-form-field class="flex-auto">
+          <mat-label>{{ "companyName" | translate }}</mat-label>
+          <input formControlName="companyName" matInput required />
+          <mat-error
+            *ngIf="
+              registerationForm.controls['companyName'].hasError('required')
+            ">
+            {{ "requiredCompanyName" | translate }}
+          </mat-error>
         </mat-form-field>
+      </div>
 
-        <mat-form-field class="flex-1 block">
-          <mat-label>Password</mat-label>
+      <mat-form-field class="flex-1 block mb-3">
+        <mat-label>{{ "phone" | translate }}</mat-label>
+        <input formControlName="phone" matInput required />
+        <mat-error
+          *ngIf="registerationForm.controls['phone'].hasError('required')">
+          {{ "requiredPhone" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            registerationForm.controls['phone'].hasError('minlength') &&
+            !registerationForm.controls['phone'].hasError('pattern')
+          ">
+          {{ "minLengthPhone" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            registerationForm.controls['phone'].hasError('maxlength') &&
+            !registerationForm.controls['phone'].hasError('pattern')
+          ">
+          {{ "maxLengthPhone" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="registerationForm.controls['phone'].hasError('pattern')">
+          {{ "errorPatternPhone" | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="flex-1 block mb-3">
+        <mat-label>{{ "email" | translate }}</mat-label>
+        <input formControlName="email" matInput required />
+        <mat-error
+          *ngIf="registerationForm.controls['email'].hasError('required')">
+          {{ "requiredEmail" | translate }}
+        </mat-error>
+        <mat-error
+          *ngIf="registerationForm.controls['email'].hasError('email')">
+          {{ "errorEmail" | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="flex flex-col sm:flex-row sm:gap-4 mb-3">
+        <mat-form-field class="flex-auto">
+          <mat-label>{{ "password" | translate }}</mat-label>
           <input
             [type]="inputType"
             formControlName="password"
@@ -36,43 +94,81 @@
             (click)="toggleVisibility()"
             mat-icon-button
             matIconSuffix
-            matTooltip="Toggle Visibility"
+            [matTooltip]="
+              visible
+                ? ('hidePassword' | translate)
+                : ('showPassword' | translate)
+            "
             type="button">
             <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
             <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
           </button>
+          <mat-error
+            *ngIf="registerationForm.controls['password'].hasError('required')">
+            {{ "requiredPassword" | translate }}
+          </mat-error>
+          <mat-error
+            *ngIf="
+              registerationForm.controls['password'].hasError('minlength')
+            ">
+            {{ "minLengthPassword" | translate }}
+          </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="flex-1 block">
-          <mat-label>Password (Confirm)</mat-label>
+        <mat-form-field class="flex-auto">
+          <mat-label>{{ "confirmPassword" | translate }}</mat-label>
           <input
             [type]="inputType"
-            formControlName="passwordConfirm"
+            formControlName="confirmPassword"
+            [errorStateMatcher]="matcher"
             matInput
             required />
           <button
             (click)="toggleVisibility()"
             mat-icon-button
             matIconSuffix
-            matTooltip="Toggle Visibility"
+            [matTooltip]="
+              visible
+                ? ('hidePassword' | translate)
+                : ('showPassword' | translate)
+            "
             type="button">
             <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
             <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
           </button>
+          <mat-error *ngIf="registerationForm.hasError('notMatch')">
+            {{ "passwordsDontMatch" | translate }}
+          </mat-error>
         </mat-form-field>
       </div>
 
-      <div class="flex items-center justify-center">
-        <mat-checkbox class="caption"
-        >I accept the <a>terms and conditions.</a></mat-checkbox
-        >
+      <div class="flex items-center justify-center mb-3">
+        <mat-checkbox class="checkbox" formControlName="terms">
+          <a href="https://www.mdd.sa/terms-and-conditions" target="_blank">
+            {{ "iAcceptTheTermsAndConditions" | translate }}
+          </a>
+          <mat-error
+            *ngIf="
+              registerationForm.controls['terms'].hasError('required') &&
+              registerationForm.controls['terms'].touched
+            ">
+            {{ "requiredCheckTerms" | translate }}
+          </mat-error>
+        </mat-checkbox>
       </div>
-      <button (click)="send()" color="primary" mat-raised-button type="button">
-        CREATE ACCOUNT
+      <button
+        (click)="register()"
+        [disabled]="isLoading"
+        color="primary"
+        class="mb-5"
+        mat-raised-button
+        type="button">
+        {{ "create" | translate }}
       </button>
       <p class="text-secondary text-center">
-        Already have an account?<br />
-        <a [routerLink]="['/login']">Sign in here</a>
+        {{ "alreadyHaveAnAccount" | translate }}
+        <br />
+        <a [routerLink]="['/login']">{{ "signInHere" | translate }}</a>
       </p>
     </div>
   </div>

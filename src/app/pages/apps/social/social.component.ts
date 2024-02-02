@@ -5,6 +5,9 @@ import { fadeInRight400ms } from '@vex/animations/fade-in-right.animation';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
+import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
+import { UserModel } from '../../pages/auth/auth.model';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 export interface FriendSuggestion {
   name: string;
@@ -19,32 +22,37 @@ export interface FriendSuggestion {
   styleUrls: ['./social.component.scss'],
   animations: [scaleIn400ms, fadeInRight400ms],
   standalone: true,
-  imports: [MatTabsModule, NgFor, RouterLinkActive, RouterLink, RouterOutlet]
+  imports: [
+    MatTabsModule,
+    NgFor,
+    RouterLinkActive,
+    RouterLink,
+    RouterOutlet,
+    TranslateModule
+  ]
 })
 export class SocialComponent implements OnInit {
   links: Link[] = [
     {
-      label: 'ABOUT',
+      label: 'profile',
       route: './',
       routerLinkActiveOptions: { exact: true }
     },
     {
-      label: 'TIMELINE',
+      label: 'editProfile',
       route: './timeline'
-    },
-    {
-      label: 'FRIENDS',
-      route: '',
-      disabled: true
-    },
-    {
-      label: 'PHOTOS',
-      route: '',
-      disabled: true
     }
   ];
 
-  constructor() {}
+  user: UserModel;
+
+  constructor(private readonly encryptStorageService: EncryptStorageService) {
+    this.user = this.getUser();
+  }
 
   ngOnInit() {}
+
+  getUser() {
+    return this.encryptStorageService.getCurrentUser();
+  }
 }

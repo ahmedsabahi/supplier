@@ -76,10 +76,12 @@
       <img
         alt="User Avatar"
         class="vex-sidenav-user__image flex-none"
-        src="../../../../assets/img/avatars/1.jpg" />
+        src="https://www.w3schools.com/howto/img_avatar.png" />
       <div class="vex-sidenav-user__content flex-auto">
-        <div class="vex-sidenav-user__title">David Smith</div>
-        <div class="vex-sidenav-user__subtitle">Product Manager</div>
+        <div class="vex-sidenav-user__title">{{ user.supplier?.fullName }}</div>
+        <div class="vex-sidenav-user__subtitle">
+          {{ user.supplier?.supplierName }}
+        </div>
       </div>
       <mat-icon
         class="vex-sidenav-user__dropdown-icon flex-none"

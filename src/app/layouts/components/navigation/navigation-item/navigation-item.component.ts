@@ -17,6 +17,7 @@ import {
   NgIf,
   NgTemplateOutlet
 } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'vex-navigation-item',
@@ -32,7 +33,8 @@ import {
     NgFor,
     MatIconModule,
     NgTemplateOutlet,
-    AsyncPipe
+    AsyncPipe,
+    TranslateModule
   ]
 })
 export class NavigationItemComponent implements OnInit {

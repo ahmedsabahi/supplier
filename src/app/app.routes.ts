@@ -1,5 +1,7 @@
 import { LayoutComponent } from './layouts/layout/layout.component';
 import { VexRoutes } from '@vex/interfaces/vex-route.interface';
+import { DashboardAnalyticsComponent } from './pages/dashboards/dashboard-analytics/dashboard-analytics.component';
+import { authGuard } from './auth.guard';
 
 export const appRoutes: VexRoutes = [
   {
@@ -41,6 +43,7 @@ export const appRoutes: VexRoutes = [
       },
       {
         path: '',
+        canActivate: [authGuard],
         loadComponent: () =>
           import(
             './pages/dashboards/dashboard-analytics/dashboard-analytics.component'
@@ -77,6 +80,16 @@ export const appRoutes: VexRoutes = [
               ),
             data: {
               toolbarShadowEnabled: true
+            }
+          },
+          {
+            path: 'payments',
+            loadComponent: () =>
+              import('./pages/apps/payments/payments.component').then(
+                (m) => m.PaymentsComponent
+              ),
+            data: {
+              toolbarShadowEnabled: false
             }
           },
           {

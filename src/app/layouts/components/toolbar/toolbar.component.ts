@@ -25,6 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { NavigationItem } from '../../../core/navigation/navigation-item.interface';
 import { checkRouterChildsData } from '@vex/utils/check-router-childs-data';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'vex-toolbar',
@@ -81,7 +82,8 @@ export class ToolbarComponent implements OnInit {
     private readonly configService: VexConfigService,
     private readonly navigationService: NavigationService,
     private readonly popoverService: VexPopoverService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -136,5 +138,37 @@ export class ToolbarComponent implements OnInit {
 
   openSearch(): void {
     this.layoutService.openSearch();
+  }
+
+  siteLanguage = { code: 'en', label: 'English', flag: 'flag:united-states' };
+
+  languageList = [
+    { code: 'en', label: 'English', flag: 'flag:united-states' },
+    { code: 'ar', label: 'العربية', flag: 'flag:saudi-arabia' }
+  ];
+
+  changeSiteLanguage(localeCode: string): void {
+    if (localeCode === localStorage.getItem('selectedLanguage')) return;
+
+    const selectedLanguage = this.languageList.find(
+      (language) => language.code === localeCode
+    );
+    if (selectedLanguage) {
+      this.siteLanguage = selectedLanguage;
+      this.translateService.use(localeCode);
+      localStorage.setItem('selectedLanguage', localeCode);
+      this.layoutRTLChange(localeCode);
+      // this.translateService.use(localStorage.getItem('selectedLanguage') ?? 'en');
+
+      // localStorage.setItem('layout_type', localeCode == 'ar' ? 'rtl' : 'ltr');
+    }
+    const currentLanguage = this.translateService.currentLang;
+    console.log('currentLanguage', currentLanguage);
+  }
+
+  layoutRTLChange(localeCode: string): void {
+    this.configService.updateConfig({
+      direction: localeCode == 'ar' ? 'rtl' : 'ltr'
+    });
   }
 }

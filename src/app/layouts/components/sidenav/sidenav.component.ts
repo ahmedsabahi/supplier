@@ -15,6 +15,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
+import { UserModel } from 'src/app/pages/pages/auth/auth.model';
 
 @Component({
   selector: 'vex-sidenav',
@@ -55,15 +57,24 @@ export class SidenavComponent implements OnInit {
 
   items$: Observable<NavigationItem[]> = this.navigationService.items$;
 
+  user: UserModel;
+
   constructor(
     private navigationService: NavigationService,
     private layoutService: VexLayoutService,
     private configService: VexConfigService,
     private readonly popoverService: VexPopoverService,
-    private readonly dialog: MatDialog
-  ) {}
+    private readonly dialog: MatDialog,
+    private readonly encryptStorageService: EncryptStorageService
+  ) {
+    this.user = this.getUser();
+  }
 
   ngOnInit() {}
+
+  getUser() {
+    return this.encryptStorageService.getCurrentUser();
+  }
 
   collapseOpenSidenav() {
     this.layoutService.collapseOpenSidenav();

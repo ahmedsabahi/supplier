@@ -35,6 +35,18 @@ export class NavigationLoaderService {
       },
       {
         type: 'subheading',
+        label: 'Features',
+        children: [
+          {
+            type: 'link',
+            label: 'payments',
+            route: '/apps/payments',
+            icon: 'mat:assignment'
+          }
+        ]
+      },
+      {
+        type: 'subheading',
         label: 'Apps',
         children: [
           {

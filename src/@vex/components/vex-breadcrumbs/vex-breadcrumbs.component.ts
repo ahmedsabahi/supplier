@@ -4,6 +4,7 @@ import { VexBreadcrumbComponent } from './vex-breadcrumb/vex-breadcrumb.componen
 import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'vex-breadcrumbs',
@@ -17,13 +18,19 @@ import { MatIconModule } from '@angular/material/icon';
       <ng-container *ngFor="let crumb of crumbs; trackBy: trackByValue">
         <div class="w-1 h-1 bg-gray-600 rounded-full"></div>
         <vex-breadcrumb>
-          <a [routerLink]="[]">{{ crumb }}</a>
+          <a [routerLink]="[]">{{ crumb | translate }}</a>
         </vex-breadcrumb>
       </ng-container>
     </div>
   `,
   standalone: true,
-  imports: [VexBreadcrumbComponent, RouterLink, NgFor, MatIconModule]
+  imports: [
+    VexBreadcrumbComponent,
+    RouterLink,
+    NgFor,
+    MatIconModule,
+    TranslateModule
+  ]
 })
 export class VexBreadcrumbsComponent {
   @Input() crumbs: string[] = [];

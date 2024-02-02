@@ -14,6 +14,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../auth.service';
+import { UserLoginCommand } from '../auth.model';
+import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
 
 @Component({
   selector: 'vex-login',
@@ -32,34 +36,53 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatIconModule,
     MatCheckboxModule,
     RouterLink,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TranslateModule
   ]
 })
 export class LoginComponent {
   form = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required]
+    username: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
   inputType = 'password';
   visible = false;
+  isLoading = false;
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
-    private snackbar: MatSnackBar
+    private authService: AuthService,
+    private encryptStorageService: EncryptStorageService
   ) {}
 
-  send() {
-    this.router.navigate(['/']);
-    this.snackbar.open(
-      "Lucky you! Looks like you didn't need a password or email address! For a real application we provide validators to prevent this. ;)",
-      'THANKS',
-      {
-        duration: 10000
-      }
-    );
+  login() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.isLoading = true;
+    this.authService
+      .login({
+        username: this.form.value.username ?? '',
+        password: this.form.value.password ?? ''
+      })
+      .subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (res.data) {
+            let user = res.data;
+            if (res.result.status === 1) {
+              this.encryptStorageService.cacheUser(user);
+              this.router.navigate(['/']);
+            }
+          }
+        },
+        error: (e) => (this.isLoading = false)
+      });
   }
 
   toggleVisibility() {

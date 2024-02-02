@@ -33,10 +33,10 @@
           class="title my-0 ltr:pr-4 rtl:pl-4 ltr:mr-4 rtl:ml-4 ltr:border-r rtl:border-l hidden sm:block flex-none">
           <span *ngIf="selection.isEmpty()">Customers</span>
           <span *ngIf="selection.hasValue()"
-          >{{ selection.selected.length }} Customer<span
-            *ngIf="selection.selected.length > 1"
-          >s</span
-          >
+            >{{ selection.selected.length }} Customer<span
+              *ngIf="selection.selected.length > 1"
+              >s</span
+            >
             selected</span
           >
         </h2>

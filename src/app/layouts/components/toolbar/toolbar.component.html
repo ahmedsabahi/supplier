@@ -13,10 +13,7 @@
     *ngIf="isVerticalLayout$ | async"
     [routerLink]="['/']"
     class="ltr:mr-4 rtl:ml-4 flex items-center">
-    <img
-      alt="Logo"
-      class="w-8 select-none"
-      src="assets/img/logo/logo.svg" />
+    <img alt="Logo" class="w-8 select-none" src="assets/img/logo/logo.svg" />
     <h1
       [class.hidden]="isDesktop$ | async"
       class="text-2xl font-bold tracking-wide ltr:pl-4 rtl:pr-4 m-0 select-none">
@@ -121,7 +118,7 @@
 
     <div class="px-1">
       <button [matMenuTriggerFor]="languageMenu" mat-icon-button type="button">
-        <mat-icon svgIcon="flag:united-states"></mat-icon>
+        <mat-icon [svgIcon]="siteLanguage.flag"></mat-icon>
       </button>
     </div>
 
@@ -134,15 +131,13 @@
       overlapTrigger="false"
       xPosition="before"
       yPosition="below">
-      <button mat-menu-item>
-        <mat-icon svgIcon="flag:united-states"></mat-icon>
-        <span>English</span>
-      </button>
+      <ng-container *ngFor="let language of languageList">
+        <button mat-menu-item (click)="changeSiteLanguage(language.code)">
+          <span> {{ language.label }} </span>
 
-      <button mat-menu-item>
-        <mat-icon svgIcon="flag:germany"></mat-icon>
-        <span>German</span>
-      </button>
+          <mat-icon [svgIcon]="language.flag"></mat-icon>
+        </button>
+      </ng-container>
     </mat-menu>
   </div>
 </div>

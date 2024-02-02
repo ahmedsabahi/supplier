@@ -253,7 +253,7 @@ export default {
         b: '0 10px 30px 0 rgba(82,63,104,.06)'
       },
       fontFamily: {
-        sans: ['"Inter var"', ...defaultTheme.fontFamily.sans],
+        sans: ['"IBM Plex Sans Arabic"', ...defaultTheme.fontFamily.sans],
         serif: ['Georgia', ...defaultTheme.fontFamily.serif],
         mono: ['Menlo', ...defaultTheme.fontFamily.mono]
       },

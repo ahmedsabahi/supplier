@@ -35,10 +35,7 @@
                 "output": "assets/img/icons/material-design-icons/"
               }
             ],
-            "styles": [
-              "src/styles.scss",
-              "src/@vex/styles/tailwind.scss"
-            ],
+            "styles": ["src/styles.scss", "src/@vex/styles/tailwind.scss"],
             "scripts": [],
             "allowedCommonJsDependencies": [
               "simplebar",
@@ -69,6 +66,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -110,13 +113,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }

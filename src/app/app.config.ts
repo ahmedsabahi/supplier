@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { appRoutes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
   provideHttpClient,
   withInterceptorsFromDi
 } from '@angular/common/http';
@@ -16,6 +19,14 @@ import { provideVex } from '@vex/vex.provider';
 import { provideNavigation } from './core/navigation/navigation.provider';
 import { vexConfigs } from '@vex/config/vex-configs';
 import { provideQuillConfig } from 'ngx-quill';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { AuthInterceptorService } from './core/services/auth-interceptor.service';
+import { LoggingInterceptorService } from './core/services/logging-interceptor.service';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,8 +34,27 @@ export const appConfig: ApplicationConfig = {
       BrowserModule,
       MatDialogModule,
       MatBottomSheetModule,
-      MatNativeDateModule
+      MatNativeDateModule,
+      HttpClientModule,
+      TranslateModule.forRoot({
+        defaultLanguage: 'en',
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      })
     ),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoggingInterceptorService,
+      multi: true
+    },
     provideRouter(
       appRoutes,
       // TODO: Add preloading withPreloading(),
