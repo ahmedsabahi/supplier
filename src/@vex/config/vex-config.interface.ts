@@ -1,7 +1,7 @@
 import { CSSValue } from '../interfaces/css-value.type';
 
 export enum VexTheme {
-  DEFAULT = 'vex-theme-default',
+  DEFAULT = 'vex-theme-teal',
   TEAL = 'vex-theme-teal'
 }
 
