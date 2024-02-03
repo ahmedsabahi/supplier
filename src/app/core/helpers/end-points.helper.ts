@@ -11,4 +11,10 @@ export class EndPoints {
 
   /* ------ payment -------*/
   static payments = '/Vendor/Payments'; //get
+
+  /* ------ product -------*/
+  static productPrices = '/Vendor/productPrices'; //get
+
+  /* ------ contact -------*/
+  static contacts = '/Vendor/Contacts'; //get
 }

@@ -3,23 +3,23 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseResponse } from 'src/app/core/models/api-response.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
-import { PaymentModel, PaymentSearch } from './payments.model';
+import { ContactModel, ContactSearch } from './contact.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentService {
+export class ContactService {
   constructor(private http: HttpClient) {}
 
-  payments(search?: PaymentSearch): Observable<BaseResponse<PaymentModel[]>> {
-    return this.http.get<BaseResponse<PaymentModel[]>>(EndPoints.payments, {
+  contacts(search?: ContactSearch): Observable<BaseResponse<ContactModel[]>> {
+    return this.http.get<BaseResponse<ContactModel[]>>(EndPoints.contacts, {
       params: new HttpParams().appendAll(search as any)
     });
   }
 
-  payment(id: string): Observable<BaseResponse<PaymentModel>> {
-    return this.http.get<BaseResponse<PaymentModel>>(
-      `${EndPoints.payments}/${id}`
+  contact(id: string): Observable<BaseResponse<ContactModel>> {
+    return this.http.get<BaseResponse<ContactModel>>(
+      `${EndPoints.contacts}/${id}`
     );
   }
 }

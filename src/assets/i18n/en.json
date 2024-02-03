@@ -51,5 +51,15 @@
   "paidOn": "Paid on",
   "employeeName": "Employee name",
   "amount": "Amount",
-  "notes": "Notes"
+  "notes": "Notes",
+  "fileNotExists": "File not exists",
+  "products": "Products",
+  "contacts": "Contacts",
+  "productsPrices": "Products prices",
+  "skuNumber": "SKU number",
+  "productName": "Product name",
+  "price": "Price",
+  "isFixedPrice": "Is fixed price?",
+  "expiryDate": "Expiry date",
+  "true": "True"
 }

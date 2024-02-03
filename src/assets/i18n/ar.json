@@ -51,5 +51,15 @@
   "paidOn": "المدفوعة في",
   "employeeName": "اسم الموظف",
   "amount": "المبلغ",
-  "notes": "ملاحظات"
+  "notes": "ملاحظات",
+  "fileNotExists": "الملف غير موجود",
+  "products": "المنتجات",
+  "contacts": "جهات الاتصال",
+  "productsPrices": "أسعار المنتجات",
+  "skuNumber": "رقم SKU",
+  "productName": "اسم المنتج",
+  "price": "السعر",
+  "isFixedPrice": "سعر ثابت؟",
+  "expiryDate": "تاريخ الانتهاء",
+  "true": "نعم"
 }

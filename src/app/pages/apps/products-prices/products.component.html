@@ -3,8 +3,9 @@
     class="pb-10 flex flex-col items-start justify-center">
     <div class="w-full flex flex-col sm:flex-row justify-between container">
       <div>
-        <h1 class="title mt-0 mb-1">{{ "payments" | translate }}</h1>
-        <vex-breadcrumbs [crumbs]="['features', 'payments']"></vex-breadcrumbs>
+        <h1 class="title mt-0 mb-1">{{ "productsPrices" | translate }}</h1>
+        <vex-breadcrumbs
+          [crumbs]="['features', 'productsPrices']"></vex-breadcrumbs>
       </div>
     </div>
   </vex-page-layout-header>
@@ -32,7 +33,7 @@
         mat-table
         matSort>
         <!--- Note that these columns can be defined in any order.
-                The actual rendered columns are set as a property on the row definition" -->
+                  The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Text Columns -->
         <ng-container *ngFor="let column of columns">
@@ -80,40 +81,6 @@
           </ng-container>
         </ng-container>
 
-        <!-- Label Column -->
-        <ng-container matColumnDef="status">
-          <th
-            *matHeaderCellDef
-            class="uppercase"
-            mat-header-cell
-            mat-sort-header>
-            {{ "status" | translate }}
-          </th>
-          <td *matCellDef="let row" mat-cell>
-            <div class="flex items-center gap-1">
-              <div
-                class="rounded px-2 py-1 font-medium text-xs flex-none text-green-600 bg-green-600/10"
-                [ngClass]="row.statusName">
-                {{ row.statusName | translate }}
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <!-- Action Column -->
-        <ng-container matColumnDef="actions">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
-          <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
-            <button
-              mat-icon-button
-              type="button"
-              (click)="downloadPayment(row.purchaseOrderPaymentID)"
-              class="text-teal-600 bg-teal/10">
-              <mat-icon svgIcon="mat:download"></mat-icon>
-            </button>
-          </td>
-        </ng-container>
-
         <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
         <tr
           *matRowDef="let row; columns: visibleColumns"
@@ -125,7 +92,7 @@
       <mat-paginator
         [pageSize]="search.limit"
         [length]="totalRecords"
-        (page)="fetchPayments($event)"
+        (page)="fetchProducts($event)"
         class="sticky left-0"></mat-paginator>
     </div>
   </vex-page-layout-content>

@@ -26,3 +26,8 @@ export interface PaymentModel {
   status?: number;
   statusName?: string;
 }
+export class PaymentSearch {
+  find?: any;
+  page?: number;
+  limit?: number;
+}

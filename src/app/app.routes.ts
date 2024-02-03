@@ -93,6 +93,26 @@ export const appRoutes: VexRoutes = [
             }
           },
           {
+            path: 'products-prices',
+            loadComponent: () =>
+              import('./pages/apps/products-prices/products.component').then(
+                (m) => m.productsComponent
+              ),
+            data: {
+              toolbarShadowEnabled: false
+            }
+          },
+          {
+            path: 'contacts',
+            loadComponent: () =>
+              import('./pages/apps/contacts/contacts.component').then(
+                (m) => m.ContactsComponent
+              ),
+            data: {
+              toolbarShadowEnabled: false
+            }
+          },
+          {
             path: 'aio-table',
             loadComponent: () =>
               import('./pages/apps/aio-table/aio-table.component').then(

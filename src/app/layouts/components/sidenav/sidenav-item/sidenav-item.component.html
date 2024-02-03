@@ -11,12 +11,12 @@
     *ngIf="level === 0 && item.icon"
     [svgIcon]="item.icon"
     class="vex-sidenav-item__icon"></mat-icon>
-  <span class="vex-sidenav-item__label">{{ item.label }}</span>
+  <span class="vex-sidenav-item__label">{{ item.label | translate }}</span>
   <span
     *ngIf="item.badge"
     [ngClass]="[item.badge.bgClass, item.badge.textClass]"
     class="vex-sidenav-item__badge"
-  >{{ item.badge.value }}</span
+    >{{ item.badge.value }}</span
   >
 </a>
 
@@ -31,12 +31,12 @@
     *ngIf="level === 0 && item.icon"
     [svgIcon]="item.icon"
     class="vex-sidenav-item__icon"></mat-icon>
-  <span class="vex-sidenav-item__label">{{ item.label }}</span>
+  <span class="vex-sidenav-item__label">{{ item.label | translate }}</span>
   <span
     *ngIf="item.badge"
     [ngClass]="[item.badge.bgClass, item.badge.textClass]"
     class="vex-sidenav-item__badge"
-  >{{ item.badge.value }}</span
+    >{{ item.badge.value }}</span
   >
 </div>
 
@@ -57,7 +57,7 @@
       *ngIf="item.badge"
       [ngClass]="[item.badge.bgClass, item.badge.textClass]"
       class="vex-sidenav-item__badge"
-    >{{ item.badge.value }}</span
+      >{{ item.badge.value }}</span
     >
     <mat-icon
       class="vex-sidenav-item__dropdown-icon"

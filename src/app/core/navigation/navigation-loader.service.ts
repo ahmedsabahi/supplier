@@ -41,7 +41,19 @@ export class NavigationLoaderService {
             type: 'link',
             label: 'payments',
             route: '/apps/payments',
+            icon: 'mat:attach_money'
+          },
+          {
+            type: 'link',
+            label: 'productsPrices',
+            route: '/apps/products-prices',
             icon: 'mat:assignment'
+          },
+          {
+            type: 'link',
+            label: 'contacts',
+            route: '/apps/contacts',
+            icon: 'mat:contacts'
           }
         ]
       },

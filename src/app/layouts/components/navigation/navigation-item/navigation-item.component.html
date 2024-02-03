@@ -188,7 +188,7 @@
       [ngClass]="{ 'text-primary-600': (isActive$ | async)?.(item) }"
       class="navigation-menu-item"
       mat-menu-item>
-      {{ item.label }}
+      {{ item.label | translate }}
     </div>
   </ng-template>
 </ng-container>

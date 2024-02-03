@@ -29,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'vex-sidenav-item',
@@ -44,7 +45,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     RouterLink,
     MatIconModule,
     NgClass,
-    NgFor
+    NgFor,
+    TranslateModule
   ]
 })
 export class SidenavItemComponent implements OnInit, OnChanges {

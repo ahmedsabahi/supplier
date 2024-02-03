@@ -37,16 +37,13 @@ import { VexPageLayoutComponent } from '@vex/components/vex-page-layout/vex-page
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { PaymentService } from './payment.service';
-import { PaymentModel, PaymentSearch } from './payments.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ContactService } from './contact.service';
+import { ContactModel, ContactSearch } from './contact.model';
 
 @Component({
-  selector: 'vex-payments',
+  selector: 'vex-contacts',
   standalone: true,
-  templateUrl: './payments.component.html',
-  styleUrl: './payments.component.scss',
-  animations: [fadeInUp400ms, stagger40ms],
   imports: [
     VexPageLayoutComponent,
     VexPageLayoutHeaderDirective,
@@ -71,68 +68,55 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSnackBarModule,
     TranslateModule,
     CommonModule
-  ]
+  ],
+  templateUrl: './contacts.component.html',
+  styleUrl: './contacts.component.scss'
 })
-export class PaymentsComponent implements OnInit, AfterViewInit {
+export class ContactsComponent implements OnInit, AfterViewInit {
   @Input()
-  columns: TableColumn<PaymentModel>[] = [
+  columns: TableColumn<ContactModel>[] = [
     {
-      label: 'orderNo',
-      property: 'orderNo',
+      label: 'fullName',
+      property: 'fullName',
       type: 'text',
       visible: true,
       cssClasses: ['font-medium']
     },
     {
-      label: 'transactionNo',
-      property: 'transactionNo',
+      label: 'email',
+      property: 'email',
       visible: true,
       type: 'text'
     },
     {
-      label: 'paidOn',
-      property: 'paidOn',
-      type: 'date',
-      visible: true,
-      cssClasses: ['text-secondary', 'font-medium']
-    },
-    {
-      label: 'employeeName',
-      property: 'employeeName',
+      label: 'address',
+      property: 'address',
       type: 'text',
       visible: true,
       cssClasses: ['text-secondary', 'font-medium']
     },
     {
-      label: 'amount',
-      property: 'amount',
-      type: 'number',
+      label: 'isActive',
+      property: 'isActive',
+      type: 'text',
       visible: true,
+      cssClasses: ['text-secondary', 'font-medium']
+    },
 
-      cssClasses: ['text-secondary', 'font-medium']
-    },
-    {
-      label: 'notes',
-      property: 'notes',
-      type: 'text',
-      visible: true,
-      cssClasses: ['text-secondary', 'font-medium']
-    },
-    { label: 'status', property: 'status', type: 'button', visible: true },
     { label: 'Actions', property: 'actions', type: 'button', visible: true }
   ];
 
-  dataSource!: MatTableDataSource<PaymentModel>;
+  dataSource!: MatTableDataSource<ContactModel>;
   searchCtrl = new UntypedFormControl();
 
   @ViewChild(MatPaginator, { static: true }) paginator?: MatPaginator;
 
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-  search: PaymentSearch = {};
+  search: ContactSearch = {};
 
   constructor(
-    private paymentService: PaymentService,
+    private contactService: ContactService,
     private translate: TranslateService,
     private snackbar: MatSnackBar
   ) {}
@@ -145,7 +129,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
-    this.fetchPayments();
+    this.fetchContacts();
 
     this.searchCtrl.valueChanges
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -158,41 +142,21 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   changePage(page: any) {
     this.search.page = page;
-    this.fetchPayments();
+    this.fetchContacts();
   }
 
   pageEvent?: PageEvent;
   totalRecords?: number;
 
-  fetchPayments(event?: PageEvent) {
+  fetchContacts(event?: PageEvent) {
     this.search.page = (event?.pageIndex ?? 0) + 1;
     this.search.limit = event?.pageSize ?? 15;
-    this.paymentService.payments(this.search).subscribe((res) => {
+    this.contactService.contacts(this.search).subscribe((res) => {
       if (res.result.status === 1 && res.data) {
         this.dataSource.data = res.data;
         this.totalRecords = res.totalRecords;
       }
     });
-  }
-
-  downloadPayment(id: string) {
-    this.paymentService.payment(id).subscribe((res) => {
-      if (res.result.status === 1 && res.data) {
-        this.downloadFile(res.data);
-      }
-    });
-  }
-
-  downloadFile(model: PaymentModel) {
-    if (!model.fileContent || !model.fileName) {
-      this.snackbar.open(this.translate.instant('fileNotExists'), 'ok');
-      return;
-    }
-    const linkSource = 'data:application/pdf;base64,' + model.fileContent;
-    const downloadLink = document.createElement('a');
-    downloadLink.href = linkSource;
-    downloadLink.download = model?.fileName ?? '';
-    downloadLink.click();
   }
 
   onFilterChange(value: string) {
@@ -202,6 +166,6 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     value = value.trim();
     value = value.toLowerCase();
     this.search.find = value;
-    this.fetchPayments();
+    this.fetchContacts();
   }
 }
