@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseResponse } from 'src/app/core/models/api-response.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
-import { PaymentModel, PaymentSearch } from './payments.model';
+import { PaymentModel, PaymentSearch } from './payment.model';
 
 @Injectable({
   providedIn: 'root'

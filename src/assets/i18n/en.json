@@ -61,5 +61,22 @@
   "price": "Price",
   "isFixedPrice": "Is fixed price?",
   "expiryDate": "Expiry date",
-  "true": "True"
+  "true": "True",
+  "status": "Status",
+  "rateLimitReached": "Rate limit reached",
+  "accountName": "Account name",
+  "bankName": "Bank name",
+  "accountNo": "Account no",
+  "iban": "IBAN",
+  "branch": "Branch",
+  "isDefault": "Is default?",
+  "download": "Download",
+  "bankAccounts": "Bank accounts",
+  "false": "False",
+  "update": "Update",
+  "cancel": "Cancel",
+  "isAccountManager": "Is account manager?",
+  "isActive": "Is active?",
+  "requiredAddress": "Address is required",
+  "createContact": "Create contact"
 }

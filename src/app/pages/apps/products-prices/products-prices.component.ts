@@ -38,12 +38,23 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { combineLatest, merge, Observable, of as observableOf, of } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  map,
+  startWith,
+  switchMap
+} from 'rxjs/operators';
 import { ProductPriceModel, ProductPriceSearch } from './product-price.model';
 import { ProductPriceService } from './product-price.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
-  selector: 'vex-products',
+  selector: 'vex-products-prices',
   standalone: true,
+  animations: [fadeInUp400ms, stagger40ms],
   imports: [
     VexPageLayoutComponent,
     VexPageLayoutHeaderDirective,
@@ -67,110 +78,89 @@ import { ProductPriceService } from './product-price.service';
     MatInputModule,
     MatSnackBarModule,
     TranslateModule,
-    CommonModule
+    CommonModule,
+    MatProgressSpinnerModule
   ],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  templateUrl: './products-prices.component.html',
+  styleUrl: './products-prices.component.scss'
 })
-export class productsComponent implements OnInit, AfterViewInit {
+export class ProductsPricesComponent implements OnInit, AfterViewInit {
   @Input()
-  columns: TableColumn<ProductPriceModel>[] = [
-    {
-      label: 'skuNumber',
-      property: 'skuNumber',
-      type: 'text',
-      visible: true,
-      cssClasses: ['font-medium']
-    },
-    {
-      label: 'productName',
-      property: 'productName',
-      visible: true,
-      type: 'text'
-    },
-    {
-      label: 'price',
-      property: 'price',
-      type: 'number',
-      visible: true,
-      cssClasses: ['text-secondary', 'font-medium']
-    },
-    {
-      label: 'isFixedPrice',
-      property: 'isFixedPrice',
-      type: 'text',
-      visible: true,
-      cssClasses: ['text-secondary', 'font-medium']
-    },
-    {
-      label: 'expiryDate',
-      property: 'expiryDate',
-      type: 'date',
-      visible: true,
-      cssClasses: ['text-secondary', 'font-medium']
-    }
+  displayedColumns: string[] = [
+    'skuNumber',
+    'productName',
+    'price',
+    'isFixedPrice',
+    'expiryDate'
   ];
 
   dataSource!: MatTableDataSource<ProductPriceModel>;
   searchCtrl = new UntypedFormControl();
+  pageSizeOptions: number[] = [10, 20, 30, 50];
+
+  search: ProductPriceSearch = {};
+  productsPrices: ProductPriceModel[] = [];
+  totalRecords?: number;
+  isLoadingResults = true;
+  isRateLimitReached = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator?: MatPaginator;
 
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-  search: ProductPriceSearch = {};
-
-  constructor(
-    private productService: ProductPriceService,
-    private translate: TranslateService,
-    private snackbar: MatSnackBar
-  ) {}
-
-  get visibleColumns() {
-    return this.columns
-      .filter((column) => column.visible)
-      .map((column) => column.property);
-  }
+  constructor(private productPriceService: ProductPriceService) {}
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
-    this.fetchProducts();
-
-    this.searchCtrl.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value) => this.onFilterChange(value));
   }
 
   ngAfterViewInit() {
-    if (this.paginator) this.dataSource.paginator = this.paginator;
-  }
-
-  changePage(page: any) {
-    this.search.page = page;
-    this.fetchProducts();
-  }
-
-  pageEvent?: PageEvent;
-  totalRecords?: number;
-
-  fetchProducts(event?: PageEvent) {
-    this.search.page = (event?.pageIndex ?? 0) + 1;
-    this.search.limit = event?.pageSize ?? 15;
-    this.productService.productsPrices(this.search).subscribe((res) => {
-      if (res.result.status === 1 && res.data) {
-        this.dataSource.data = res.data;
-        this.totalRecords = res.totalRecords;
-      }
-    });
-  }
-
-  onFilterChange(value: string) {
-    if (!this.dataSource) {
-      return;
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+      this.fetchProductsPrices();
     }
-    value = value.trim();
-    value = value.toLowerCase();
-    this.search.find = value;
-    this.fetchProducts();
+  }
+
+  fetchProductsPrices() {
+    merge(this.searchCtrl.valueChanges, this.paginator!.page)
+      .pipe(
+        startWith({}),
+        takeUntilDestroyed(this.destroyRef),
+        debounceTime(800),
+        switchMap(() => {
+          this.isLoadingResults = true;
+
+          if (this.dataSource.paginator && this.searchCtrl.value) {
+            this.dataSource.paginator.firstPage();
+          }
+
+          const search: any = {
+            page: this.paginator!.pageIndex + 1,
+            limit: this.paginator!.pageSize
+          };
+
+          const findValue = this.searchCtrl.value;
+          if (findValue) search.find = findValue;
+
+          return this.productPriceService
+            .productsPrices(search)
+
+            .pipe(catchError(() => observableOf(null)));
+        }),
+        map((res) => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.isRateLimitReached = !res?.data;
+
+          if (res === null) return [];
+
+          // Only refresh the result length if there is new data. In case of rate
+          // limit errors, we do not want to reset the paginator to zero, as that
+          // would prevent users from re-triggering requests.
+          this.totalRecords = res.totalRecords;
+          return res.data;
+        })
+      )
+      .subscribe((products) => (this.productsPrices = products ?? []));
   }
 }

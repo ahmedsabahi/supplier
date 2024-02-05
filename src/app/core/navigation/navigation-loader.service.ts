@@ -54,6 +54,12 @@ export class NavigationLoaderService {
             label: 'contacts',
             route: '/apps/contacts',
             icon: 'mat:contacts'
+          },
+          {
+            type: 'link',
+            label: 'bankAccounts',
+            route: '/apps/bank-accounts',
+            icon: 'mat:contacts'
           }
         ]
       },

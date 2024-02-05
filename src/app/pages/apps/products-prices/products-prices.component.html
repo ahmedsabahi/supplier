@@ -3,8 +3,9 @@
     class="pb-10 flex flex-col items-start justify-center">
     <div class="w-full flex flex-col sm:flex-row justify-between container">
       <div>
-        <h1 class="title mt-0 mb-1">{{ "payments" | translate }}</h1>
-        <vex-breadcrumbs [crumbs]="['features', 'payments']"></vex-breadcrumbs>
+        <h1 class="title mt-0 mb-1">{{ "productsPrices" | translate }}</h1>
+        <vex-breadcrumbs
+          [crumbs]="['features', 'productsPrices']"></vex-breadcrumbs>
       </div>
     </div>
   </vex-page-layout-header>
@@ -38,108 +39,68 @@
         <span class="flex-1"></span>
       </div>
 
-      <table @stagger [dataSource]="payments" class="w-full" mat-table matSort>
-        <ng-container matColumnDef="orderNo">
+      <table
+        @stagger
+        [dataSource]="productsPrices"
+        class="w-full"
+        mat-table
+        matSort>
+        <ng-container matColumnDef="skuNumber">
           <th
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
             class="font-semibold">
-            {{ "orderNo" | translate }}
+            {{ "skuNumber" | translate }}
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.orderNo }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.skuNumber }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="transactionNo">
+        <ng-container matColumnDef="productName">
           <th
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
             class="font-semibold">
-            {{ "transactionNo" | translate }}
+            {{ "productName" | translate }}
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.transactionNo }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.productName }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="paidOn">
+        <ng-container matColumnDef="price">
           <th
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
             class="font-semibold">
-            {{ "paidOn" | translate }}
-          </th>
-          <td mat-cell *matCellDef="let row">
-            {{ row.paidOn | date: "dd/MM/yyyy" }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="employeeName">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-            class="font-semibold">
-            {{ "employeeName" | translate }}
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.employeeName }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="amount">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            mat-sort-header
-            class="font-semibold">
-            {{ "amount" | translate }}
+            {{ "price" | translate }}
           </th>
           <td mat-cell *matCellDef="let row">
-            {{ row.amount | number: "1.2-2" }}
+            {{ row.price | number: "1.2-2" }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="notes">
+        <ng-container matColumnDef="isFixedPrice">
           <th
             mat-header-cell
             *matHeaderCellDef
             mat-sort-header
             class="font-semibold">
-            {{ "notes" | translate }}
+            {{ "isFixedPrice" | translate }}
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.notes }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.isFixedPrice }}</td>
         </ng-container>
 
-        <!-- Label Column -->
-        <ng-container matColumnDef="status">
+        <ng-container matColumnDef="expiryDate">
           <th
-            *matHeaderCellDef
             mat-header-cell
+            *matHeaderCellDef
             mat-sort-header
             class="font-semibold">
-            {{ "status" | translate }}
+            {{ "expiryDate" | translate }}
           </th>
-          <td *matCellDef="let row" mat-cell>
-            <div class="flex items-center gap-1">
-              <div
-                class="rounded px-2 py-1 font-medium text-xs flex-none text-green-600 bg-green-600/10"
-                [ngClass]="row.statusName">
-                {{ row.statusName | translate }}
-              </div>
-            </div>
-          </td>
-        </ng-container>
-
-        <!-- Action Column -->
-        <ng-container matColumnDef="actions">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
-          <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
-            <button
-              mat-icon-button
-              type="button"
-              (click)="downloadPayment(row.purchaseOrderPaymentID)"
-              class="text-teal-600 bg-teal/10">
-              <mat-icon svgIcon="mat:download"></mat-icon>
-            </button>
+          <td mat-cell *matCellDef="let row">
+            {{ row.expiryDate | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
 

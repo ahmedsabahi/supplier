@@ -17,4 +17,7 @@ export class EndPoints {
 
   /* ------ contact -------*/
   static contacts = '/Vendor/Contacts'; //get
+
+  /* ------ bankAccount -------*/
+  static bankAccounts = '/vendor/Accounts'; //get
 }

@@ -1,0 +1,110 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+  <div class="flex items-center" mat-dialog-title>
+    <h2 *ngIf="form.controls.fullname.value" class="headline m-0 flex-auto">
+      {{ form.controls.fullname.value }}
+    </h2>
+    <h2 *ngIf="!form.controls.fullname.value" class="headline m-0 flex-auto">
+      {{ "createContact" | translate }}
+    </h2>
+
+    <button
+      class="text-secondary"
+      mat-dialog-close
+      mat-icon-button
+      type="button">
+      <mat-icon svgIcon="mat:close"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="text-border"></mat-divider>
+
+  <mat-dialog-content class="flex flex-col sm:gap-3">
+    <mat-form-field class="mt-6">
+      <mat-label>{{ "fullname" | translate }}</mat-label>
+      <input cdkFocusInitial formControlName="fullname" matInput required />
+      <mat-icon matIconPrefix svgIcon="mat:person"></mat-icon>
+      <mat-error *ngIf="form.controls['fullname'].hasError('required')">
+        {{ "requiredFullname" | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.controls['fullname'].hasError('minlength')">
+        {{ "minLengthFullname" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "phone" | translate }}</mat-label>
+      <input formControlName="mobile" matInput required />
+      <mat-icon matIconPrefix svgIcon="mat:phone"></mat-icon>
+      <mat-error *ngIf="form.controls['mobile'].hasError('required')">
+        {{ "requiredPhone" | translate }}
+      </mat-error>
+      <mat-error
+        *ngIf="
+          form.controls['mobile'].hasError('minlength') &&
+          !form.controls['mobile'].hasError('pattern')
+        ">
+        {{ "minLengthPhone" | translate }}
+      </mat-error>
+      <mat-error
+        *ngIf="
+          form.controls['mobile'].hasError('maxlength') &&
+          !form.controls['mobile'].hasError('pattern')
+        ">
+        {{ "maxLengthPhone" | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.controls['mobile'].hasError('pattern')">
+        {{ "errorPatternPhone" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "email" | translate }}</mat-label>
+      <input formControlName="email" matInput required />
+      <mat-icon matIconPrefix svgIcon="mat:email"></mat-icon>
+      <mat-error *ngIf="form.controls['email'].hasError('required')">
+        {{ "requiredEmail" | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.controls['email'].hasError('email')">
+        {{ "errorEmail" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "address" | translate }}</mat-label>
+      <input formControlName="address" matInput required />
+      <mat-icon matIconPrefix svgIcon="mat:my_location"></mat-icon>
+      <mat-error *ngIf="form.controls['address'].hasError('required')">
+        {{ "requiredAddress" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="flex flex-col gap-2">
+      <mat-slide-toggle formControlName="isActive" color="primary">
+        {{ "isActive" | translate }}
+      </mat-slide-toggle>
+      <mat-slide-toggle formControlName="isAccountManager" color="primary">
+        {{ "isAccountManager" | translate }}
+      </mat-slide-toggle>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      *ngIf="isCreateMode()"
+      color="primary"
+      mat-flat-button
+      type="submit">
+      {{ "create" | translate }}
+    </button>
+    <button
+      *ngIf="isUpdateMode()"
+      color="primary"
+      mat-flat-button
+      type="submit">
+      {{ "update" | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

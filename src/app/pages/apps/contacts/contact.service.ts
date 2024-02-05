@@ -1,7 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseResponse } from 'src/app/core/models/api-response.model';
+import {
+  BaseResponse,
+  ResultResponse
+} from 'src/app/core/models/api-response.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
 import { ContactModel, ContactSearch } from './contact.model';
 
@@ -21,5 +24,13 @@ export class ContactService {
     return this.http.get<BaseResponse<ContactModel>>(
       `${EndPoints.contacts}/${id}`
     );
+  }
+
+  create(contact: ContactModel): Observable<ResultResponse> {
+    return this.http.post<ResultResponse>(EndPoints.contacts, contact);
+  }
+
+  update(contact: ContactModel): Observable<ResultResponse> {
+    return this.http.put<ResultResponse>(EndPoints.contacts, contact);
   }
 }

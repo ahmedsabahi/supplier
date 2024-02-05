@@ -14,7 +14,7 @@ import {
   PageEvent
 } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
@@ -38,12 +38,24 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ContactService } from './contact.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { combineLatest, merge, Observable, of as observableOf, of } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  map,
+  startWith,
+  switchMap
+} from 'rxjs/operators';
 import { ContactModel, ContactSearch } from './contact.model';
-
+import { ContactService } from './contact.service';
+import { ContactCreateUpdateComponent } from './contact-create-update/contact-create-update.component';
 @Component({
   selector: 'vex-contacts',
   standalone: true,
+  templateUrl: './contacts.component.html',
+  styleUrl: './contacts.component.scss',
+  animations: [fadeInUp400ms, stagger40ms],
   imports: [
     VexPageLayoutComponent,
     VexPageLayoutHeaderDirective,
@@ -67,105 +79,146 @@ import { ContactModel, ContactSearch } from './contact.model';
     MatInputModule,
     MatSnackBarModule,
     TranslateModule,
-    CommonModule
-  ],
-  templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.scss'
+    CommonModule,
+    MatProgressSpinnerModule
+  ]
 })
 export class ContactsComponent implements OnInit, AfterViewInit {
   @Input()
-  columns: TableColumn<ContactModel>[] = [
-    {
-      label: 'fullName',
-      property: 'fullName',
-      type: 'text',
-      visible: true,
-      cssClasses: ['font-medium']
-    },
-    {
-      label: 'email',
-      property: 'email',
-      visible: true,
-      type: 'text'
-    },
-    {
-      label: 'address',
-      property: 'address',
-      type: 'text',
-      visible: true,
-      cssClasses: ['text-secondary', 'font-medium']
-    },
-    {
-      label: 'isActive',
-      property: 'isActive',
-      type: 'text',
-      visible: true,
-      cssClasses: ['text-secondary', 'font-medium']
-    },
-
-    { label: 'Actions', property: 'actions', type: 'button', visible: true }
+  displayedColumns: string[] = [
+    'fullName',
+    'email',
+    'mobile',
+    'address',
+    'isActive',
+    'actions'
   ];
 
   dataSource!: MatTableDataSource<ContactModel>;
   searchCtrl = new UntypedFormControl();
+  pageSizeOptions: number[] = [10, 20, 30, 50];
+
+  search: ContactSearch = {};
+  contacts: ContactModel[] = [];
+  totalRecords?: number;
+  isLoadingResults = true;
+  isRateLimitReached = false;
 
   @ViewChild(MatPaginator, { static: true }) paginator?: MatPaginator;
 
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-  search: ContactSearch = {};
-
   constructor(
     private contactService: ContactService,
     private translate: TranslateService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
-
-  get visibleColumns() {
-    return this.columns
-      .filter((column) => column.visible)
-      .map((column) => column.property);
-  }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
-    this.fetchContacts();
-
-    this.searchCtrl.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value) => this.onFilterChange(value));
   }
 
   ngAfterViewInit() {
-    if (this.paginator) this.dataSource.paginator = this.paginator;
-  }
-
-  changePage(page: any) {
-    this.search.page = page;
-    this.fetchContacts();
-  }
-
-  pageEvent?: PageEvent;
-  totalRecords?: number;
-
-  fetchContacts(event?: PageEvent) {
-    this.search.page = (event?.pageIndex ?? 0) + 1;
-    this.search.limit = event?.pageSize ?? 15;
-    this.contactService.contacts(this.search).subscribe((res) => {
-      if (res.result.status === 1 && res.data) {
-        this.dataSource.data = res.data;
-        this.totalRecords = res.totalRecords;
-      }
-    });
-  }
-
-  onFilterChange(value: string) {
-    if (!this.dataSource) {
-      return;
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+      this.fetchContacts();
     }
-    value = value.trim();
-    value = value.toLowerCase();
-    this.search.find = value;
-    this.fetchContacts();
+  }
+
+  fetchContacts() {
+    merge(this.searchCtrl.valueChanges, this.paginator!.page)
+      .pipe(
+        startWith({}),
+        takeUntilDestroyed(this.destroyRef),
+        debounceTime(800),
+        switchMap(() => {
+          this.isLoadingResults = true;
+
+          if (this.dataSource.paginator && this.searchCtrl.value) {
+            this.dataSource.paginator.firstPage();
+          }
+
+          const search: any = {
+            page: this.paginator!.pageIndex + 1,
+            limit: this.paginator!.pageSize
+          };
+
+          const findValue = this.searchCtrl.value;
+          if (findValue) search.find = findValue;
+
+          return this.contactService
+            .contacts(search)
+            .pipe(catchError(() => observableOf(null)));
+        }),
+        map((res) => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.isRateLimitReached = !res?.data;
+
+          if (res === null) return [];
+
+          // Only refresh the result length if there is new data. In case of rate
+          // limit errors, we do not want to reset the paginator to zero, as that
+          // would prevent users from re-triggering requests.
+          this.totalRecords = res.totalRecords;
+          return res.data;
+        })
+      )
+      .subscribe((contacts) => (this.contacts = contacts ?? []));
+  }
+
+  createContact() {
+    this.dialog
+      .open(ContactCreateUpdateComponent)
+      .afterClosed()
+      .subscribe((contact: ContactModel) => {
+        /**
+         * Customer is the updated customer (if the user pressed Save - otherwise it's null)
+         */
+        if (contact) {
+          this.contactService.create(contact).subscribe({
+            next: (res) => {
+              if (res.status === 1) {
+                this.snackbar.open(
+                  (this.translate.currentLang === 'ar'
+                    ? res.messageAr
+                    : res.messageEn) ?? '',
+                  'ok'
+                );
+                this.fetchContacts();
+              }
+            }
+          });
+        }
+      });
+  }
+
+  updateContact(contact: ContactModel) {
+    this.dialog
+      .open(ContactCreateUpdateComponent, {
+        data: contact
+      })
+      .afterClosed()
+      .subscribe((updatedContact: ContactModel) => {
+        /**
+         * Customer is the updated customer (if the user pressed Save - otherwise it's null)
+         */
+        if (updatedContact) {
+          this.contactService.update(updatedContact).subscribe({
+            next: (res) => {
+              if (res.status === 1) {
+                this.snackbar.open(
+                  (this.translate.currentLang === 'ar'
+                    ? res.messageAr
+                    : res.messageEn) ?? '',
+                  'ok'
+                );
+                this.fetchContacts();
+              }
+            }
+          });
+        }
+      });
   }
 }

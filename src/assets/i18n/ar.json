@@ -61,5 +61,22 @@
   "price": "السعر",
   "isFixedPrice": "سعر ثابت؟",
   "expiryDate": "تاريخ الانتهاء",
-  "true": "نعم"
+  "true": "نعم",
+  "status": "الحالة",
+  "rateLimitReached": "تم الوصول إلى الحد الأقصى للمعدل",
+  "accountName": "اسم الحساب",
+  "bankName": "اسم البنك",
+  "accountNo": "رقم الحساب",
+  "iban": "رقم الآيبان",
+  "branch": "الفرع",
+  "isDefault": "افتراضي؟",
+  "download": "تحميل",
+  "bankAccounts": "الحسابات البنكية",
+  "false": "لا",
+  "update": "تحديث",
+  "cancel": "إلغاء",
+  "isAccountManager": "مدير الحساب؟",
+  "isActive": "نشط؟",
+  "requiredAddress": "العنوان مطلوب",
+  "createContact": "إنشاء جهة اتصال"
 }

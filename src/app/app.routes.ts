@@ -68,10 +68,10 @@ export const appRoutes: VexRoutes = [
             path: 'social',
             loadChildren: () => import('./pages/apps/social/social.routes')
           },
-          {
-            path: 'contacts',
-            loadChildren: () => import('./pages/apps/contacts/contacts.routes')
-          },
+          // {
+          //   path: 'contacts',
+          //   loadChildren: () => import('./pages/apps/contacts/contacts.routes')
+          // },
           {
             path: 'calendar',
             loadComponent: () =>
@@ -95,9 +95,9 @@ export const appRoutes: VexRoutes = [
           {
             path: 'products-prices',
             loadComponent: () =>
-              import('./pages/apps/products-prices/products.component').then(
-                (m) => m.productsComponent
-              ),
+              import(
+                './pages/apps/products-prices/products-prices.component'
+              ).then((m) => m.ProductsPricesComponent),
             data: {
               toolbarShadowEnabled: false
             }
@@ -112,6 +112,17 @@ export const appRoutes: VexRoutes = [
               toolbarShadowEnabled: false
             }
           },
+          {
+            path: 'bank-accounts',
+            loadComponent: () =>
+              import('./pages/apps/bank-accounts/bank-accounts.component').then(
+                (m) => m.BankAccountsComponent
+              ),
+            data: {
+              toolbarShadowEnabled: false
+            }
+          },
+
           {
             path: 'aio-table',
             loadComponent: () =>

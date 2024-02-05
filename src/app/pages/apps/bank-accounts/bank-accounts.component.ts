@@ -37,8 +37,6 @@ import { VexPageLayoutComponent } from '@vex/components/vex-page-layout/vex-page
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { PaymentService } from './payment.service';
-import { PaymentModel, PaymentSearch } from './payment.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { combineLatest, merge, Observable, of as observableOf, of } from 'rxjs';
@@ -49,12 +47,12 @@ import {
   startWith,
   switchMap
 } from 'rxjs/operators';
+import { BankAccountModel, BankAccountSearch } from './bank-account.model';
+import { BankAccountService } from './bank-account.service';
 
 @Component({
-  selector: 'vex-payments',
+  selector: 'vex-bank-accounts',
   standalone: true,
-  templateUrl: './payments.component.html',
-  styleUrl: './payments.component.scss',
   animations: [fadeInUp400ms, stagger40ms],
   imports: [
     VexPageLayoutComponent,
@@ -81,27 +79,28 @@ import {
     TranslateModule,
     CommonModule,
     MatProgressSpinnerModule
-  ]
+  ],
+  templateUrl: './bank-accounts.component.html',
+  styleUrl: './bank-accounts.component.scss'
 })
-export class PaymentsComponent implements OnInit, AfterViewInit {
+export class BankAccountsComponent implements OnInit, AfterViewInit {
   @Input()
   displayedColumns: string[] = [
-    'orderNo',
-    'transactionNo',
-    'paidOn',
-    'employeeName',
-    'amount',
-    'notes',
-    'status',
+    'name',
+    'bankName',
+    'accountNo',
+    'iban',
+    'branch',
+    'isDefault',
     'actions'
   ];
 
-  dataSource!: MatTableDataSource<PaymentModel>;
+  dataSource!: MatTableDataSource<BankAccountModel>;
   searchCtrl = new UntypedFormControl();
   pageSizeOptions: number[] = [10, 20, 30, 50];
 
-  search: PaymentSearch = {};
-  payments: PaymentModel[] = [];
+  search: BankAccountSearch = {};
+  bankAccounts: BankAccountModel[] = [];
   totalRecords?: number;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -111,7 +110,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private paymentService: PaymentService,
+    private bankAccountService: BankAccountService,
     private translate: TranslateService,
     private snackbar: MatSnackBar
   ) {}
@@ -123,11 +122,11 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
-      this.fetchPayments();
+      this.fetchBankAccounts();
     }
   }
 
-  fetchPayments() {
+  fetchBankAccounts() {
     merge(this.searchCtrl.valueChanges, this.paginator!.page)
       .pipe(
         startWith({}),
@@ -148,8 +147,8 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
           const findValue = this.searchCtrl.value;
           if (findValue) search.find = findValue;
 
-          return this.paymentService
-            .payments(search)
+          return this.bankAccountService
+            .bankAccounts(search)
             .pipe(catchError(() => observableOf(null)));
         }),
         map((res) => {
@@ -166,18 +165,10 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
           return res.data;
         })
       )
-      .subscribe((payments) => (this.payments = payments ?? []));
+      .subscribe((bankAccounts) => (this.bankAccounts = bankAccounts ?? []));
   }
 
-  downloadPayment(id: string) {
-    this.paymentService.payment(id).subscribe((res) => {
-      if (res.result.status === 1 && res.data) {
-        this.downloadFile(res.data);
-      }
-    });
-  }
-
-  downloadFile(model: PaymentModel) {
+  downloadFile(model: BankAccountModel) {
     if (!model.fileContent || !model.fileName) {
       this.snackbar.open(this.translate.instant('fileNotExists'), 'ok');
       return;
