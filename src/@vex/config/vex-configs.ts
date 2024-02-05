@@ -31,7 +31,7 @@ const baseConfig: VexConfig = {
   layout: 'horizontal',
   boxed: false,
   sidenav: {
-    title: 'MDD',
+    title: 'Vendor Portal',
     imageUrl: 'assets/img/logo/logo.svg',
     showCollapsePin: true,
     user: {
