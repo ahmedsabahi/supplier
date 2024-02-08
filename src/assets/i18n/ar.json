@@ -119,5 +119,8 @@
   "description": "الوصف",
   "search": "بحث",
   "writeAndSelectYourProduct": "اكتب وحدد منتجك",
-  "enterOrSelectYourExpiryDate": "أدخل أو حدد تاريخ الانتهاء"
+  "enterOrSelectYourExpiryDate": "أدخل أو حدد تاريخ الانتهاء",
+  "downloadPurchaseOrder": "تحميل طلب الشراء",
+  "downloadInvoice": "تحميل الفاتورة",
+  "details": "التفاصيل"
 }

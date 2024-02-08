@@ -116,5 +116,8 @@
   "description": "Description",
   "search": "Search",
   "writeAndSelectYourProduct": "Write and select your product",
-  "enterOrSelectYourExpiryDate": "Enter or select your expiry date"
+  "enterOrSelectYourExpiryDate": "Enter or select your expiry date",
+  "downloadPurchaseOrder": "Download purchase order",
+  "downloadInvoice": "Download invoice",
+  "details": "Details"
 }
