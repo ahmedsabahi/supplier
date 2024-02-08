@@ -96,9 +96,8 @@ export class ContactsComponent implements OnInit, AfterViewInit {
 
   dataSource!: MatTableDataSource<ContactModel>;
   searchCtrl = new UntypedFormControl();
-  pageSizeOptions: number[] = [10, 20, 30, 50];
+  pageSizeOptions: number[] = [10, 15, 20, 30, 50];
 
-  search: ContactSearch = {};
   contacts: ContactModel[] = [];
   totalRecords?: number;
   isLoadingResults = true;
@@ -139,7 +138,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
             this.dataSource.paginator.firstPage();
           }
 
-          const search: any = {
+          const search: ContactSearch = {
             page: this.paginator!.pageIndex + 1,
             limit: this.paginator!.pageSize
           };
@@ -170,7 +169,9 @@ export class ContactsComponent implements OnInit, AfterViewInit {
 
   createContact() {
     this.dialog
-      .open(ContactCreateUpdateComponent)
+      .open(ContactCreateUpdateComponent, {
+        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
+      })
       .afterClosed()
       .subscribe((contact: ContactModel) => {
         /**

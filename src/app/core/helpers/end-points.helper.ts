@@ -20,4 +20,15 @@ export class EndPoints {
 
   /* ------ bankAccount -------*/
   static bankAccounts = '/vendor/Accounts'; //get
+
+  /* ------ Lookups -------*/
+  static banks = '/Shared/Lookups/BanksList'; //get
+  static products = '/Shared/Lookups/ProductsList'; //get
+
+  /* ------ purchaseOrder -------*/
+  static purchaseOrders = '/Vendor/PurchaseOrders'; //get
+  static purchaseOrderPdf = '/Vendor/purchaseOrders/PurchaseOrderPdf'; //get
+
+  /* ------ quotation -------*/
+  static quotations = '/Vendor/Quotations'; //get
 }

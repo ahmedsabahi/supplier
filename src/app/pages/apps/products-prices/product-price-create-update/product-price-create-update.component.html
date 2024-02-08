@@ -1,0 +1,107 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+  <div class="flex items-center" mat-dialog-title>
+    <h2 class="headline m-0 flex-auto">
+      {{ "createProductPrice" | translate }}
+    </h2>
+
+    <button
+      class="text-secondary"
+      mat-dialog-close
+      mat-icon-button
+      type="button">
+      <mat-icon svgIcon="mat:close"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="text-border"></mat-divider>
+
+  <mat-dialog-content class="flex flex-col sm:gap-3">
+    <mat-form-field class="mt-6">
+      <mat-label>{{ "productName" | translate }}</mat-label>
+      <input
+        [formControl]="productCtrl"
+        [matAutocomplete]="auto"
+        matInput
+        placeholder="{{ 'writeAndSelectYourProduct' | translate }}&hellip;" />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          [value]="option"
+          *ngFor="let option of filteredProducts$ | async; track: option">
+          <span class="flex items-center">
+            {{ option.textAr ?? option.textEn }}
+          </span>
+        </mat-option>
+      </mat-autocomplete>
+
+      <button
+        class="text-secondary"
+        mat-icon-button
+        matIconSuffix
+        type="button">
+        <mat-icon svgIcon="mat:arrow_drop_down"></mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "skuNumber" | translate }}</mat-label>
+      <input formControlName="skuNumber" matInput required />
+      <mat-error *ngIf="form.controls['skuNumber'].hasError('required')">
+        {{ "requiredSkuNumber" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "price" | translate }}</mat-label>
+      <input formControlName="price" matInput required />
+      <mat-error *ngIf="form.controls['price'].hasError('required')">
+        {{ "requiredPrice" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "expiryDate" | translate }}</mat-label>
+      <input
+        [matDatepicker]="datepickerRef"
+        formControlName="expiryDate"
+        matInput
+        placeholder="{{ 'enterOrSelectYourExpiryDate' | translate }}&hellip;" />
+      <mat-datepicker-toggle [for]="datepickerRef" matIconSuffix>
+      </mat-datepicker-toggle>
+      <mat-datepicker #datepickerRef></mat-datepicker>
+      <mat-error *ngIf="form.controls['expiryDate'].hasError('required')">
+        {{ "requiredExpiryDate" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "description" | translate }}</mat-label>
+      <textarea formControlName="description" matInput></textarea>
+    </mat-form-field>
+
+    <div class="flex flex-col">
+      <mat-slide-toggle formControlName="isFixedPrice" color="primary">
+        {{ "isFixedPrice" | translate }}
+      </mat-slide-toggle>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      *ngIf="isCreateMode()"
+      color="primary"
+      mat-flat-button
+      type="submit">
+      {{ "create" | translate }}
+    </button>
+    <button
+      *ngIf="isUpdateMode()"
+      color="primary"
+      mat-flat-button
+      type="submit">
+      {{ "update" | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

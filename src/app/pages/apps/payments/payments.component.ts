@@ -98,9 +98,8 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   dataSource!: MatTableDataSource<PaymentModel>;
   searchCtrl = new UntypedFormControl();
-  pageSizeOptions: number[] = [10, 20, 30, 50];
+  pageSizeOptions: number[] = [10, 15, 20, 30, 50];
 
-  search: PaymentSearch = {};
   payments: PaymentModel[] = [];
   totalRecords?: number;
   isLoadingResults = true;
@@ -140,7 +139,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
             this.dataSource.paginator.firstPage();
           }
 
-          const search: any = {
+          const search: PaymentSearch = {
             page: this.paginator!.pageIndex + 1,
             limit: this.paginator!.pageSize
           };

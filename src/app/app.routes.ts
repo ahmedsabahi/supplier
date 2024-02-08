@@ -122,6 +122,26 @@ export const appRoutes: VexRoutes = [
               toolbarShadowEnabled: false
             }
           },
+          {
+            path: 'quotations',
+            loadComponent: () =>
+              import('./pages/apps/quotations/quotations.component').then(
+                (m) => m.QuotationsComponent
+              ),
+            data: {
+              toolbarShadowEnabled: false
+            }
+          },
+          {
+            path: 'purchase-orders',
+            loadComponent: () =>
+              import(
+                './pages/apps/purchase-orders/purchase-orders.component'
+              ).then((m) => m.PurchaseOrdersComponent),
+            data: {
+              toolbarShadowEnabled: false
+            }
+          },
 
           {
             path: 'aio-table',

@@ -59,7 +59,19 @@ export class NavigationLoaderService {
             type: 'link',
             label: 'bankAccounts',
             route: '/apps/bank-accounts',
-            icon: 'mat:contacts'
+            icon: 'mat:credit_card'
+          },
+          {
+            type: 'link',
+            label: 'quotations',
+            route: '/apps/quotations',
+            icon: 'mat:monetization_on'
+          },
+          {
+            type: 'link',
+            label: 'purchaseOrders',
+            route: '/apps/purchase-orders',
+            icon: 'mat:monetization_on'
           }
         ]
       },

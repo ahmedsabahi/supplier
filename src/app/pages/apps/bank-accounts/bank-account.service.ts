@@ -1,9 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseResponse } from 'src/app/core/models/api-response.model';
+import {
+  BaseResponse,
+  ResultResponse
+} from 'src/app/core/models/api-response.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
-import { BankAccountModel, BankAccountSearch } from './bank-account.model';
+import {
+  BankAccountModel,
+  BankAccountSearch,
+  DropDownModel
+} from './bank-account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +33,17 @@ export class BankAccountService {
     return this.http.get<BaseResponse<BankAccountModel>>(
       `${EndPoints.bankAccounts}/${id}`
     );
+  }
+
+  create(bankAccount: BankAccountModel): Observable<ResultResponse> {
+    return this.http.post<ResultResponse>(EndPoints.bankAccounts, bankAccount);
+  }
+
+  update(bankAccount: BankAccountModel): Observable<ResultResponse> {
+    return this.http.put<ResultResponse>(EndPoints.bankAccounts, bankAccount);
+  }
+
+  banks(): Observable<BaseResponse<DropDownModel[]>> {
+    return this.http.get<BaseResponse<DropDownModel[]>>(EndPoints.banks);
   }
 }

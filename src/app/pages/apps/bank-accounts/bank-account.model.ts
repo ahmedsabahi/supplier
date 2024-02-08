@@ -17,8 +17,14 @@ export interface BankAccountModel {
   accountDetails?: string;
 }
 
-export class BankAccountSearch {
+export interface BankAccountSearch {
   find?: any;
   page?: number;
   limit?: number;
+}
+
+export interface DropDownModel {
+  id?: string;
+  textEn?: string;
+  textAr?: string;
 }

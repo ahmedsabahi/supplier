@@ -14,7 +14,7 @@ import {
   PageEvent
 } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
@@ -50,6 +50,7 @@ import {
 import { ProductPriceModel, ProductPriceSearch } from './product-price.model';
 import { ProductPriceService } from './product-price.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductPriceCreateUpdateComponent } from './product-price-create-update/product-price-create-update.component';
 
 @Component({
   selector: 'vex-products-prices',
@@ -96,9 +97,8 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
 
   dataSource!: MatTableDataSource<ProductPriceModel>;
   searchCtrl = new UntypedFormControl();
-  pageSizeOptions: number[] = [10, 20, 30, 50];
+  pageSizeOptions: number[] = [10, 15, 20, 30, 50];
 
-  search: ProductPriceSearch = {};
   productsPrices: ProductPriceModel[] = [];
   totalRecords?: number;
   isLoadingResults = true;
@@ -108,7 +108,12 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
 
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
-  constructor(private productPriceService: ProductPriceService) {}
+  constructor(
+    private productPriceService: ProductPriceService,
+    private snackbar: MatSnackBar,
+    private translate: TranslateService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
@@ -134,7 +139,7 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
             this.dataSource.paginator.firstPage();
           }
 
-          const search: any = {
+          const search: ProductPriceSearch = {
             page: this.paginator!.pageIndex + 1,
             limit: this.paginator!.pageSize
           };
@@ -148,19 +153,40 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
             .pipe(catchError(() => observableOf(null)));
         }),
         map((res) => {
-          // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = !res?.data;
 
           if (res === null) return [];
-
-          // Only refresh the result length if there is new data. In case of rate
-          // limit errors, we do not want to reset the paginator to zero, as that
-          // would prevent users from re-triggering requests.
           this.totalRecords = res.totalRecords;
           return res.data;
         })
       )
       .subscribe((products) => (this.productsPrices = products ?? []));
+  }
+
+  createProductsPrice() {
+    this.dialog
+      .open(ProductPriceCreateUpdateComponent, {
+        width: '50%',
+        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
+      })
+      .afterClosed()
+      .subscribe((productPrice: ProductPriceModel) => {
+        if (productPrice) {
+          this.productPriceService.create(productPrice).subscribe({
+            next: (res) => {
+              if (res.status === 1) {
+                this.snackbar.open(
+                  (this.translate.currentLang === 'ar'
+                    ? res.messageAr
+                    : res.messageEn) ?? '',
+                  'ok'
+                );
+                this.fetchProductsPrices();
+              }
+            }
+          });
+        }
+      });
   }
 }

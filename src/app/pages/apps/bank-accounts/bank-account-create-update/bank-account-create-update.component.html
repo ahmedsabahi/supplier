@@ -1,0 +1,105 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+  <div class="flex items-center" mat-dialog-title>
+    <h2 class="headline m-0 flex-auto">
+      {{
+        isCreateMode()
+          ? ("createBankAccount" | translate)
+          : ("updateBankAccount" | translate)
+      }}
+    </h2>
+
+    <button
+      class="text-secondary"
+      mat-dialog-close
+      mat-icon-button
+      type="button">
+      <mat-icon svgIcon="mat:close"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="text-border"></mat-divider>
+
+  <mat-dialog-content class="flex flex-col sm:gap-3">
+    <mat-form-field class="mt-6">
+      <mat-label>{{ "accountName" | translate }}</mat-label>
+      <input cdkFocusInitial formControlName="name" matInput required />
+      <mat-error *ngIf="form.controls['name'].hasError('required')">
+        {{ "requiredAccountName" | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.controls['name'].hasError('minlength')">
+        {{ "minLengthAccountName" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "iban" | translate }}</mat-label>
+      <input formControlName="iban" matInput required />
+      <mat-error *ngIf="form.controls['iban'].hasError('required')">
+        {{ "requiredIBAN" | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.controls['iban'].hasError('minlength')">
+        {{ "minLengthIBAN" | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.controls['iban'].hasError('maxlength')">
+        {{ "maxLengthIBAN" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "accountNo" | translate }}</mat-label>
+      <input formControlName="accountNo" matInput required />
+      <mat-error *ngIf="form.controls['accountNo'].hasError('required')">
+        {{ "requiredAccountNo" | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.controls['accountNo'].hasError('pattern')">
+        {{ "errorPatternAccountNo" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "branch" | translate }}</mat-label>
+      <input formControlName="branch" matInput required />
+      <mat-error *ngIf="form.controls['branch'].hasError('required')">
+        {{ "requiredBranch" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="vex-flex-form-field flex-none">
+      <mat-label>{{ "bankName" | translate }}</mat-label>
+      <mat-select formControlName="bankID" required>
+        @for (bank of banks; track bank) {
+          <mat-option [value]="bank.id">{{ bank.textAr }}</mat-option>
+        }
+      </mat-select>
+      @if (form.controls["bankID"].hasError("required")) {
+        <mat-error> {{ "requiredBankName" | translate }} </mat-error>
+      }
+    </mat-form-field>
+
+    <div class="flex flex-col gap-2">
+      <mat-slide-toggle formControlName="isDefault" color="primary">
+        {{ "isDefaultAccount" | translate }}
+      </mat-slide-toggle>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">
+      {{ "cancel" | translate }}
+    </button>
+    <button
+      *ngIf="isCreateMode()"
+      color="primary"
+      mat-flat-button
+      type="submit">
+      {{ "create" | translate }}
+    </button>
+    <button
+      *ngIf="isUpdateMode()"
+      color="primary"
+      mat-flat-button
+      type="submit">
+      {{ "update" | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

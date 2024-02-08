@@ -14,7 +14,7 @@ import {
   PageEvent
 } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
@@ -47,12 +47,11 @@ import {
   startWith,
   switchMap
 } from 'rxjs/operators';
-import { BankAccountModel, BankAccountSearch } from './bank-account.model';
-import { BankAccountService } from './bank-account.service';
-import { BankAccountCreateUpdateComponent } from './bank-account-create-update/bank-account-create-update.component';
-
+import { QuotationModel, QuotationSearch } from './quotation.model';
+import { QuotationService } from './quotation.service';
+import { QuotationStatus } from 'src/app/core/constants/enums';
 @Component({
-  selector: 'vex-bank-accounts',
+  selector: 'vex-quotations',
   standalone: true,
   animations: [fadeInUp400ms, stagger40ms],
   imports: [
@@ -81,26 +80,29 @@ import { BankAccountCreateUpdateComponent } from './bank-account-create-update/b
     CommonModule,
     MatProgressSpinnerModule
   ],
-  templateUrl: './bank-accounts.component.html',
-  styleUrl: './bank-accounts.component.scss'
+  templateUrl: './quotations.component.html',
+  styleUrl: './quotations.component.scss'
 })
-export class BankAccountsComponent implements OnInit, AfterViewInit {
+export class QuotationsComponent implements OnInit, AfterViewInit {
   @Input()
   displayedColumns: string[] = [
-    'name',
-    'bankName',
-    'accountNo',
-    'iban',
-    'branch',
-    'isDefault',
+    'orderNo',
+    'total',
+    'createdOn',
+    'createdBy',
+    'notes',
+    'status',
     'actions'
   ];
 
-  dataSource!: MatTableDataSource<BankAccountModel>;
+  toggleCtrl = new UntypedFormControl(-1);
+
+  QuotationStatus = QuotationStatus;
+  dataSource!: MatTableDataSource<QuotationModel>;
   searchCtrl = new UntypedFormControl();
   pageSizeOptions: number[] = [10, 15, 20, 30, 50];
 
-  bankAccounts: BankAccountModel[] = [];
+  quotations: QuotationModel[] = [];
   totalRecords?: number;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -110,10 +112,9 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private bankAccountService: BankAccountService,
+    private quotationService: QuotationService,
     private translate: TranslateService,
-    private snackbar: MatSnackBar,
-    private dialog: MatDialog
+    private snackbar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -123,12 +124,16 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
-      this.fetchBankAccounts();
+      this.fetchQuotations();
     }
   }
 
-  fetchBankAccounts() {
-    merge(this.searchCtrl.valueChanges, this.paginator!.page)
+  fetchQuotations() {
+    merge(
+      this.searchCtrl.valueChanges,
+      this.toggleCtrl.valueChanges,
+      this.paginator!.page
+    )
       .pipe(
         startWith({}),
         takeUntilDestroyed(this.destroyRef),
@@ -140,16 +145,18 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
             this.dataSource.paginator.firstPage();
           }
 
-          const search: BankAccountSearch = {
+          const search: QuotationSearch = {
             page: this.paginator!.pageIndex + 1,
             limit: this.paginator!.pageSize
           };
 
           const findValue = this.searchCtrl.value;
+          const toggleValue = this.toggleCtrl.value;
           if (findValue) search.find = findValue;
+          if (toggleValue !== -1) search.includeStatus = toggleValue;
 
-          return this.bankAccountService
-            .bankAccounts(search)
+          return this.quotationService
+            .quotations(search)
             .pipe(catchError(() => observableOf(null)));
         }),
         map((res) => {
@@ -166,10 +173,10 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
           return res.data;
         })
       )
-      .subscribe((bankAccounts) => (this.bankAccounts = bankAccounts ?? []));
+      .subscribe((quotations) => (this.quotations = quotations ?? []));
   }
 
-  downloadFile(model: BankAccountModel) {
+  downloadFile(model: QuotationModel) {
     if (!model.fileContent || !model.fileName) {
       this.snackbar.open(this.translate.instant('fileNotExists'), 'ok');
       return;
@@ -179,56 +186,5 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
     downloadLink.href = linkSource;
     downloadLink.download = model?.fileName ?? '';
     downloadLink.click();
-  }
-
-  createBankAccount() {
-    this.dialog
-      .open(BankAccountCreateUpdateComponent, {
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
-      })
-      .afterClosed()
-      .subscribe((bankAccount: BankAccountModel) => {
-        if (bankAccount) {
-          this.bankAccountService.create(bankAccount).subscribe({
-            next: (res) => {
-              if (res.status === 1) {
-                this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
-                    ? res.messageAr
-                    : res.messageEn) ?? '',
-                  'ok'
-                );
-                this.fetchBankAccounts();
-              }
-            }
-          });
-        }
-      });
-  }
-
-  updateBankAccount(bankAccount: BankAccountModel) {
-    this.dialog
-      .open(BankAccountCreateUpdateComponent, {
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
-        data: bankAccount
-      })
-      .afterClosed()
-      .subscribe((updatedBankAccount: BankAccountModel) => {
-        if (updatedBankAccount) {
-          this.bankAccountService.update(updatedBankAccount).subscribe({
-            next: (res) => {
-              if (res.status === 1) {
-                this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
-                    ? res.messageAr
-                    : res.messageEn) ?? '',
-                  'ok'
-                );
-                this.fetchBankAccounts();
-              }
-            }
-          });
-        }
-      });
   }
 }

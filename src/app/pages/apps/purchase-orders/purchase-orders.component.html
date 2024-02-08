@@ -3,8 +3,9 @@
     class="pb-10 flex flex-col items-start justify-center">
     <div class="w-full flex flex-col sm:flex-row justify-between container">
       <div>
-        <h1 class="title mt-0 mb-1">{{ "payments" | translate }}</h1>
-        <vex-breadcrumbs [crumbs]="['features', 'payments']"></vex-breadcrumbs>
+        <h1 class="title mt-0 mb-1">{{ "purchaseOrders" | translate }}</h1>
+        <vex-breadcrumbs
+          [crumbs]="['features', 'purchaseOrders']"></vex-breadcrumbs>
       </div>
     </div>
   </vex-page-layout-header>
@@ -35,10 +36,36 @@
             type="text" />
         </mat-form-field>
 
+        <mat-button-toggle-group
+          class="mx-6"
+          [formControl]="toggleCtrl"
+          appearance="legacy">
+          <mat-button-toggle [value]="-1">
+            {{ "all" | translate }}
+          </mat-button-toggle>
+          <mat-button-toggle [value]="0">
+            {{ "UnPaid" | translate }}
+          </mat-button-toggle>
+          <mat-button-toggle [value]="1">
+            {{ "PaidPart" | translate }}
+          </mat-button-toggle>
+          <mat-button-toggle [value]="2">
+            {{ "Paid" | translate }}
+          </mat-button-toggle>
+          <!-- <mat-button-toggle [value]="3">
+            {{ "NotReady" | translate }}
+          </mat-button-toggle> -->
+        </mat-button-toggle-group>
+
         <span class="flex-1"></span>
       </div>
 
-      <table @stagger [dataSource]="payments" class="w-full" mat-table matSort>
+      <table
+        @stagger
+        [dataSource]="purchaseOrders"
+        class="w-full"
+        mat-table
+        matSort>
         <ng-container matColumnDef="orderNo">
           <th mat-header-cell *matHeaderCellDef class="font-semibold">
             {{ "orderNo" | translate }}
@@ -46,43 +73,40 @@
           <td mat-cell *matCellDef="let row">{{ row.orderNo }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="transactionNo">
+        <ng-container matColumnDef="total">
           <th mat-header-cell *matHeaderCellDef class="font-semibold">
-            {{ "transactionNo" | translate }}
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.transactionNo }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="paidOn">
-          <th mat-header-cell *matHeaderCellDef class="font-semibold">
-            {{ "paidOn" | translate }}
+            {{ "total" | translate }}
           </th>
           <td mat-cell *matCellDef="let row">
-            {{ row.paidOn | date: "dd/MM/yyyy" }}
+            {{ row.total | number: "1.2-2" }} {{ "sr" | translate }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="employeeName">
+        <ng-container matColumnDef="paidAmount">
           <th mat-header-cell *matHeaderCellDef class="font-semibold">
-            {{ "employeeName" | translate }}
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.employeeName }}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef class="font-semibold">
-            {{ "amount" | translate }}
+            {{ "paidAmount" | translate }}
           </th>
           <td mat-cell *matCellDef="let row">
-            {{ row.amount | number: "1.2-2" }}
+            {{ row.paidAmount | number: "1.2-2" }} {{ "sr" | translate }}
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="notes">
+        <ng-container matColumnDef="invoiceStatus">
           <th mat-header-cell *matHeaderCellDef class="font-semibold">
-            {{ "notes" | translate }}
+            {{ "invoiceStatus" | translate }}
           </th>
-          <td mat-cell *matCellDef="let row">{{ row.notes }}</td>
+          <td mat-cell *matCellDef="let row">
+            {{ row.invoiceStatusName | translate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="invoiceDate">
+          <th mat-header-cell *matHeaderCellDef class="font-semibold">
+            {{ "invoiceDate" | translate }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.invoiceDate | date: "yyyy-MM-dd" }}
+          </td>
         </ng-container>
 
         <!-- Label Column -->
@@ -102,15 +126,17 @@
         </ng-container>
 
         <!-- Action Column -->
+        <!-- Action Column -->
         <ng-container matColumnDef="actions">
-          <th *matHeaderCellDef mat-header-cell></th>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
           <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
             <button
+              (click)="$event.stopPropagation()"
+              [matMenuTriggerData]="{ purchaseOrder: row }"
+              [matMenuTriggerFor]="actionsMenu"
               mat-icon-button
-              type="button"
-              (click)="downloadPayment(row.purchaseOrderPaymentID)"
-              class="text-teal-600 bg-teal/10">
-              <mat-icon svgIcon="mat:download"></mat-icon>
+              type="button">
+              <mat-icon svgIcon="mat:more_horiz"></mat-icon>
             </button>
           </td>
         </ng-container>
@@ -130,3 +156,24 @@
     </div>
   </vex-page-layout-content>
 </vex-page-layout>
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-purchaseOrder="purchaseOrder" matMenuContent>
+    <button mat-menu-item>
+      <mat-icon svgIcon="mat:notes"></mat-icon>
+      <span>{{ "details" | translate }}</span>
+    </button>
+    <a mat-menu-item [href]="purchaseOrder.filePath" target="_blank">
+      <mat-icon svgIcon="mat:download"></mat-icon>
+      <span>{{ "downloadPurchaseOrder" | translate }}</span>
+    </a>
+    @if (purchaseOrder.fileName) {
+      <button
+        mat-menu-item
+        (click)="downloadInvoice(purchaseOrder.purchaseOrderDetailID)">
+        <mat-icon svgIcon="mat:download"></mat-icon>
+        <span>{{ "downloadInvoice" | translate }}</span>
+      </button>
+    }
+  </ng-template>
+</mat-menu>
