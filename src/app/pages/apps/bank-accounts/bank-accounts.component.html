@@ -112,7 +112,7 @@
                 type="button"
                 (click)="updateBankAccount(row)"
                 class="text-teal-600 bg-teal/10">
-                <mat-icon class="icon-sm" svgIcon="mat:edit"></mat-icon>
+                <mat-icon svgIcon="mat:edit"></mat-icon>
               </button>
               @if (row.fileContent && row.fileName) {
                 <button
@@ -120,7 +120,7 @@
                   type="button"
                   (click)="downloadFile(row)"
                   class="text-teal-600 bg-teal/10">
-                  <mat-icon class="icon-sm" svgIcon="mat:download"></mat-icon>
+                  <mat-icon svgIcon="mat:download"></mat-icon>
                 </button>
               }
               <!-- <button (click)="deleteCustomer(bankAccount)" mat-menu-item>
