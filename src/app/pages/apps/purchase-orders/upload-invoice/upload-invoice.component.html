@@ -1,0 +1,95 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+  <div class="flex items-center" mat-dialog-title>
+    <h2 class="headline m-0 flex-auto">
+      {{
+        defaults?.invoiceStatus === InvoiceStatus.Uploaded ||
+        defaults?.invoiceStatus === InvoiceStatus.Rejected
+          ? ("changeInvoice" | translate)
+          : ("uploadInvoice" | translate)
+      }}
+    </h2>
+
+    <button
+      class="text-secondary"
+      mat-dialog-close
+      mat-icon-button
+      type="button">
+      <mat-icon svgIcon="mat:close"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="text-border"></mat-divider>
+
+  <mat-dialog-content class="flex flex-col sm:gap-3">
+    <mat-form-field>
+      <mat-label>{{ "invoiceDate" | translate }}</mat-label>
+      <input
+        [matDatepicker]="datepickerRef"
+        formControlName="invoiceDate"
+        matInput
+        placeholder="{{
+          'enterOrSelectYourInvoiceDate' | translate
+        }}&hellip;" />
+      <mat-datepicker-toggle [for]="datepickerRef" matIconSuffix>
+      </mat-datepicker-toggle>
+      <mat-datepicker #datepickerRef></mat-datepicker>
+      <mat-error *ngIf="form.controls['invoiceDate'].hasError('required')">
+        {{ "requiredInvoiceDate" | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <div
+      *ngIf="!form.value.fileContent"
+      class="px-4 py-2 mb-5 relative flex items-center cursor-pointer select-none rounded-full hover:bg-green-600/10 transition duration-400 ease-out-swift"
+      matRipple>
+      <div
+        @scaleIn
+        class="p-2 bg-green-600/10 text-green-600 rounded-full ltr:mr-4 rtl:ml-4">
+        <input
+          class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0"
+          type="file"
+          (change)="onFileSelected($event)"
+          accept=".jpeg,.jpg,.png,.pdf" />
+        <mat-icon class="block" svgIcon="mat:attach_file"></mat-icon>
+      </div>
+      <p @fadeInRight class="font-medium text-green-600">
+        {{ "attachFile" | translate }}
+      </p>
+    </div>
+
+    <div
+      *ngIf="form.value.fileContent"
+      class="px-4 py-2 mb-5 vex-mail-compose-attachment rounded-full border flex items-center hover:bg-hover transition duration-200 ease-in-out cursor-pointer relative"
+      matRipple>
+      <mat-icon
+        class="flex-none text-primary-600 icon-sm"
+        svgIcon="mat:{{
+          form.value.fileContentType == 'application/pdf'
+            ? 'picture_as_pdf'
+            : 'image'
+        }}"></mat-icon>
+      <p class="flex-auto ml-4 text-sm">{{ form.value.fileName }}</p>
+      @if (selectedFile) {
+        <p class="text-sm text-secondary mr-2 flex-none">
+          {{ selectedFile.size | number: "1.2-2" }} kb
+        </p>
+      }
+      <button
+        (click)="resetFile()"
+        class="flex-none w-8 h-8 p-0 leading-none"
+        mat-icon-button
+        type="button">
+        <mat-icon class="icon-sm" svgIcon="mat:close"></mat-icon>
+      </button>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">
+      {{ "cancel" | translate }}
+    </button>
+    <button color="primary" mat-flat-button type="submit">
+      {{ "submit" | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>

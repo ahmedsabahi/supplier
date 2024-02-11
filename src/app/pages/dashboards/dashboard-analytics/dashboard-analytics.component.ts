@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { defaultChartOptions } from '@vex/utils/default-chart-options';
 import {
   Order,
@@ -15,6 +15,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { VexBreadcrumbsComponent } from '@vex/components/vex-breadcrumbs/vex-breadcrumbs.component';
 import { VexSecondaryToolbarComponent } from '@vex/components/vex-secondary-toolbar/vex-secondary-toolbar.component';
+import { DashboardService } from '../dashboard.service';
+import { th } from 'date-fns/locale';
+import { DashboardModel } from '../dashboard.model';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  GoogleChartInterface,
+  GoogleChartType,
+  Ng2GoogleChartsModule
+} from 'ng2-google-charts';
 
 @Component({
   selector: 'vex-dashboard-analytics',
@@ -31,80 +40,100 @@ import { VexSecondaryToolbarComponent } from '@vex/components/vex-secondary-tool
     WidgetLargeGoalChartComponent,
     WidgetQuickValueCenterComponent,
     WidgetLargeChartComponent,
+    TranslateModule,
+    Ng2GoogleChartsModule,
     WidgetTableComponent
   ]
 })
-export class DashboardAnalyticsComponent {
-  tableColumns: TableColumn<Order>[] = [
-    {
-      label: '',
-      property: 'status',
-      type: 'badge'
-    },
-    {
-      label: 'PRODUCT',
-      property: 'name',
-      type: 'text'
-    },
-    {
-      label: '$ PRICE',
-      property: 'price',
-      type: 'text',
-      cssClasses: ['font-medium']
-    },
-    {
-      label: 'DATE',
-      property: 'timestamp',
-      type: 'text',
-      cssClasses: ['text-secondary']
-    }
-  ];
-  tableData = tableSalesData;
+export class DashboardAnalyticsComponent implements OnInit {
+  constructor(
+    private dashboardService: DashboardService,
+    private translate: TranslateService
+  ) {}
+  dashboardModel?: DashboardModel;
 
-  series: ApexAxisChartSeries = [
-    {
-      name: 'Subscribers',
-      data: [28, 40, 36, 0, 52, 38, 60, 55, 67, 33, 89, 44]
-    }
-  ];
+  ngOnInit(): void {
+    this.fetchDashboardData();
+  }
 
-  userSessionsSeries: ApexAxisChartSeries = [
-    {
-      name: 'Users',
-      data: [10, 50, 26, 50, 38, 60, 50, 25, 61, 80, 40, 60]
-    },
-    {
-      name: 'Sessions',
-      data: [5, 21, 42, 70, 41, 20, 35, 50, 10, 15, 30, 50]
-    }
-  ];
+  ngAfterViewInit(): void {
+    window.addEventListener('resize', () =>
+      this.invoicesChart.component?.draw()
+    );
+    window.addEventListener('resize', () =>
+      this.uploadInvoicesChart.component?.draw()
+    );
+    window.addEventListener('resize', () =>
+      this.purchaseOrdersChart.component?.draw()
+    );
+  }
 
-  salesSeries: ApexAxisChartSeries = [
-    {
-      name: 'Sales',
-      data: [28, 40, 36, 0, 52, 38, 60, 55, 99, 54, 38, 87]
-    }
-  ];
+  fetchDashboardData() {
+    this.dashboardService.dashboard().subscribe((res) => {
+      this.dashboardModel = res.data;
+      this.initInvoicesChart();
+      this.initUploadInvoicesChart();
+      this.initPurchaseOrdersChart();
+    });
+  }
 
-  pageViewsSeries: ApexAxisChartSeries = [
-    {
-      name: 'Page Views',
-      data: [405, 800, 200, 600, 105, 788, 600, 204]
-    }
-  ];
+  initInvoicesChart() {
+    this.invoicesChart.dataTable = this.dashboardModel?.invoices?.map(
+      (item) => [this.translate.instant(item.statusName!), item.count]
+    );
+    this.invoicesChart.options = {
+      title: this.translate.instant('allInvoices'),
+      width: '100%',
+      height: 300,
+      is3D: true,
+      sliceVisibilityThreshold: 0,
+      backgroundColor: 'transparent'
+    };
+  }
 
-  uniqueUsersSeries: ApexAxisChartSeries = [
-    {
-      name: 'Unique Users',
-      data: [356, 806, 600, 754, 432, 854, 555, 1004]
-    }
-  ];
+  initUploadInvoicesChart() {
+    this.uploadInvoicesChart.dataTable = this.dashboardModel?.payments?.map(
+      (item) => [this.translate.instant(item.statusName!), item.amount]
+    );
+    this.uploadInvoicesChart.options = {
+      title: this.translate.instant('allPayments'),
+      width: '100%',
+      height: 300,
+      is3D: true,
+      sliceVisibilityThreshold: 0,
+      backgroundColor: 'transparent'
+    };
+  }
 
-  uniqueUsersOptions = defaultChartOptions({
-    chart: {
-      type: 'area',
-      height: 100
-    },
-    colors: ['#ff9800']
-  });
+  initPurchaseOrdersChart() {
+    this.purchaseOrdersChart.dataTable = this.dashboardModel?.quotations?.map(
+      (item) => [this.translate.instant(item.statusName!), item.count]
+    );
+    this.purchaseOrdersChart.options = {
+      title: this.translate.instant('allQuotations'),
+      width: '100%',
+      height: 300,
+      is3D: true,
+      sliceVisibilityThreshold: 0,
+      backgroundColor: 'transparent'
+    };
+  }
+
+  // invoices
+  protected invoicesChart: GoogleChartInterface = {
+    chartType: GoogleChartType.PieChart,
+    firstRowIsData: true
+  };
+
+  // uploadInvoices
+  protected uploadInvoicesChart: GoogleChartInterface = {
+    chartType: GoogleChartType.PieChart,
+    firstRowIsData: true
+  };
+
+  // purchaseOrders
+  protected purchaseOrdersChart: GoogleChartInterface = {
+    chartType: GoogleChartType.PieChart,
+    firstRowIsData: true
+  };
 }

@@ -184,7 +184,8 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
   createBankAccount() {
     this.dialog
       .open(BankAccountCreateUpdateComponent, {
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
+        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        width: '50%'
       })
       .afterClosed()
       .subscribe((bankAccount: BankAccountModel) => {
@@ -210,6 +211,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
     this.dialog
       .open(BankAccountCreateUpdateComponent, {
         direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        width: '50%',
         data: bankAccount
       })
       .afterClosed()

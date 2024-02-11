@@ -25,39 +25,94 @@
     }
 
     <div class="card overflow-auto -mt-16">
-      <div
-        class="bg-app-bar px-6 h-16 border-b sticky left-0 flex items-center">
-        <mat-form-field subscriptSizing="dynamic">
-          <mat-icon matIconPrefix svgIcon="mat:search"></mat-icon>
-          <input
-            matInput
-            [formControl]="searchCtrl"
-            placeholder="{{ 'search' | translate }}&hellip;"
-            type="text" />
-        </mat-form-field>
+      <div class="flex flex-col">
+        <div class="bg-app-bar pt-4 px-6 border-b sticky left-0">
+          <form [formGroup]="searchForm">
+            <div class="flex items-center">
+              <mat-form-field subscriptSizing="dynamic">
+                <mat-icon matIconPrefix svgIcon="mat:search"></mat-icon>
+                <input
+                  matInput
+                  formControlName="find"
+                  placeholder="{{ 'search' | translate }}&hellip;"
+                  type="text" />
+              </mat-form-field>
 
-        <mat-button-toggle-group
-          class="mx-6"
-          [formControl]="toggleCtrl"
-          appearance="legacy">
-          <mat-button-toggle [value]="-1">
-            {{ "all" | translate }}
-          </mat-button-toggle>
-          <mat-button-toggle [value]="0">
-            {{ "UnPaid" | translate }}
-          </mat-button-toggle>
-          <mat-button-toggle [value]="1">
-            {{ "PaidPart" | translate }}
-          </mat-button-toggle>
-          <mat-button-toggle [value]="2">
-            {{ "Paid" | translate }}
-          </mat-button-toggle>
-          <!-- <mat-button-toggle [value]="3">
-            {{ "NotReady" | translate }}
-          </mat-button-toggle> -->
-        </mat-button-toggle-group>
+              <mat-button-toggle-group
+                class="mx-6"
+                formControlName="status"
+                appearance="legacy">
+                <mat-button-toggle [value]="null">
+                  {{ "all" | translate }}
+                </mat-button-toggle>
+                <mat-button-toggle [value]="PurchaseOrderStatus.UnPaid">
+                  {{ "UnPaid" | translate }}
+                </mat-button-toggle>
+                <mat-button-toggle [value]="PurchaseOrderStatus.PaidPart">
+                  {{ "PaidPart" | translate }}
+                </mat-button-toggle>
+                <mat-button-toggle [value]="PurchaseOrderStatus.Paid">
+                  {{ "Paid" | translate }}
+                </mat-button-toggle>
+                <!-- <mat-button-toggle [value]="QuotationStatus.Sent">
+                    {{ "NotReady" | translate }}
+                  </mat-button-toggle>  -->
+              </mat-button-toggle-group>
+            </div>
 
-        <span class="flex-1"></span>
+            <div class="flex flex-col mt-4">
+              <div class="flex flex-col sm:flex-row sm:gap-4">
+                <mat-form-field class="flex-auto">
+                  <mat-label id="amountFrom">
+                    {{ "amountFrom" | translate }}
+                  </mat-label>
+                  <input
+                    id="amountFrom"
+                    formControlName="amountFrom"
+                    matInput
+                    placeholder="{{ 'enterAmountFrom' | translate }}&hellip;" />
+                </mat-form-field>
+                <mat-form-field class="flex-auto">
+                  <mat-label>{{ "amountTo" | translate }}</mat-label>
+                  <input
+                    formControlName="amountTo"
+                    matInput
+                    placeholder="{{ 'enterAmountTo' | translate }}&hellip;" />
+                </mat-form-field>
+                <mat-form-field class="flex-auto">
+                  <mat-label>{{ "invoiceStatus" | translate }}</mat-label>
+                  <mat-select
+                    formControlName="invoiceStatus"
+                    placeholder="{{
+                      'selectInvoiceStatus' | translate
+                    }}&hellip;">
+                    <mat-option [value]="InvoiceStatus.Waiting">
+                      {{ "Waiting" | translate }}
+                    </mat-option>
+                    <mat-option [value]="InvoiceStatus.Uploaded">
+                      {{ "Uploaded" | translate }}
+                    </mat-option>
+                    <mat-option [value]="InvoiceStatus.Approved">
+                      {{ "Approved" | translate }}
+                    </mat-option>
+                    <mat-option [value]="InvoiceStatus.Rejected">
+                      {{ "Rejected" | translate }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="flex items-center justify-end gap-2 pb-4">
+              <button
+                color="warn"
+                mat-stroked-button
+                type="button"
+                (click)="searchForm.reset()">
+                {{ "reset" | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <table
@@ -126,12 +181,10 @@
         </ng-container>
 
         <!-- Action Column -->
-        <!-- Action Column -->
         <ng-container matColumnDef="actions">
           <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
           <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
             <button
-              (click)="$event.stopPropagation()"
               [matMenuTriggerData]="{ purchaseOrder: row }"
               [matMenuTriggerFor]="actionsMenu"
               mat-icon-button
@@ -159,10 +212,16 @@
 
 <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
   <ng-template let-purchaseOrder="purchaseOrder" matMenuContent>
-    <button mat-menu-item>
+    <a
+      mat-menu-item
+      [routerLink]="[
+        '/apps/purchase-orders/purchase-order-details/' +
+          purchaseOrder.purchaseOrderDetailID
+      ]"
+      routerLinkActive="purchase-orders">
       <mat-icon svgIcon="mat:notes"></mat-icon>
       <span>{{ "details" | translate }}</span>
-    </button>
+    </a>
     <a mat-menu-item [href]="purchaseOrder.filePath" target="_blank">
       <mat-icon svgIcon="mat:download"></mat-icon>
       <span>{{ "downloadPurchaseOrder" | translate }}</span>
@@ -173,6 +232,24 @@
         (click)="downloadInvoice(purchaseOrder.purchaseOrderDetailID)">
         <mat-icon svgIcon="mat:download"></mat-icon>
         <span>{{ "downloadInvoice" | translate }}</span>
+      </button>
+    }
+    @if (
+      !purchaseOrder.fileName ||
+      purchaseOrder.invoiceStatus === InvoiceStatus.Waiting
+    ) {
+      <button mat-menu-item (click)="uploadInvoice(purchaseOrder)">
+        <mat-icon svgIcon="mat:upload"></mat-icon>
+        <span>{{ "uploadInvoice" | translate }}</span>
+      </button>
+    }
+    @if (
+      purchaseOrder.invoiceStatus === InvoiceStatus.Uploaded ||
+      purchaseOrder.invoiceStatus === InvoiceStatus.Rejected
+    ) {
+      <button mat-menu-item (click)="uploadInvoice(purchaseOrder)">
+        <mat-icon svgIcon="mat:upload"></mat-icon>
+        <span>{{ "changeInvoice" | translate }}</span>
       </button>
     }
   </ng-template>

@@ -1,4 +1,7 @@
-import { PurchaseOrderStatus } from 'src/app/core/constants/enums';
+import {
+  InvoiceStatus,
+  PurchaseOrderStatus
+} from 'src/app/core/constants/enums';
 
 export interface PurchaseOrderModel {
   purchaseOrderDetailID?: string;
@@ -102,6 +105,18 @@ export class PurchaseOrderSearch {
   find?: any;
   page?: number;
   limit?: number;
-  status?: number;
+  amountFrom?: number;
+  amountTo?: number;
+  invoiceStatus?: InvoiceStatus;
+  status?: PurchaseOrderStatus;
   excludeStatus?: number[];
+}
+
+export class UploadInvoiceCommand {
+  purchaseOrderID?: string;
+  purchaseOrderDetailID?: string;
+  fileName?: string;
+  fileContent?: string;
+  fileContentType?: string;
+  invoiceDate?: Date;
 }

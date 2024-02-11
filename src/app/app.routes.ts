@@ -68,10 +68,10 @@ export const appRoutes: VexRoutes = [
             path: 'social',
             loadChildren: () => import('./pages/apps/social/social.routes')
           },
-          // {
-          //   path: 'contacts',
-          //   loadChildren: () => import('./pages/apps/contacts/contacts.routes')
-          // },
+          {
+            path: 'contacts',
+            loadChildren: () => import('./pages/apps/contacts/contacts.routes')
+          },
           {
             path: 'calendar',
             loadComponent: () =>
@@ -102,16 +102,16 @@ export const appRoutes: VexRoutes = [
               toolbarShadowEnabled: false
             }
           },
-          {
-            path: 'contacts',
-            loadComponent: () =>
-              import('./pages/apps/contacts/contacts.component').then(
-                (m) => m.ContactsComponent
-              ),
-            data: {
-              toolbarShadowEnabled: false
-            }
-          },
+          // {
+          //   path: 'contacts',
+          //   loadComponent: () =>
+          //     import('./pages/apps/contacts/contacts.component').then(
+          //       (m) => m.ContactsComponent
+          //     ),
+          //   data: {
+          //     toolbarShadowEnabled: false
+          //   }
+          // },
           {
             path: 'bank-accounts',
             loadComponent: () =>
@@ -134,15 +134,9 @@ export const appRoutes: VexRoutes = [
           },
           {
             path: 'purchase-orders',
-            loadComponent: () =>
-              import(
-                './pages/apps/purchase-orders/purchase-orders.component'
-              ).then((m) => m.PurchaseOrdersComponent),
-            data: {
-              toolbarShadowEnabled: false
-            }
+            loadChildren: () =>
+              import('./pages/apps/purchase-orders/purchase-orders.routes')
           },
-
           {
             path: 'aio-table',
             loadComponent: () =>

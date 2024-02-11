@@ -1,11 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseResponse } from 'src/app/core/models/api-response.model';
+import {
+  BaseResponse,
+  ResultResponse
+} from 'src/app/core/models/api-response.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
 import {
   PurchaseOrderModel,
-  PurchaseOrderSearch
+  PurchaseOrderSearch,
+  UploadInvoiceCommand
 } from './purchase-order.model';
 
 @Injectable({
@@ -43,5 +47,9 @@ export class PurchaseOrderService {
     return this.http.get<BaseResponse<string>>(
       `${EndPoints.purchaseOrderPdf}/${id}`
     );
+  }
+
+  uploadInvoice(model: UploadInvoiceCommand): Observable<ResultResponse> {
+    return this.http.post<ResultResponse>(EndPoints.uploadInvoice, model);
   }
 }

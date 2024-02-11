@@ -107,22 +107,22 @@
           <th *matHeaderCellDef mat-header-cell></th>
           <td *matCellDef="let row" mat-cell>
             <div class="flex">
+              <button
+                mat-icon-button
+                type="button"
+                (click)="updateBankAccount(row)"
+                class="text-teal-600 bg-teal/10">
+                <mat-icon class="icon-sm" svgIcon="mat:edit"></mat-icon>
+              </button>
               @if (row.fileContent && row.fileName) {
                 <button
                   mat-icon-button
                   type="button"
                   (click)="downloadFile(row)"
-                  class="-8 h-8 p-0 leading-none flex items-center justify-center hover:bg-hover text-primary-600 bg-primary-600/10">
+                  class="text-teal-600 bg-teal/10">
                   <mat-icon class="icon-sm" svgIcon="mat:download"></mat-icon>
                 </button>
               }
-              <button
-                mat-icon-button
-                type="button"
-                (click)="updateBankAccount(row)"
-                class="w-8 h-8 p-0 leading-none flex items-center justify-center ml-1 hover:bg-hover text-teal-600 bg-teal/10">
-                <mat-icon class="icon-sm" svgIcon="mat:edit"></mat-icon>
-              </button>
               <!-- <button (click)="deleteCustomer(bankAccount)" mat-menu-item>
               <mat-icon svgIcon="mat:delete"></mat-icon>
               <span>Delete</span>

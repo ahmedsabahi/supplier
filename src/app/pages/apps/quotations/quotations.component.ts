@@ -95,7 +95,7 @@ export class QuotationsComponent implements OnInit, AfterViewInit {
     'actions'
   ];
 
-  toggleCtrl = new UntypedFormControl(-1);
+  toggleCtrl = new UntypedFormControl(null);
 
   QuotationStatus = QuotationStatus;
   dataSource!: MatTableDataSource<QuotationModel>;
@@ -153,7 +153,7 @@ export class QuotationsComponent implements OnInit, AfterViewInit {
           const findValue = this.searchCtrl.value;
           const toggleValue = this.toggleCtrl.value;
           if (findValue) search.find = findValue;
-          if (toggleValue !== -1) search.includeStatus = toggleValue;
+          if (toggleValue) search.includeStatus = toggleValue;
 
           return this.quotationService
             .quotations(search)

@@ -29,3 +29,10 @@ export interface Search {
   readonly next?: number;
   readonly previous?: number;
 }
+
+export interface FileModel {
+  fileName?: string;
+  fileContentType?: string;
+  fileContent?: string;
+  size?: number;
+}

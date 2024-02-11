@@ -11,17 +11,22 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BankAccountModel, DropDownModel } from '../bank-account.model';
 import { MatSelectModule } from '@angular/material/select';
 import { BankAccountService } from '../bank-account.service';
+import { scaleIn400ms } from '@vex/animations/scale-in.animation';
+import { fadeInRight400ms } from '@vex/animations/fade-in-right.animation';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { FileModel } from 'src/app/core/models/api-response.model';
 
 @Component({
   selector: 'vex-bank-account-create-update',
   standalone: true,
+  animations: [scaleIn400ms, fadeInRight400ms],
   imports: [
     ReactiveFormsModule,
     MatDialogModule,
@@ -33,9 +38,11 @@ import { BankAccountService } from '../bank-account.service';
     MatFormFieldModule,
     MatInputModule,
     TranslateModule,
+    MatSnackBarModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    CommonModule
   ],
   templateUrl: './bank-account-create-update.component.html',
   styleUrl: './bank-account-create-update.component.scss'
@@ -57,7 +64,10 @@ export class BankAccountCreateUpdateComponent implements OnInit {
       [Validators.required, Validators.pattern('^[0-9]*$')]
     ],
     branch: [this.defaults?.branch || '', [Validators.required]],
-    isDefault: this.defaults?.isDefault || false
+    isDefault: this.defaults?.isDefault || false,
+    fileContent: this.defaults?.fileContent || '',
+    fileContentType: this.defaults?.fileContentType || '',
+    fileName: this.defaults?.fileName || ''
   });
 
   mode: 'create' | 'update' = 'create';
@@ -66,6 +76,7 @@ export class BankAccountCreateUpdateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public defaults: BankAccountModel | undefined,
     private dialogRef: MatDialogRef<BankAccountCreateUpdateComponent>,
     private fb: FormBuilder,
+    private snackbar: MatSnackBar,
     private bankAccountService: BankAccountService
   ) {}
 
@@ -103,7 +114,7 @@ export class BankAccountCreateUpdateComponent implements OnInit {
   }
 
   updateBankAccount() {
-    const bankAccount = this.form.value;
+    const bA = this.form.value;
 
     if (!this.defaults) {
       throw new Error(
@@ -111,13 +122,17 @@ export class BankAccountCreateUpdateComponent implements OnInit {
       );
     }
 
-    this.defaults.supplierAccountID = bankAccount.supplierAccountID!;
-    this.defaults.bankID = bankAccount.bankID!;
-    this.defaults.name = bankAccount.name!;
-    this.defaults.accountNo = bankAccount.accountNo!;
-    this.defaults.iban = bankAccount.iban!;
-    this.defaults.branch = bankAccount.branch!;
-    this.defaults.isDefault = bankAccount.isDefault!;
+    if (bA.supplierAccountID)
+      this.defaults.supplierAccountID = bA.supplierAccountID!;
+    if (bA.bankID) this.defaults.bankID = bA.bankID!;
+    if (bA.name) this.defaults.name = bA.name!;
+    if (bA.accountNo) this.defaults.accountNo = bA.accountNo!;
+    if (bA.iban) this.defaults.iban = bA.iban!;
+    if (bA.branch) this.defaults.branch = bA.branch!;
+    if (bA.isDefault) this.defaults.isDefault = bA.isDefault!;
+    if (bA.fileName) this.defaults.fileName = bA.fileName!;
+    if (bA.fileContentType) this.defaults.fileContentType = bA.fileContentType!;
+    if (bA.fileContent) this.defaults.fileContent = bA.fileContent!;
 
     this.dialogRef.close(this.defaults);
   }
@@ -128,5 +143,39 @@ export class BankAccountCreateUpdateComponent implements OnInit {
 
   isUpdateMode() {
     return this.mode === 'update';
+  }
+
+  selectedFile?: FileModel;
+
+  onFileSelected(event: any): void {
+    const filePicked = event.target.files[0];
+    const max_size = 20971520;
+    if (!filePicked) return;
+    if (filePicked.size > max_size) {
+      this.snackbar.open(
+        'Maximum size allowed is ' + max_size / 1000 + 'Mb',
+        'ok'
+      );
+    }
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.selectedFile = {
+        fileName: filePicked.name,
+        fileContentType: filePicked.type,
+        size: filePicked.size / 1024,
+        fileContent: e.target.result.split(',')[1]
+      };
+      this.form.patchValue(this.selectedFile);
+    };
+    reader.readAsDataURL(filePicked);
+  }
+
+  resetFile() {
+    this.selectedFile = undefined;
+    this.form.patchValue({
+      fileName: '',
+      fileContentType: '',
+      fileContent: ''
+    });
   }
 }

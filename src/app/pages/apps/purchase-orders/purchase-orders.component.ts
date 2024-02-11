@@ -14,11 +14,13 @@ import {
   PageEvent
 } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
 import {
+  FormControl,
+  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   UntypedFormControl
@@ -47,12 +49,20 @@ import {
   startWith,
   switchMap
 } from 'rxjs/operators';
-import { PurchaseOrderStatus } from 'src/app/core/constants/enums';
+import {
+  InvoiceStatus,
+  PurchaseOrderStatus
+} from 'src/app/core/constants/enums';
 import {
   PurchaseOrderModel,
-  PurchaseOrderSearch
+  PurchaseOrderSearch,
+  UploadInvoiceCommand
 } from './purchase-order.model';
 import { PurchaseOrderService } from './purchase-order.service';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { UploadInvoiceComponent } from './upload-invoice/upload-invoice.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'vex-purchase-orders',
@@ -81,7 +91,10 @@ import { PurchaseOrderService } from './purchase-order.service';
     MatInputModule,
     MatSnackBarModule,
     TranslateModule,
+    MatSelectModule,
+    MatOptionModule,
     CommonModule,
+    RouterModule,
     MatProgressSpinnerModule
   ],
   templateUrl: './purchase-orders.component.html',
@@ -99,11 +112,18 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
     'actions'
   ];
 
-  toggleCtrl = new UntypedFormControl(-1);
+  searchForm = new FormGroup({
+    amountFrom: new FormControl(null),
+    amountTo: new FormControl(null),
+    invoiceStatus: new FormControl(null),
+    find: new FormControl(null),
+    status: new FormControl(null)
+  });
 
   PurchaseOrderStatus = PurchaseOrderStatus;
+  InvoiceStatus = InvoiceStatus;
+
   dataSource!: MatTableDataSource<PurchaseOrderModel>;
-  searchCtrl = new UntypedFormControl();
   pageSizeOptions: number[] = [10, 15, 20, 30, 50];
 
   purchaseOrders: PurchaseOrderModel[] = [];
@@ -118,6 +138,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
   constructor(
     private purchaseOrderService: PurchaseOrderService,
     private translate: TranslateService,
+    private dialog: MatDialog,
     private snackbar: MatSnackBar
   ) {}
 
@@ -133,11 +154,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
   }
 
   fetchPurchaseOrders() {
-    merge(
-      this.searchCtrl.valueChanges,
-      this.toggleCtrl.valueChanges,
-      this.paginator!.page
-    )
+    merge(this.paginator!.page, this.searchForm.valueChanges)
       .pipe(
         startWith({}),
         takeUntilDestroyed(this.destroyRef),
@@ -145,8 +162,8 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
 
-          if (this.dataSource.paginator && this.searchCtrl.value) {
-            this.dataSource.paginator.firstPage();
+          if (this.shouldResetPaginator()) {
+            this.dataSource.paginator!.firstPage();
           }
 
           const search: PurchaseOrderSearch = {
@@ -155,10 +172,13 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
             excludeStatus: [3]
           };
 
-          const findValue = this.searchCtrl.value;
-          const toggleValue = this.toggleCtrl.value;
-          if (findValue) search.find = findValue;
-          if (toggleValue !== -1) search.status = toggleValue;
+          const form = this.searchForm.value;
+
+          if (form.find) search.find = form.find;
+          if (form.amountFrom) search.amountFrom = Number(form.amountFrom);
+          if (form.amountTo) search.amountTo = Number(form.amountTo);
+          if (form.invoiceStatus) search.invoiceStatus = form.invoiceStatus!;
+          if (form.status) search.status = form.status!;
 
           return this.purchaseOrderService
             .purchaseOrders(search)
@@ -183,6 +203,22 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
       );
   }
 
+  private shouldResetPaginator(): boolean {
+    const form = this.searchForm.value;
+
+    return (
+      (this.dataSource.paginator &&
+        this.paginator!.pageIndex > 0 &&
+        this.purchaseOrders.length < this.paginator!.pageSize &&
+        (form.amountFrom ||
+          form.amountTo ||
+          form.find ||
+          form.invoiceStatus ||
+          form.status)) ??
+      false
+    );
+  }
+
   downloadInvoice(id: string) {
     this.purchaseOrderService.purchaseOrderPDF(id).subscribe((res) => {
       if (res.result.status === 1 && res.data) {
@@ -205,5 +241,31 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
     downloadLink.href = linkSource;
     downloadLink.download = model?.fileName ?? '';
     downloadLink.click();
+  }
+
+  uploadInvoice(model: PurchaseOrderModel) {
+    this.dialog
+      .open(UploadInvoiceComponent, {
+        data: model,
+        width: '50%'
+      })
+      .afterClosed()
+      .subscribe((model: UploadInvoiceCommand) => {
+        if (model) {
+          this.purchaseOrderService.uploadInvoice(model).subscribe({
+            next: (res) => {
+              if (res.status === 1) {
+                this.snackbar.open(
+                  (this.translate.currentLang === 'ar'
+                    ? res.messageAr
+                    : res.messageEn) ?? '',
+                  'ok'
+                );
+                this.fetchPurchaseOrders();
+              }
+            }
+          });
+        }
+      });
   }
 }

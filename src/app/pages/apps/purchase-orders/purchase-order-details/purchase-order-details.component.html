@@ -1,0 +1,205 @@
+<div class="px-6 pt-6">
+  <button
+    (click)="location.back()"
+    color="primary"
+    mat-raised-button
+    type="button">
+    <mat-icon svgIcon="mat:arrow_back"></mat-icon>
+    <span> {{ "back" | translate }}</span>
+  </button>
+</div>
+
+@if (!purchaseOrder) {
+  <div class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
+<div class="p-6 container" *ngIf="purchaseOrder">
+  <div @fadeInUp class="card p-10">
+    <div class="grid grid-cols-2">
+      <div>
+        <img class="h-40" src="assets/img/logo/logo.svg" />
+
+        <table class="mt-12">
+          <tbody>
+            <tr>
+              <td class="text-secondary body-2">{{ "account" | translate }}</td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.accountName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "bankName" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.bankName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "iban" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.iban }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-right body-1 flex flex-col items-end">
+        <h1 class="display-2 m-0">{{ "purchaseOrder" | translate }}</h1>
+
+        <table class="mt-6">
+          <tbody>
+            <tr>
+              <td class="text-secondary body-2">{{ "orderNo" | translate }}</td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.orderNo }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "supplierName" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.supplierName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "status" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.statusName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "invoiceDate" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.invoiceDate | date: "dd/MM/yyyy" }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "invoiceStatus" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.invoiceStatusName }}
+              </td>
+            </tr>
+            @if (purchaseOrder.notes) {
+              <tr>
+                <td class="text-secondary body-2">
+                  {{ "notes" | translate }}
+                </td>
+                <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                  {{ purchaseOrder.notes }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <table class="mt-20" *ngIf="purchaseOrder.creditDueDate">
+          <tbody>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "creditPer" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.creditPer }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "creditDueDate" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ purchaseOrder.creditDueDate | date: "dd/MM/yyyy" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <table class="table w-full mt-24">
+      <thead>
+        <tr>
+          <td class="body-2 text-secondary">{{ "productName" | translate }}</td>
+          <td class="body-2 text-secondary">
+            {{ "isVATExcluded" | translate }}
+          </td>
+          <td class="body-2 text-secondary">{{ "unit" | translate }}</td>
+          <td class="body-2 text-secondary">{{ "quantity" | translate }}</td>
+          <td class="body-2 text-secondary ltr:text-right rtl:text-left">
+            {{ "price" | translate }}
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of purchaseOrder?.items">
+          <td class="py-6 border-b">{{ item.productName }}</td>
+          <td class="py-6 border-b">
+            {{
+              item.isVATExcluded ? ("true" | translate) : ("false" | translate)
+            }}
+          </td>
+          <td class="py-6 border-b">{{ item.unitName ?? "" | translate }}</td>
+          <td class="py-6 border-b">{{ item.qty }}</td>
+          <td class="py-6 border-b font-medium ltr:text-right rtl:text-left">
+            {{ item.price | number: "1.2-2" }} {{ "sr" | translate }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mt-8 flex flex-col items-end">
+      <table class="subheading-2 font-medium pr-6">
+        <tbody>
+          <tr>
+            <td class="text-secondary ltr:text-right rtl:text-left">
+              {{ "subtotal" | translate }}
+            </td>
+            <td class="ltr:pl-12 rtl:pr-12">
+              {{ purchaseOrder.amount | number: "1.2-2" }}
+              {{ "sr" | translate }}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-secondary ltr:text-right rtl:text-left">
+              {{ "vat" | translate }} ({{ purchaseOrder.vatPer }}%)
+            </td>
+            <td class="ltr:pl-12 rtl:pr-12">
+              {{ purchaseOrder.vat | number: "1.2-2" }} {{ "sr" | translate }}
+            </td>
+          </tr>
+          @if (purchaseOrder.isDeliveryFees) {
+            <tr>
+              <td class="text-secondary ltr:text-right rtl:text-left">
+                {{ "deliveryFees" | translate }}
+              </td>
+              <td class="ltr:pl-12 rtl:pr-12">
+                {{ purchaseOrder.deliveryFees | number: "1.2-2" }}
+                {{ "sr" | translate }}
+              </td>
+            </tr>
+          }
+          <tr>
+            <td class="headline font-medium ltr:text-right rtl:text-left pt-6">
+              {{ "totalAmount" | translate }}
+            </td>
+            <td class="headline font-medium ltr:pl-12 rtl:pr-12 pt-6">
+              {{ purchaseOrder.total | number: "1.2-2" }} {{ "sr" | translate }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

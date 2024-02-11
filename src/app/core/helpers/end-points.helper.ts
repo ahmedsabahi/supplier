@@ -28,7 +28,11 @@ export class EndPoints {
   /* ------ purchaseOrder -------*/
   static purchaseOrders = '/Vendor/PurchaseOrders'; //get
   static purchaseOrderPdf = '/Vendor/purchaseOrders/PurchaseOrderPdf'; //get
+  static uploadInvoice = '/Vendor/purchaseOrders/UploadInvoice'; //post
 
   /* ------ quotation -------*/
   static quotations = '/Vendor/Quotations'; //get
+
+  /* ------ dashboard -------*/
+  static dashboard = '/Vendor/dahboard'; //get
 }

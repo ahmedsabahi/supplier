@@ -83,7 +83,11 @@
       <div class="px-6 py-4 flex flex-col">
         <mat-form-field>
           <mat-label>State</mat-label>
-          <input [formControl]="stateCtrl" [matAutocomplete]="auto" matInput placeholder="Select your state&hellip;" />
+          <input
+            [formControl]="stateCtrl"
+            [matAutocomplete]="auto"
+            matInput
+            placeholder="Select your state&hellip;" />
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option
               *ngFor="let state of filteredStates$ | async"
@@ -95,7 +99,7 @@
                 <span class="flex flex-col">
                   <span class="body-1 leading-snug">{{ state.name }}</span>
                   <span class="caption text-secondary leading-none"
-                  >Population: {{ state.population }}</span
+                    >Population: {{ state.population }}</span
                   >
                 </span>
               </span>
@@ -113,7 +117,10 @@
 
         <mat-form-field>
           <mat-label>Username</mat-label>
-          <input matInput placeholder="Enter your username&hellip;" value="DavidSmith" />
+          <input
+            matInput
+            placeholder="Enter your username&hellip;"
+            value="DavidSmith" />
           <mat-icon matIconSuffix svgIcon="mat:person"></mat-icon>
         </mat-form-field>
 
@@ -130,7 +137,10 @@
 
         <mat-form-field>
           <mat-label>Birthdate</mat-label>
-          <input [matDatepicker]="datepickerRef" matInput placeholder="Enter or select your birthdate&hellip;" />
+          <input
+            [matDatepicker]="datepickerRef"
+            matInput
+            placeholder="Enter or select your birthdate&hellip;" />
           <mat-datepicker-toggle
             [for]="datepickerRef"
             matIconSuffix></mat-datepicker-toggle>
@@ -173,7 +183,9 @@
         <mat-form-field>
           <span matTextPrefix>https:// &nbsp;</span>
           <mat-label>Prefix + Suffix</mat-label>
-          <input matInput placeholder="This input has a prefix and a suffix icon&hellip;" />
+          <input
+            matInput
+            placeholder="This input has a prefix and a suffix icon&hellip;" />
           <mat-icon matIconSuffix svgIcon="mat:camera"></mat-icon>
         </mat-form-field>
       </div>
@@ -197,21 +209,25 @@
 
         <mat-form-field>
           <mat-label>Domain Name</mat-label>
-          <input #hintLabelInputRef matInput placeholder="Enter your domain name&hellip;" />
+          <input
+            #hintLabelInputRef
+            matInput
+            placeholder="Enter your domain name&hellip;" />
           <mat-hint align="end"
-          >http://{{ hintLabelInputRef.value || "company" }}.example.com
+            >http://{{ hintLabelInputRef.value || "company" }}.example.com
           </mat-hint>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Dynamic Hint Label</mat-label>
-          <input #hintLabelInputLengthRef
-                 matInput
-                 maxlength="10"
-                 placeholder="This text is limited to 10 letters&hellip;" />
+          <input
+            #hintLabelInputLengthRef
+            matInput
+            maxlength="10"
+            placeholder="This text is limited to 10 letters&hellip;" />
           <mat-hint align="start">Try to type in more than 10 letters</mat-hint>
           <mat-hint align="end"
-          >{{ hintLabelInputLengthRef.value.length }}/10
+            >{{ hintLabelInputLengthRef.value.length }}/10
           </mat-hint>
         </mat-form-field>
       </div>
@@ -243,7 +259,9 @@
 
         <mat-form-field [color]="selectCtrl.value" class="flex-none">
           <mat-label>Themeable Colors</mat-label>
-          <mat-select [formControl]="selectCtrl" placeholder="Select a color&hellip;">
+          <mat-select
+            [formControl]="selectCtrl"
+            placeholder="Select a color&hellip;">
             <mat-option value="primary">Primary Color</mat-option>
             <mat-option value="accent">Accent Color</mat-option>
             <mat-option value="warn">Warn Color</mat-option>
@@ -290,13 +308,13 @@
         </p>
 
         <mat-slider [max]="100" [min]="0" [step]="1"
-        ><input matSliderThumb value="36"
+          ><input matSliderThumb value="36"
         /></mat-slider>
         <mat-slider [max]="10" [min]="0" [step]="1" color="primary"
-        ><input matSliderThumb value="6"
+          ><input matSliderThumb value="6"
         /></mat-slider>
         <mat-slider [max]="10" [min]="0" [step]="1" color="warn"
-        ><input matSliderThumb value="7"
+          ><input matSliderThumb value="7"
         /></mat-slider>
       </div>
     </div>
@@ -317,19 +335,19 @@
         <div class="flex flex-col gap-4">
           <mat-radio-group class="flex gap-4">
             <mat-radio-button [checked]="true" value="Apples"
-            >Apples
+              >Apples
             </mat-radio-button>
             <mat-radio-button value="Peaches">Peaches</mat-radio-button>
           </mat-radio-group>
           <mat-radio-group class="flex gap-4" color="accent">
             <mat-radio-button [checked]="true" color="primary" value="primary"
-            >Primary Color
+              >Primary Color
             </mat-radio-button>
             <mat-radio-button color="accent" value="accent"
-            >Accent Color
+              >Accent Color
             </mat-radio-button>
             <mat-radio-button color="warn" value="warn"
-            >Warn Color
+              >Warn Color
             </mat-radio-button>
           </mat-radio-group>
         </div>
@@ -358,19 +376,19 @@
               [checked]="true"
               color="primary"
               labelPosition="before"
-            >Primary Color
+              >Primary Color
             </mat-slide-toggle>
             <mat-slide-toggle
               [checked]="true"
               color="accent"
               labelPosition="before"
-            >Accent Color
+              >Accent Color
             </mat-slide-toggle>
             <mat-slide-toggle
               [checked]="true"
               color="warn"
               labelPosition="before"
-            >Warn Color
+              >Warn Color
             </mat-slide-toggle>
           </div>
         </div>
@@ -409,10 +427,10 @@
 
         <div class="flex flex-col gap-2">
           <mat-checkbox [checked]="true" color="primary"
-          >Primary Color
+            >Primary Color
           </mat-checkbox>
           <mat-checkbox [checked]="true" color="accent"
-          >Accent Color
+            >Accent Color
           </mat-checkbox>
           <mat-checkbox [checked]="true" color="warn">Warn Color</mat-checkbox>
         </div>
