@@ -143,5 +143,18 @@
   "totalAmount": "Total amount",
   "credit": "Credit",
   "creditPer": "Credit per",
-  "creditDueDate": "Credit due date"
+  "creditDueDate": "Credit due date",
+  "hello": "Hello",
+  "quotationsCount": "Quotations",
+  "ordersCount": "Orders",
+  "invoicesCount": "Invoices",
+  "purchaseOrdersCount": "Purchase Orders",
+  "unPaidOrdersCount": "Unpaid Orders",
+  "unInvoicedOrdersCount": "Uninvoiced Orders",
+  "invoicesChart": "Invoices Chart",
+  "uploadInvoicesChart": "Uploaded Invoices Chart",
+  "purchaseOrdersChart": "Purchase Orders Chart",
+  "porductsCount": "Products",
+  "leftAmount": "Remaining Amount",
+  "ordersAmount": "Orders Amount"
 }

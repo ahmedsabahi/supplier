@@ -1,8 +1,8 @@
 export interface DashboardModel {
   ordersAmount?: number;
-  porductsCount?: number;
   paidAmount?: number;
   leftAmount?: number;
+  porductsCount?: number;
   quotationsCount?: number;
   ordersCount?: number;
   unPaidOrdersCount?: number;

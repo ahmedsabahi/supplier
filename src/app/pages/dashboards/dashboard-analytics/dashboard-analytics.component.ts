@@ -82,9 +82,8 @@ export class DashboardAnalyticsComponent implements OnInit {
       (item) => [this.translate.instant(item.statusName!), item.count]
     );
     this.invoicesChart.options = {
-      title: this.translate.instant('allInvoices'),
       width: '100%',
-      height: 300,
+      height: 400,
       is3D: true,
       sliceVisibilityThreshold: 0,
       backgroundColor: 'transparent'
@@ -96,9 +95,8 @@ export class DashboardAnalyticsComponent implements OnInit {
       (item) => [this.translate.instant(item.statusName!), item.amount]
     );
     this.uploadInvoicesChart.options = {
-      title: this.translate.instant('allPayments'),
       width: '100%',
-      height: 300,
+      height: 400,
       is3D: true,
       sliceVisibilityThreshold: 0,
       backgroundColor: 'transparent'
@@ -110,9 +108,8 @@ export class DashboardAnalyticsComponent implements OnInit {
       (item) => [this.translate.instant(item.statusName!), item.count]
     );
     this.purchaseOrdersChart.options = {
-      title: this.translate.instant('allQuotations'),
       width: '100%',
-      height: 300,
+      height: 400,
       is3D: true,
       sliceVisibilityThreshold: 0,
       backgroundColor: 'transparent'

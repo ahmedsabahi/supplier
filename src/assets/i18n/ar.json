@@ -146,5 +146,18 @@
   "totalAmount": "المبلغ الإجمالي",
   "credit": "الائتمان",
   "creditPer": "نسبة الدفع الآجل",
-  "creditDueDate": "تاريخ استحقاق الائتمان"
+  "creditDueDate": "تاريخ استحقاق الائتمان",
+  "hello": "مرحبًا",
+  "quotationsCount": "عروض السعر",
+  "ordersCount": "الطلبات",
+  "invoicesCount": "الفواتير",
+  "purchaseOrdersCount": "طلبات الشراء",
+  "unPaidOrdersCount": "طلبات  غير المدفوعة",
+  "unInvoicedOrdersCount": "طلبات  غير المفوترة",
+  "invoicesChart": "رسم بياني للفواتير",
+  "uploadInvoicesChart": "رسم بياني للفواتير المرفوعة",
+  "purchaseOrdersChart": "رسم بياني لطلبات الشراء",
+  "porductsCount": "المنتجات",
+  "leftAmount": "المبلغ المتبقي",
+  "ordersAmount": "مبلغ الطلبات"
 }

@@ -6,73 +6,65 @@
 
 @if (dashboardModel) {
   <div
-    class="container p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    class="container p-6 grid grid-cols-1 sm:grid-cols-6 md:grid-cols-12 gap-4">
     <vex-widget-assistant
-      class="sm:col-span-4"
+      class="sm:col-span-6 md:col-span-12"
       [model]="dashboardModel"></vex-widget-assistant>
 
-    <div class="grid grid-cols-2 sm:col-span-2 gap-4">
-      <vex-widget-quick-value-center
-        icon="mat:group"
-        iconClass="text-primary-600 bg-primary-600/10"
-        label="ordersAmount"
-        value="{{
-          dashboardModel.ordersAmount
-        }}"></vex-widget-quick-value-center>
-      <vex-widget-quick-value-center
-        icon="mat:pageview"
-        iconClass="text-orange-600 bg-orange-600/10"
-        label="paidAmount"
-        value="{{ dashboardModel.paidAmount }}"></vex-widget-quick-value-center>
-      <vex-widget-quick-value-center
-        icon="mat:cloud_off"
-        iconClass="text-orange-600 bg-orange-600/10"
-        label="leftAmount"
-        value="{{ dashboardModel.leftAmount }}"></vex-widget-quick-value-center>
-      <vex-widget-quick-value-center
-        icon="mat:timer"
-        iconClass="text-warn-600 bg-warn-600/10"
-        label="porductsCount"
-        value="{{
-          dashboardModel.porductsCount
-        }}"></vex-widget-quick-value-center>
-    </div>
+    <vex-widget-quick-value-center
+      icon="mat:group"
+      class="sm:col-span-2 md:col-span-4"
+      iconClass="text-primary-600 bg-primary-600/10"
+      label="ordersAmount"
+      value="{{ dashboardModel.ordersAmount }}"></vex-widget-quick-value-center>
+    <vex-widget-quick-value-center
+      icon="mat:pageview"
+      class="sm:col-span-2 md:col-span-4"
+      iconClass="text-orange-600 bg-orange-600/10"
+      label="paidAmount"
+      value="{{ dashboardModel.paidAmount }}"></vex-widget-quick-value-center>
+    <vex-widget-quick-value-center
+      icon="mat:cloud_off"
+      class="sm:col-span-2 md:col-span-4"
+      iconClass="text-orange-600 bg-orange-600/10"
+      label="leftAmount"
+      value="{{ dashboardModel.leftAmount }}"></vex-widget-quick-value-center>
 
-    <div class="card h-full">
+    <div class="card h-full sm:col-span-6">
       <div class="flex-none border-b py-2 px-6 flex items-center">
         <h2 class="m-0 title flex-auto">{{ "invoicesChart" | translate }}</h2>
       </div>
 
-      <div class="flex-1 pt-3 pr-4">
-        <div class="sm:col-span-2" id="pie-chart">
+      <div class="flex-1 pt-3">
+        <div id="pie-chart">
           <google-chart [data]="invoicesChart"></google-chart>
         </div>
       </div>
     </div>
 
-    <div class="card h-full">
+    <div class="card h-full sm:col-span-6">
       <div class="flex-none border-b py-2 px-6 flex items-center">
         <h2 class="m-0 title flex-auto">
           {{ "uploadInvoicesChart" | translate }}
         </h2>
       </div>
 
-      <div class="flex-1 pt-3 pr-4">
-        <div class="sm:col-span-2" id="pie-chart">
+      <div class="flex-1 pt-3">
+        <div id="pie-chart">
           <google-chart [data]="uploadInvoicesChart"></google-chart>
         </div>
       </div>
     </div>
 
-    <div class="card h-full">
+    <div class="card h-full sm:col-span-6">
       <div class="flex-none border-b py-2 px-6 flex items-center">
         <h2 class="m-0 title flex-auto">
           {{ "purchaseOrdersChart" | translate }}
         </h2>
       </div>
 
-      <div class="flex-1 pt-3 pr-4">
-        <div class="sm:col-span-2" id="pie-chart">
+      <div class="flex-1 pt-3">
+        <div id="pie-chart">
           <google-chart [data]="purchaseOrdersChart"></google-chart>
         </div>
       </div>

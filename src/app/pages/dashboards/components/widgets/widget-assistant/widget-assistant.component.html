@@ -13,6 +13,24 @@
 
     <div class="mt-4 flex items-center">
       <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
+        {{ model.unPaidOrdersCount }}
+      </span>
+      <span class="body-2 cursor-pointer">
+        {{ "unPaidOrdersCount" | translate }}
+      </span>
+    </div>
+
+    <div class="mt-1 flex items-center">
+      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
+        {{ model.unInvoicedOrdersCount }}
+      </span>
+      <span class="body-2 cursor-pointer">
+        {{ "unInvoicedOrdersCount" | translate }}
+      </span>
+    </div>
+
+    <div class="mt-1 flex items-center">
+      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
         {{ model.quotationsCount }}
       </span>
       <span class="body-2 cursor-pointer">
@@ -31,19 +49,10 @@
 
     <div class="mt-1 flex items-center">
       <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
-        {{ model.unPaidOrdersCount }}
+        {{ model.porductsCount }}
       </span>
       <span class="body-2 cursor-pointer">
-        {{ "unPaidOrdersCount" | translate }}
-      </span>
-    </div>
-
-    <div class="mt-1 flex items-center">
-      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
-        {{ model.unInvoicedOrdersCount }}
-      </span>
-      <span class="body-2 cursor-pointer">
-        {{ "unInvoicedOrdersCount" | translate }}
+        {{ "porductsCount" | translate }}
       </span>
     </div>
   </div>
