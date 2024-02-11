@@ -170,7 +170,8 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   createContact() {
     this.dialog
       .open(ContactCreateUpdateComponent, {
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
+        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        width: '50%'
       })
       .afterClosed()
       .subscribe((contact: ContactModel) => {
@@ -198,7 +199,9 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   updateContact(contact: ContactModel) {
     this.dialog
       .open(ContactCreateUpdateComponent, {
-        data: contact
+        data: contact,
+        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        width: '50%'
       })
       .afterClosed()
       .subscribe((updatedContact: ContactModel) => {

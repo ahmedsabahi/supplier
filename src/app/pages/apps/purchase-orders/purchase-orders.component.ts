@@ -247,6 +247,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
     this.dialog
       .open(UploadInvoiceComponent, {
         data: model,
+        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%'
       })
       .afterClosed()

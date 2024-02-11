@@ -110,22 +110,22 @@
 
         <!-- Action Column -->
         <ng-container matColumnDef="actions">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
-          <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
-            <button
-              (click)="$event.stopPropagation()"
-              [matMenuTriggerData]="{ contact: row }"
-              [matMenuTriggerFor]="actionsMenu"
-              mat-icon-button
-              type="button">
-              <mat-icon svgIcon="mat:more_horiz"></mat-icon>
-            </button>
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let row" mat-cell>
+            <div class="flex">
+              <button
+                mat-icon-button
+                type="button"
+                (click)="updateContact(row)"
+                class="text-teal-600 bg-teal/10">
+                <mat-icon svgIcon="mat:edit"></mat-icon>
+              </button>
+            </div>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr
-          (click)="updateContact(row)"
           mat-row
           @fadeInUp
           class="hover:bg-hover transition duration-400 ease-out-swift"
@@ -139,16 +139,3 @@
     </div>
   </vex-page-layout-content>
 </vex-page-layout>
-
-<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
-  <ng-template let-contact="contact" matMenuContent>
-    <button (click)="updateContact(contact)" mat-menu-item>
-      <mat-icon svgIcon="mat:edit"></mat-icon>
-      <span>{{ "modify" | translate }}</span>
-    </button>
-    <!-- <button (click)="deleteCustomer(customer)" mat-menu-item>
-        <mat-icon svgIcon="mat:delete"></mat-icon>
-        <span>Delete</span>
-      </button> -->
-  </ng-template>
-</mat-menu>
