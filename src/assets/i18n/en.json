@@ -154,7 +154,7 @@
   "invoicesChart": "Invoices Chart",
   "uploadInvoicesChart": "Uploaded Invoices Chart",
   "purchaseOrdersChart": "Purchase Orders Chart",
-  "porductsCount": "Products",
+  "productsCount": "Products",
   "leftAmount": "Remaining Amount",
   "ordersAmount": "Orders Amount"
 }

@@ -157,7 +157,7 @@
   "invoicesChart": "رسم بياني للفواتير",
   "uploadInvoicesChart": "رسم بياني للفواتير المرفوعة",
   "purchaseOrdersChart": "رسم بياني لطلبات الشراء",
-  "porductsCount": "المنتجات",
+  "productsCount": "المنتجات",
   "leftAmount": "المبلغ المتبقي",
   "ordersAmount": "مبلغ الطلبات"
 }

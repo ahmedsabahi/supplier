@@ -68,10 +68,10 @@ export const appRoutes: VexRoutes = [
             path: 'social',
             loadChildren: () => import('./pages/apps/social/social.routes')
           },
-          {
-            path: 'contacts',
-            loadChildren: () => import('./pages/apps/contacts/contacts.routes')
-          },
+          // {
+          //   path: 'contacts',
+          //   loadChildren: () => import('./pages/apps/contacts/contacts.routes')
+          // },
           {
             path: 'calendar',
             loadComponent: () =>
@@ -102,16 +102,16 @@ export const appRoutes: VexRoutes = [
               toolbarShadowEnabled: false
             }
           },
-          // {
-          //   path: 'contacts',
-          //   loadComponent: () =>
-          //     import('./pages/apps/contacts/contacts.component').then(
-          //       (m) => m.ContactsComponent
-          //     ),
-          //   data: {
-          //     toolbarShadowEnabled: false
-          //   }
-          // },
+          {
+            path: 'contacts',
+            loadComponent: () =>
+              import('./pages/apps/contacts/contacts.component').then(
+                (m) => m.ContactsComponent
+              ),
+            data: {
+              toolbarShadowEnabled: false
+            }
+          },
           {
             path: 'bank-accounts',
             loadComponent: () =>
