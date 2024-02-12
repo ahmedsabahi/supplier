@@ -43,10 +43,10 @@ import {
   MatDialogRef
 } from '@angular/material/dialog';
 import { ProductPriceService } from '../product-price.service';
-import { DropDownModel } from '../../bank-accounts/bank-account.model';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { DropDownModel } from 'src/app/core/models/api-response.model';
 
 @Component({
   selector: 'vex-product-price-create-update',
@@ -61,7 +61,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSelectModule,
     MatOptionModule,
     NgIf,
-    ReactiveFormsModule,
     MatAutocompleteModule,
     NgFor,
     MatDatepickerModule,
@@ -172,7 +171,7 @@ export class ProductPriceCreateUpdateComponent implements OnInit {
     })
   );
 
-  displayFn(product: DropDownModel): string {
-    return product.textAr ?? product.textEn ?? 'No name';
+  displayFn(product?: DropDownModel): string {
+    return product?.textAr ?? product?.textEn ?? '';
   }
 }

@@ -22,9 +22,3 @@ export interface BankAccountSearch {
   page?: number;
   limit?: number;
 }
-
-export interface DropDownModel {
-  id?: string;
-  textEn?: string;
-  textAr?: string;
-}

@@ -156,5 +156,8 @@
   "purchaseOrdersChart": "Purchase Orders Chart",
   "productsCount": "Products",
   "leftAmount": "Remaining Amount",
-  "ordersAmount": "Orders Amount"
+  "ordersAmount": "Orders Amount",
+  "updateQuotation": "Update quotation",
+  "createProduct": "Create product",
+  "updateProduct": "Update product"
 }

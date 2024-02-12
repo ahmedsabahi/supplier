@@ -36,3 +36,9 @@ export interface FileModel {
   fileContent?: string;
   size?: number;
 }
+
+export interface DropDownModel {
+  id?: string;
+  textEn?: string;
+  textAr?: string;
+}

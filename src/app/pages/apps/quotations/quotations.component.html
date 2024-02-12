@@ -132,6 +132,10 @@
               <button
                 mat-icon-button
                 type="button"
+                [routerLink]="[
+                  '/apps/quotations/update/' + row.supplierQuotationID
+                ]"
+                routerLinkActive="quotations"
                 class="text-teal-600 bg-teal/10">
                 <mat-icon svgIcon="mat:edit"></mat-icon>
               </button>

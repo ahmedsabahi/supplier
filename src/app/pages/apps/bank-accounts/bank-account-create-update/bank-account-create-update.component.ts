@@ -15,13 +15,16 @@ import { CommonModule, NgIf } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { BankAccountModel, DropDownModel } from '../bank-account.model';
+import { BankAccountModel } from '../bank-account.model';
 import { MatSelectModule } from '@angular/material/select';
 import { BankAccountService } from '../bank-account.service';
 import { scaleIn400ms } from '@vex/animations/scale-in.animation';
 import { fadeInRight400ms } from '@vex/animations/fade-in-right.animation';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { FileModel } from 'src/app/core/models/api-response.model';
+import {
+  DropDownModel,
+  FileModel
+} from 'src/app/core/models/api-response.model';
 
 @Component({
   selector: 'vex-bank-account-create-update',
