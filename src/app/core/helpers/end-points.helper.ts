@@ -23,6 +23,7 @@ export class EndPoints {
 
   /* ------ Lookups -------*/
   static banks = '/Shared/Lookups/BanksList'; //get
+  static units = '/Shared/Lookups/UnitsList'; //get
   static products = '/Shared/Lookups/ProductsList'; //get
 
   /* ------ purchaseOrder -------*/
@@ -31,7 +32,9 @@ export class EndPoints {
   static uploadInvoice = '/Vendor/purchaseOrders/UploadInvoice'; //post
 
   /* ------ quotation -------*/
-  static quotations = '/Vendor/Quotations'; //get
+  static quotations = '/Vendor/Quotations'; //get, put
+  static submitQuotation = '/Vendor/Quotations/Submit'; //post
+  static isThereLowerPrice = '/Vendor/Quotations/IsThereLowerPrice'; //put
 
   /* ------ dashboard -------*/
   static dashboard = '/Vendor/dahboard'; //get

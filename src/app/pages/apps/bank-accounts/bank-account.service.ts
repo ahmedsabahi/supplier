@@ -3,14 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   BaseResponse,
+  DropDownModel,
   ResultResponse
 } from 'src/app/core/models/api-response.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
-import {
-  BankAccountModel,
-  BankAccountSearch,
-  DropDownModel
-} from './bank-account.model';
+import { BankAccountModel, BankAccountSearch } from './bank-account.model';
 
 @Injectable({
   providedIn: 'root'

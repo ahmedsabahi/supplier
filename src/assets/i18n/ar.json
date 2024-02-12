@@ -159,5 +159,8 @@
   "purchaseOrdersChart": "رسم بياني لطلبات الشراء",
   "productsCount": "المنتجات",
   "leftAmount": "المبلغ المتبقي",
-  "ordersAmount": "مبلغ الطلبات"
+  "ordersAmount": "مبلغ الطلبات",
+  "updateQuotation": "تحديث عرض السعر",
+  "createProduct": "إنشاء منتج",
+  "updateProduct": "تحديث المنتج"
 }

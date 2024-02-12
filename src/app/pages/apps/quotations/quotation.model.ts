@@ -26,10 +26,10 @@ export interface QuotationModel {
   fileName?: string;
   fileContentType?: string;
   fileContent?: string;
-  items?: Item[];
+  items?: ItemModel[];
 }
 
-export interface Item {
+export interface ItemModel {
   supplierQuotationDetailID?: string;
   supplierQuotationID?: string;
   supplierID?: string;

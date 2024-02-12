@@ -50,6 +50,7 @@ import {
 import { QuotationModel, QuotationSearch } from './quotation.model';
 import { QuotationService } from './quotation.service';
 import { QuotationStatus } from 'src/app/core/constants/enums';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'vex-quotations',
   standalone: true,
@@ -78,6 +79,7 @@ import { QuotationStatus } from 'src/app/core/constants/enums';
     MatSnackBarModule,
     TranslateModule,
     CommonModule,
+    RouterModule,
     MatProgressSpinnerModule
   ],
   templateUrl: './quotations.component.html',

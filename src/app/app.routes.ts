@@ -68,10 +68,7 @@ export const appRoutes: VexRoutes = [
             path: 'social',
             loadChildren: () => import('./pages/apps/social/social.routes')
           },
-          // {
-          //   path: 'contacts',
-          //   loadChildren: () => import('./pages/apps/contacts/contacts.routes')
-          // },
+
           {
             path: 'calendar',
             loadComponent: () =>
@@ -102,6 +99,10 @@ export const appRoutes: VexRoutes = [
               toolbarShadowEnabled: false
             }
           },
+          // {
+          //   path: 'contacts',
+          //   loadChildren: () => import('./pages/apps/contacts/contacts.routes')
+          // },
           {
             path: 'contacts',
             loadComponent: () =>
@@ -124,13 +125,8 @@ export const appRoutes: VexRoutes = [
           },
           {
             path: 'quotations',
-            loadComponent: () =>
-              import('./pages/apps/quotations/quotations.component').then(
-                (m) => m.QuotationsComponent
-              ),
-            data: {
-              toolbarShadowEnabled: false
-            }
+            loadChildren: () =>
+              import('./pages/apps/quotations/quotation.routes')
           },
           {
             path: 'purchase-orders',

@@ -72,7 +72,9 @@
       <mat-label>{{ "bankName" | translate }}</mat-label>
       <mat-select formControlName="bankID" required>
         @for (bank of banks; track bank) {
-          <mat-option [value]="bank.id">{{ bank.textAr }}</mat-option>
+          <mat-option [value]="bank.id">
+            {{ bank.textAr ?? bank.textEn }}
+          </mat-option>
         }
       </mat-select>
       @if (form.controls["bankID"].hasError("required")) {

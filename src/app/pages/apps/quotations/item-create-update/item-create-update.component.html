@@ -1,7 +1,11 @@
 <form (ngSubmit)="save()" [formGroup]="form">
   <div class="flex items-center" mat-dialog-title>
     <h2 class="headline m-0 flex-auto">
-      {{ "createProductPrice" | translate }}
+      {{
+        isCreateMode()
+          ? ("createProduct" | translate)
+          : ("updateProduct" | translate)
+      }}
     </h2>
 
     <button
@@ -43,10 +47,24 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "skuNumber" | translate }}</mat-label>
-      <input formControlName="skuNumber" matInput required />
-      <mat-error *ngIf="form.controls['skuNumber'].hasError('required')">
-        {{ "requiredSkuNumber" | translate }}
+      <mat-label>{{ "unit" | translate }}</mat-label>
+      <mat-select formControlName="unitID" required>
+        @for (unit of units; track unit) {
+          <mat-option [value]="unit.id">
+            {{ unit.textAr ?? unit.textEn }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (form.controls["unitID"].hasError("required")) {
+        <mat-error> {{ "requiredUnitName" | translate }} </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ "quantity" | translate }}</mat-label>
+      <input formControlName="qty" matInput required />
+      <mat-error *ngIf="form.controls['qty'].hasError('required')">
+        {{ "requiredQuantity" | translate }}
       </mat-error>
     </mat-form-field>
 
@@ -58,29 +76,9 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>{{ "expiryDate" | translate }}</mat-label>
-      <input
-        [matDatepicker]="datepickerRef"
-        formControlName="expiryDate"
-        matInput
-        placeholder="{{ 'enterOrSelectYourExpiryDate' | translate }}&hellip;" />
-      <mat-datepicker-toggle [for]="datepickerRef" matIconSuffix>
-      </mat-datepicker-toggle>
-      <mat-datepicker #datepickerRef></mat-datepicker>
-      <mat-error *ngIf="form.controls['expiryDate'].hasError('required')">
-        {{ "requiredExpiryDate" | translate }}
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>{{ "description" | translate }}</mat-label>
-      <textarea formControlName="description" matInput></textarea>
-    </mat-form-field>
-
     <div class="flex flex-col">
-      <mat-slide-toggle formControlName="isFixedPrice" color="primary">
-        {{ "isFixedPrice" | translate }}
+      <mat-slide-toggle formControlName="isVATExcluded" color="primary">
+        {{ "isVATExcluded" | translate }}
       </mat-slide-toggle>
     </div>
   </mat-dialog-content>
