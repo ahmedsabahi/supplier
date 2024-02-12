@@ -26,6 +26,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AuthInterceptorService } from './core/services/auth-interceptor.service';
 import { LoggingInterceptorService } from './core/services/logging-interceptor.service';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -39,6 +40,7 @@ export const appConfig: ApplicationConfig = {
       MatBottomSheetModule,
       MatNativeDateModule,
       HttpClientModule,
+      SweetAlert2Module.forRoot(),
       TranslateModule.forRoot({
         defaultLanguage: 'en',
         loader: {

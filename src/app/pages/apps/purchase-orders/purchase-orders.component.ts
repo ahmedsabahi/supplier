@@ -8,22 +8,16 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import {
-  MatPaginator,
-  MatPaginatorModule,
-  PageEvent
-} from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
 import {
   FormControl,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule,
-  UntypedFormControl
+  ReactiveFormsModule
 } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
@@ -41,7 +35,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { combineLatest, merge, Observable, of as observableOf, of } from 'rxjs';
+import { merge, of as observableOf } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -178,7 +172,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
           if (form.amountFrom) search.amountFrom = Number(form.amountFrom);
           if (form.amountTo) search.amountTo = Number(form.amountTo);
           if (form.invoiceStatus) search.invoiceStatus = form.invoiceStatus!;
-          if (form.status) search.status = form.status!;
+          if (form.status !== null) search.status = form.status!;
 
           return this.purchaseOrderService
             .purchaseOrders(search)

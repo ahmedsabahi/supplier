@@ -101,15 +101,6 @@
           class="bg-app-bar px-6 h-16 border-b sticky left-0 flex items-center">
           <h1 class="title mt-0 mb-1">{{ "products" | translate }}</h1>
           <span class="flex-1"></span>
-          <button
-            (click)="createProduct()"
-            class="ml-4 flex-none"
-            color="primary"
-            mat-mini-fab
-            [matTooltip]="'createProduct' | translate"
-            type="button">
-            <mat-icon svgIcon="mat:add"></mat-icon>
-          </button>
         </div>
 
         <table
@@ -172,13 +163,6 @@
                   (click)="updateProduct(row)"
                   class="text-teal-600 bg-teal/10">
                   <mat-icon svgIcon="mat:edit"></mat-icon>
-                </button>
-                <button
-                  type="button"
-                  mat-icon-button
-                  (click)="deleteProduct(row)"
-                  class="text-warn-600 bg-warn/10">
-                  <mat-icon svgIcon="mat:delete"></mat-icon>
                 </button>
               </div>
             </td>
@@ -261,7 +245,7 @@
             {{ "update" | translate }}
           </button>
           <button
-            color="warm"
+            color="warn"
             (click)="location.back()"
             mat-button
             type="button">

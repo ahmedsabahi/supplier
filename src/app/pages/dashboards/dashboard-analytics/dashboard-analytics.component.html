@@ -4,6 +4,12 @@
     class="flex-auto"></vex-breadcrumbs>
 </vex-secondary-toolbar>
 
+@if (!dashboardModel) {
+  <div class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
 @if (dashboardModel) {
   <div
     class="container p-6 grid grid-cols-1 sm:grid-cols-6 md:grid-cols-12 gap-4">

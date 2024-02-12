@@ -159,5 +159,12 @@
   "ordersAmount": "Orders Amount",
   "updateQuotation": "Update quotation",
   "createProduct": "Create product",
-  "updateProduct": "Update product"
+  "updateProduct": "Update product",
+  "supplierNotes": "Supplier notes",
+  "deliveryFees": "Delivery fees",
+  "itemsTotal": "Items total",
+  "yes": "Yes",
+  "areYouSureYouWantToContinue": "Are you sure you want to continue?",
+  "thereIsLowerPriceForSomeItems": "There is a lower price for some items",
+  "pleaseAttachFile": "Please attach file"
 }

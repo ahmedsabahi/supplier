@@ -162,5 +162,12 @@
   "ordersAmount": "مبلغ الطلبات",
   "updateQuotation": "تحديث عرض السعر",
   "createProduct": "إنشاء منتج",
-  "updateProduct": "تحديث المنتج"
+  "updateProduct": "تحديث المنتج",
+  "supplierNotes": "ملاحظات المورد",
+  "deliveryFees": "رسوم التوصيل",
+  "itemsTotal": "إجمالي المنتجات",
+  "yes": "نعم",
+  "areYouSureYouWantToContinue": "هل أنت متأكد أنك تريد المتابعة؟",
+  "thereIsLowerPriceForSomeItems": "هناك سعر أقل لبعض العناصر",
+  "pleaseAttachFile": "يرجى إرفاق الملف"
 }

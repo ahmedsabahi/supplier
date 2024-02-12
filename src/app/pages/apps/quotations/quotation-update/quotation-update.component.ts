@@ -7,7 +7,7 @@ import {
   NgIf,
   formatDate
 } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,7 +35,6 @@ import { fadeInRight400ms } from '@vex/animations/fade-in-right.animation';
 import { scaleIn400ms } from '@vex/animations/scale-in.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
 import { FileModel } from 'src/app/core/models/api-response.model';
-import { ProductPriceService } from '../../products-prices/product-price.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -43,6 +42,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ItemCreateUpdateComponent } from '../item-create-update/item-create-update.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'vex-quotation-update',
@@ -79,6 +80,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatFormFieldModule,
     MatDialogModule,
     CommonModule,
+    SweetAlert2Module,
     MatDividerModule
   ],
   templateUrl: './quotation-update.component.html',
@@ -117,12 +119,9 @@ export class QuotationUpdateComponent implements OnInit {
   constructor(
     public location: Location,
     private quotationService: QuotationService,
-    private productPriceService: ProductPriceService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef,
-
     private translate: TranslateService,
     private snackbar: MatSnackBar
   ) {}
@@ -216,36 +215,6 @@ export class QuotationUpdateComponent implements OnInit {
     });
   }
 
-  createProduct() {
-    this.dialog
-      .open(ItemCreateUpdateComponent, {
-        width: '50%',
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
-      })
-      .afterClosed()
-      .subscribe((item: ItemModel) => {
-        if (item) {
-          let modifyItem: ItemModel = {
-            supplierQuotationDetailID: crypto.randomUUID(),
-            supplierQuotationID: this.quotation?.supplierQuotationID,
-            supplierID: this.quotation?.supplierID,
-            productID: item.productID,
-            productName: item.productName,
-            item: item.productName,
-            unitID: item.unitID,
-            unitName: item.unitName,
-            qty: item.qty,
-            price: item.price,
-            isVATExcluded: item.isVATExcluded
-          };
-          this.quotation?.items?.unshift(modifyItem);
-          this.form.value.items?.push(modifyItem);
-          this.dataSource.data = this.quotation?.items!;
-          this.updateTotal();
-        }
-      });
-  }
-
   updateProduct(model: ItemModel) {
     this.dialog
       .open(ItemCreateUpdateComponent, {
@@ -267,24 +236,6 @@ export class QuotationUpdateComponent implements OnInit {
           this.updateTotal();
         }
       });
-  }
-
-  deleteProduct(model: ItemModel) {
-    if (this.quotation?.items?.length === 1) {
-      this.snackbar.open('Quotation must have at least one item', 'ok');
-      return;
-    }
-    const index = this.quotation?.items?.findIndex(
-      (existingItem) =>
-        existingItem.supplierQuotationDetailID ===
-        model.supplierQuotationDetailID
-    );
-    this.quotation?.items?.splice(index!, 1);
-    this.form.patchValue({
-      items: this.quotation?.items
-    });
-    this.dataSource.data = this.quotation?.items!;
-    this.updateTotal();
   }
 
   updateTotal() {
@@ -328,6 +279,14 @@ export class QuotationUpdateComponent implements OnInit {
   }
 
   submit() {
+    if (!this.quotation!.fileContent) {
+      Swal.fire({
+        icon: 'error',
+        title: this.translate.instant('pleaseAttachFile')
+      });
+      return;
+    }
+
     this.quotationService.submit(this.quotation!).subscribe((res) => {
       if (res.status === 1) {
         this.snackbar.open(
@@ -345,9 +304,24 @@ export class QuotationUpdateComponent implements OnInit {
     this.quotationService
       .isThereLowerPrice(this.quotation!)
       .subscribe((res) => {
-        // if (res.status === 1) {
-        isSubmit ? this.submit() : this.update();
-        // }
+        if (res.status === 1) {
+          isSubmit ? this.submit() : this.update();
+        } else {
+          Swal.fire({
+            icon: 'warning',
+            title: this.translate.instant('areYouSureYouWantToContinue'),
+            text:
+              res.messageAr ??
+              res.messageEn ??
+              this.translate.instant('thereIsLowerPriceForSomeItems'),
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant('yes')
+          }).then((result) => {
+            if (result.isConfirmed) {
+              isSubmit ? this.submit() : this.update();
+            }
+          });
+        }
       });
   }
 }

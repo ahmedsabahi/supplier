@@ -24,6 +24,7 @@ import {
   GoogleChartType,
   Ng2GoogleChartsModule
 } from 'ng2-google-charts';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'vex-dashboard-analytics',
@@ -42,7 +43,8 @@ import {
     WidgetLargeChartComponent,
     TranslateModule,
     Ng2GoogleChartsModule,
-    WidgetTableComponent
+    WidgetTableComponent,
+    MatProgressSpinnerModule
   ]
 })
 export class DashboardAnalyticsComponent implements OnInit {
