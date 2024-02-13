@@ -11,16 +11,42 @@
       You've finished all of your tasks for this week.
     </p> -->
 
-    <table class="mt-6 rtl:text-left ltr:text-right">
+
+    @if (model.quotationsCount!>0){
+    <div class="mt-4 flex items-center">
+      <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+      <span class="body-2 cursor-pointer"> You have  {{ model.quotationsCount }} requests to Quote</span>
+    </div>
+  }  
+  @if (model.quotationsCount!<=0){
+    <div class="mt-4 flex items-center">
+      <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+      <span class="body-2 cursor-pointer"> You have quoted all requests</span>
+    </div>
+  }
+
+  @if (model.unInvoicedOrdersCount!>0){
+    <div class="mt-4 flex items-center">
+      <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+      <span class="body-2 cursor-pointer"> You need to invoice  {{ model.unInvoicedOrdersCount }} purchase orders to be invoiced</span>
+    </div>
+  }  
+  @if (model.unInvoicedOrdersCount!<=0){
+    <div class="mt-4 flex items-center">
+      <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+      <span class="body-2 cursor-pointer"> You have invoiced all purchase orders.</span>
+    </div>
+  }
+
+  @if (model.unPaidOrdersCount!>=0){
+    <div class="mt-4 flex items-center">
+      <mat-icon class="mr-2" svgIcon="mat:check_circle"></mat-icon>
+      <span class="body-2 cursor-pointer"> You have {{model.unPaidOrdersCount}} unpaid purchase orders.</span>
+    </div>
+  }
+    <!-- <table class="mt-6 rtl:text-left ltr:text-right">
       <tbody>
-        <tr>
-          <td class="body-2">
-            {{ "quotationsCount" | translate }}
-          </td>
-          <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
-            {{ model.quotationsCount }}
-          </td>
-        </tr>
+ 
         <tr>
           <td class="body-2">
             {{ "ordersCount" | translate }}
@@ -29,14 +55,7 @@
             {{ model.ordersCount }}
           </td>
         </tr>
-        <tr>
-          <td class="body-2">
-            {{ "productsCount" | translate }}
-          </td>
-          <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
-            {{ model.porductsCount }}
-          </td>
-        </tr>
+         
         <tr>
           <td class="body-2">
             {{ "unInvoicedOrdersCount" | translate }}
@@ -54,6 +73,6 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </div>
