@@ -243,7 +243,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
     this.dialog
       .open(UploadInvoiceComponent, {
         data: model,
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        direction: this.translate.defaultLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%'
       })
       .afterClosed()
@@ -253,7 +253,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
+                  (this.translate.defaultLang === 'ar'
                     ? res.messageAr
                     : res.messageEn) ?? '',
                   'ok'

@@ -158,6 +158,7 @@ export class ToolbarComponent implements OnInit {
     );
     if (selectedLanguage) {
       this.siteLanguage = selectedLanguage;
+      this.translateService.setDefaultLang(localeCode);
       this.translateService.use(localeCode);
       localStorage.setItem('selectedLanguage', localeCode);
       this.layoutRTLChange(localeCode);
@@ -166,7 +167,7 @@ export class ToolbarComponent implements OnInit {
       // localStorage.setItem('layout_type', localeCode == 'ar' ? 'rtl' : 'ltr');
     }
     const currentLanguage = this.translateService.currentLang;
-    console.log('currentLanguage', currentLanguage);
+    console.log('currentLanguage', localStorage.getItem('selectedLanguage'));
   }
 
   layoutRTLChange(localeCode: string): void {

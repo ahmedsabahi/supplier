@@ -53,7 +53,7 @@ export class ForgotPasswordComponent {
         this.isLoading = false;
         if (res.status === 1) this.router.navigate(['/login']);
         this.snackbar.open(
-          (this.translate.currentLang === 'ar'
+          (this.translate.defaultLang === 'ar'
             ? res.messageAr
             : res.messageEn) ?? '',
           'ok'

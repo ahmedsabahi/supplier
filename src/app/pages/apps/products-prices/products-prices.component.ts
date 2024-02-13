@@ -170,7 +170,7 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
     this.dialog
       .open(ProductPriceCreateUpdateComponent, {
         width: '50%',
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
+        direction: this.translate.defaultLang === 'ar' ? 'rtl' : 'ltr'
       })
       .afterClosed()
       .subscribe((productPrice: ProductPriceModel) => {
@@ -179,7 +179,7 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
+                  (this.translate.defaultLang === 'ar'
                     ? res.messageAr
                     : res.messageEn) ?? '',
                   'ok'

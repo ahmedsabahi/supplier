@@ -184,7 +184,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
   createBankAccount() {
     this.dialog
       .open(BankAccountCreateUpdateComponent, {
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        direction: this.translate.defaultLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%'
       })
       .afterClosed()
@@ -194,7 +194,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
+                  (this.translate.defaultLang === 'ar'
                     ? res.messageAr
                     : res.messageEn) ?? '',
                   'ok'
@@ -210,7 +210,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
   updateBankAccount(bankAccount: BankAccountModel) {
     this.dialog
       .open(BankAccountCreateUpdateComponent, {
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        direction: this.translate.defaultLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%',
         data: bankAccount
       })
@@ -221,7 +221,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
+                  (this.translate.defaultLang === 'ar'
                     ? res.messageAr
                     : res.messageEn) ?? '',
                   'ok'

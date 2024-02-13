@@ -131,14 +131,12 @@ export class ItemCreateUpdateComponent implements OnInit {
     supplierQuotationID: [this.defaults?.supplierQuotationID],
     supplierID: [this.defaults?.supplierID],
     item: [this.defaults?.item],
-    productID: [this.defaults?.productID || '', Validators.required],
+    productID: [this.defaults?.productID, Validators.required],
     productName: [this.defaults?.productName],
-    unitID: [
-      { value: this.defaults?.unitID || false, disabled: this.isUpdateMode() }
-    ],
+    unitID: [{ value: this.defaults?.unitID, disabled: this.isUpdateMode() }],
     unitName: [this.defaults?.unitName],
     qty: [
-      { value: this.defaults?.qty || false, disabled: this.isUpdateMode() },
+      { value: this.defaults?.qty, disabled: this.isUpdateMode() },
       Validators.required
     ],
     price: [this.defaults?.price, Validators.required],
@@ -193,8 +191,9 @@ export class ItemCreateUpdateComponent implements OnInit {
     const product = this.form.value;
     product.productID = this.productCtrl.value?.id;
     product.productName = this.productCtrl.value?.textAr;
-    product.unitID = this.units?.find((u) => u.id === product.unitID)?.id;
-    product.unitName = this.units?.find((u) => u.id === product.unitID)?.textAr;
+    let unit = this.units?.find((u) => u.id === product.unitID);
+    product.unitID = unit?.id;
+    product.unitName = unit?.textAr;
     product.price = Number(product.price);
     product.qty = Number(product.qty);
 
@@ -202,19 +201,13 @@ export class ItemCreateUpdateComponent implements OnInit {
   }
 
   updateProduct() {
-    const product = this.form.value;
-    product.productID = this.productCtrl.value?.id;
-    product.productName = this.productCtrl.value?.textAr;
-    product.unitID = this.units?.find((u) => u.id === product.unitID)?.id;
-    product.unitName = this.units?.find((u) => u.id === product.unitID)?.textAr;
-    product.price = Number(product.price);
-    product.qty = Number(product.qty);
+    this.defaults!.price! = Number(this.form.value.price)!;
 
     if (!this.defaults) {
       throw new Error(
         'Product ID does not exist, this product cannot be updated'
       );
     }
-    this.dialogRef.close(product);
+    this.dialogRef.close(this.defaults);
   }
 }

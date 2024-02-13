@@ -161,7 +161,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   createUser() {
     this.dialog
       .open(UserCreateUpdateComponent, {
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        direction: this.translate.defaultLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%'
       })
       .afterClosed()
@@ -171,7 +171,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
+                  (this.translate.defaultLang === 'ar'
                     ? res.messageAr
                     : res.messageEn) ?? '',
                   'ok'
@@ -188,7 +188,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.dialog
       .open(UserCreateUpdateComponent, {
         data: user,
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
+        direction: this.translate.defaultLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%'
       })
       .afterClosed()
@@ -198,7 +198,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
-                  (this.translate.currentLang === 'ar'
+                  (this.translate.defaultLang === 'ar'
                     ? res.messageAr
                     : res.messageEn) ?? '',
                   'ok'

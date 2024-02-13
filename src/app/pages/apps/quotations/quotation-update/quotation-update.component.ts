@@ -228,7 +228,7 @@ export class QuotationUpdateComponent implements OnInit {
       .open(ItemCreateUpdateComponent, {
         width: '50%',
         data: model,
-        direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr'
+        direction: this.translate.defaultLang === 'ar' ? 'rtl' : 'ltr'
       })
       .afterClosed()
       .subscribe((item: ItemModel) => {
@@ -276,7 +276,7 @@ export class QuotationUpdateComponent implements OnInit {
     this.quotationService.update(this.quotation!).subscribe((res) => {
       if (res.status === 1) {
         this.snackbar.open(
-          (this.translate.currentLang === 'ar'
+          (this.translate.defaultLang === 'ar'
             ? res.messageAr
             : res.messageEn) ?? '',
           'ok'
@@ -298,7 +298,7 @@ export class QuotationUpdateComponent implements OnInit {
     this.quotationService.submit(this.quotation!).subscribe((res) => {
       if (res.status === 1) {
         this.snackbar.open(
-          (this.translate.currentLang === 'ar'
+          (this.translate.defaultLang === 'ar'
             ? res.messageAr
             : res.messageEn) ?? '',
           'ok'
