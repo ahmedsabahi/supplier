@@ -183,5 +183,8 @@
   "back": "Back",
   "createdByName": "Created by name",
   "createdByEmail": "Created by email",
-  "createdByMobile": "Created by mobile"
+  "createdByMobile": "Created by mobile",
+  "exportPurchaseOrders": "Export purchase orders",
+  "False": "No",
+  "True": "Yes"
 }

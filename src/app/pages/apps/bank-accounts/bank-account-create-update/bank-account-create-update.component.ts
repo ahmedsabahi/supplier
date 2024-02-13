@@ -124,7 +124,7 @@ export class BankAccountCreateUpdateComponent implements OnInit {
         'Bank Account ID does not exist, this bank account cannot be updated'
       );
     }
-
+    console.log(bA);
     if (bA.supplierAccountID)
       this.defaults.supplierAccountID = bA.supplierAccountID!;
     if (bA.bankID) this.defaults.bankID = bA.bankID!;
@@ -132,7 +132,7 @@ export class BankAccountCreateUpdateComponent implements OnInit {
     if (bA.accountNo) this.defaults.accountNo = bA.accountNo!;
     if (bA.iban) this.defaults.iban = bA.iban!;
     if (bA.branch) this.defaults.branch = bA.branch!;
-    if (bA.isDefault) this.defaults.isDefault = bA.isDefault!;
+    this.defaults.isDefault = bA.isDefault!;
     if (bA.fileName) this.defaults.fileName = bA.fileName!;
     if (bA.fileContentType) this.defaults.fileContentType = bA.fileContentType!;
     if (bA.fileContent) this.defaults.fileContent = bA.fileContent!;

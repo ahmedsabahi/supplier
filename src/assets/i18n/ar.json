@@ -186,5 +186,8 @@
   "back": "رجوع",
   "createdByName": "تم الإنشاء بواسطة",
   "createdByEmail": "تم الإنشاء بواسطة البريد الإلكتروني",
-  "createdByMobile": "تم الإنشاء بواسطة الجوال"
+  "createdByMobile": "تم الإنشاء بواسطة الجوال",
+  "exportPurchaseOrders": "تصدير طلبات الشراء",
+  "False": "لا",
+  "True": "نعم"
 }

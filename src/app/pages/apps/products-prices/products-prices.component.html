@@ -82,7 +82,9 @@
             {{ "isFixedPrice" | translate }}
           </th>
           <td mat-cell *matCellDef="let row">
-            {{ row.isFixedPrice | translate }}
+            {{
+              row.isFixedPrice ? ("true" | translate) : ("false" | translate)
+            }}
           </td>
         </ng-container>
 

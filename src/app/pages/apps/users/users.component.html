@@ -104,7 +104,7 @@
             mat-cell
             *matCellDef="let row"
             [ngClass]="['text-secondary', 'font-medium']">
-            {{ row.isActive }}
+            {{ row.isActive ? ("true" | translate) : ("false" | translate) }}
           </td>
         </ng-container>
 
