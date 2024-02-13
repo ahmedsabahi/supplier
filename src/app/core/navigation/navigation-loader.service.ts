@@ -22,11 +22,11 @@ export class NavigationLoaderService {
     this._items.next([
       {
         type: 'subheading',
-        label: 'Dashboards',
+        label: 'dashboards',
         children: [
           {
             type: 'link',
-            label: 'Analytics',
+            label: 'analytics',
             route: '/',
             icon: 'mat:insights',
             routerLinkActiveOptions: { exact: true }
@@ -36,7 +36,7 @@ export class NavigationLoaderService {
 
       {
         type: 'subheading',
-        label: 'App',
+        label: 'app',
         children: [
           {
             type: 'link',
@@ -66,7 +66,7 @@ export class NavigationLoaderService {
       },
       {
         type: 'subheading',
-        label: 'Settings',
+        label: 'settings',
         children: [
           {
             type: 'link',
@@ -84,11 +84,11 @@ export class NavigationLoaderService {
       },
       {
         type: 'subheading',
-        label: 'Help',
+        label: 'help',
         children: [
           {
             type: 'link',
-            label: 'Guides',
+            label: 'guides',
             route: '/apps/help-center/guides',
             icon: 'mat:help'
           },
@@ -100,21 +100,15 @@ export class NavigationLoaderService {
           },
           {
             type: 'link',
-            label: 'Changelog',
+            label: 'changelog',
             route: '/documentation/changelog',
             icon: 'mat:update'
           }
         ]
       },
-
-      {
-        type: 'subheading',
-        label: 'Customize',
-        children: []
-      },
       {
         type: 'link',
-        label: 'Configuration',
+        label: 'configuration',
         route: () => this.layoutService.openConfigpanel(),
         icon: 'mat:settings'
       }

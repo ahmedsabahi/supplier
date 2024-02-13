@@ -124,7 +124,6 @@ export class BankAccountCreateUpdateComponent implements OnInit {
         'Bank Account ID does not exist, this bank account cannot be updated'
       );
     }
-    console.log(bA);
     if (bA.supplierAccountID)
       this.defaults.supplierAccountID = bA.supplierAccountID!;
     if (bA.bankID) this.defaults.bankID = bA.bankID!;
