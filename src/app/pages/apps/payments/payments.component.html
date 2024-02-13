@@ -36,6 +36,14 @@
         </mat-form-field>
 
         <span class="flex-1"></span>
+        <button
+          (click)="exportExcel()"
+          color="primary"
+          mat-mini-fab
+          [matTooltip]="'exportPayments' | translate"
+          type="button">
+          <mat-icon svgIcon="mat:cloud_download"></mat-icon>
+        </button>
       </div>
 
       <table @stagger [dataSource]="payments" class="w-full" mat-table matSort>

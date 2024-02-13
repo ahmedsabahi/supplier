@@ -57,6 +57,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { UploadInvoiceComponent } from './upload-invoice/upload-invoice.component';
 import { RouterModule } from '@angular/router';
+import { ExportExcelService } from 'src/app/core/services/export-excel.service';
 
 @Component({
   selector: 'vex-purchase-orders',
@@ -132,6 +133,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
   constructor(
     private purchaseOrderService: PurchaseOrderService,
     private translate: TranslateService,
+    private ete: ExportExcelService,
     private dialog: MatDialog,
     private snackbar: MatSnackBar
   ) {}
@@ -261,6 +263,47 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
             }
           });
         }
+      });
+  }
+
+  exportExcel() {
+    this.purchaseOrderService
+      .purchaseOrders({
+        page: 1,
+        limit: 1000,
+        excludeStatus: [3]
+      })
+      .subscribe((res) => {
+        if (!res.data) return;
+        let dataForExcel: any[] = [];
+
+        let result = res.data!.map((res) => ({
+          orderNo: res.orderNo,
+          total: res.total,
+          paidAmount: res.paidAmount,
+          invoiceStatus: res.invoiceStatusName,
+          invoiceDate: res.invoiceDate,
+          status: res.statusName
+        }));
+
+        result.forEach((row: any) => {
+          dataForExcel.push(Object.values(row));
+        });
+
+        this.ete.exportExcel({
+          title: 'All Purchase Orders - Report',
+          data: dataForExcel,
+          headers: [
+            this.translate.instant('orderNo'),
+            this.translate.instant('total'),
+            this.translate.instant('paidAmount'),
+            this.translate.instant('invoiceStatus'),
+            this.translate.instant('invoiceDate'),
+            this.translate.instant('status')
+          ],
+          worksheetName: 'Purchase Orders Data',
+          footerDesc: 'Purchase Orders Report Generated from fintech.mdd.sa at '
+        });
       });
   }
 }

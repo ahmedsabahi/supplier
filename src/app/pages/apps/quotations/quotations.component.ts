@@ -8,14 +8,9 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import {
-  MatPaginator,
-  MatPaginatorModule,
-  PageEvent
-} from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
 import {
@@ -39,7 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { combineLatest, merge, Observable, of as observableOf, of } from 'rxjs';
+import { merge, of as observableOf } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -51,6 +46,7 @@ import { QuotationModel, QuotationSearch } from './quotation.model';
 import { QuotationService } from './quotation.service';
 import { QuotationStatus } from 'src/app/core/constants/enums';
 import { RouterModule } from '@angular/router';
+import { ExportExcelService } from 'src/app/core/services/export-excel.service';
 @Component({
   selector: 'vex-quotations',
   standalone: true,
@@ -116,6 +112,7 @@ export class QuotationsComponent implements OnInit, AfterViewInit {
   constructor(
     private quotationService: QuotationService,
     private translate: TranslateService,
+    private ete: ExportExcelService,
     private snackbar: MatSnackBar
   ) {}
 
@@ -188,5 +185,45 @@ export class QuotationsComponent implements OnInit, AfterViewInit {
     downloadLink.href = linkSource;
     downloadLink.download = model?.fileName ?? '';
     downloadLink.click();
+  }
+
+  exportExcel() {
+    this.quotationService
+      .quotations({
+        page: 1,
+        limit: 1000
+      })
+      .subscribe((res) => {
+        if (!res.data) return;
+        let dataForExcel: any[] = [];
+
+        let result = res.data!.map((res) => ({
+          orderNo: res.orderNo,
+          total: res.total,
+          createdOn: res.createdOn,
+          createdBy: res.createdBy,
+          notes: res.notes,
+          status: res.statusName
+        }));
+
+        result.forEach((row: any) => {
+          dataForExcel.push(Object.values(row));
+        });
+
+        this.ete.exportExcel({
+          title: 'All Quotations - Report',
+          data: dataForExcel,
+          headers: [
+            this.translate.instant('orderNo'),
+            this.translate.instant('total'),
+            this.translate.instant('createdOn'),
+            this.translate.instant('createdBy'),
+            this.translate.instant('notes'),
+            this.translate.instant('status')
+          ],
+          worksheetName: 'Quotations Data',
+          footerDesc: 'Quotations Report Generated from fintech.mdd.sa at '
+        });
+      });
   }
 }

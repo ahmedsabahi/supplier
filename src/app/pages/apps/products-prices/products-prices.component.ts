@@ -51,6 +51,7 @@ import { ProductPriceModel, ProductPriceSearch } from './product-price.model';
 import { ProductPriceService } from './product-price.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductPriceCreateUpdateComponent } from './product-price-create-update/product-price-create-update.component';
+import { ExportExcelService } from 'src/app/core/services/export-excel.service';
 
 @Component({
   selector: 'vex-products-prices',
@@ -111,6 +112,7 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
   constructor(
     private productPriceService: ProductPriceService,
     private snackbar: MatSnackBar,
+    private ete: ExportExcelService,
     private translate: TranslateService,
     private dialog: MatDialog
   ) {}
@@ -187,6 +189,46 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
             }
           });
         }
+      });
+  }
+
+  exportExcel() {
+    this.productPriceService
+      .productsPrices({
+        page: 1,
+        limit: 1000
+      })
+      .subscribe((res) => {
+        if (!res.data) return;
+        let dataForExcel: any[] = [];
+
+        let result = res.data!.map((res) => ({
+          skuNumber: res.skuNumber,
+          productName: res.productName,
+          price: res.price,
+          createdBy: res.createdBy,
+          isFixedPrice: res.isFixedPrice,
+          expiryDate: res.expiryDate
+        }));
+
+        result.forEach((row: any) => {
+          dataForExcel.push(Object.values(row));
+        });
+
+        this.ete.exportExcel({
+          title: 'All Products Prices - Report',
+          data: dataForExcel,
+          headers: [
+            this.translate.instant('skuNumber'),
+            this.translate.instant('productName'),
+            this.translate.instant('price'),
+            this.translate.instant('createdBy'),
+            this.translate.instant('isFixedPrice'),
+            this.translate.instant('expiryDate')
+          ],
+          worksheetName: 'Products Prices Data',
+          footerDesc: 'Products Prices Report Generated from fintech.mdd.sa at '
+        });
       });
   }
 }

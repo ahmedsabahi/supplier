@@ -49,6 +49,7 @@ import {
   startWith,
   switchMap
 } from 'rxjs/operators';
+import { ExportExcelService } from 'src/app/core/services/export-excel.service';
 
 @Component({
   selector: 'vex-payments',
@@ -112,6 +113,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
   constructor(
     private paymentService: PaymentService,
     private translate: TranslateService,
+    private ete: ExportExcelService,
     private snackbar: MatSnackBar
   ) {}
 
@@ -186,5 +188,47 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     downloadLink.href = linkSource;
     downloadLink.download = model?.fileName ?? '';
     downloadLink.click();
+  }
+
+  exportExcel() {
+    this.paymentService
+      .payments({
+        page: 1,
+        limit: 1000
+      })
+      .subscribe((res) => {
+        if (!res.data) return;
+        let dataForExcel: any[] = [];
+
+        let result = res.data!.map((res) => ({
+          orderNo: res.orderNo,
+          transactionNo: res.transactionNo,
+          paidOn: res.paidOn,
+          employeeName: res.employeeName,
+          amount: res.amount,
+          notes: res.notes,
+          status: res.statusName
+        }));
+
+        result.forEach((row: any) => {
+          dataForExcel.push(Object.values(row));
+        });
+
+        this.ete.exportExcel({
+          title: 'All Products Prices - Report',
+          data: dataForExcel,
+          headers: [
+            this.translate.instant('orderNo'),
+            this.translate.instant('transactionNo'),
+            this.translate.instant('paidOn'),
+            this.translate.instant('employeeName'),
+            this.translate.instant('amount'),
+            this.translate.instant('notes'),
+            this.translate.instant('status')
+          ],
+          worksheetName: 'Products Prices Data',
+          footerDesc: 'Products Prices Report Generated from fintech.mdd.sa at '
+        });
+      });
   }
 }

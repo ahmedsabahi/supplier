@@ -197,5 +197,9 @@
   "contactUs": "اتصل بنا",
   "FAQ": "الأسئلة الشائعة",
   "changelog": "سجل التغييرات",
-  "configuration": "التكوين"
+  "configuration": "التكوين",
+  "exportPayments": "تصدير المدفوعات",
+  "exportProductsPrices": "تصدير أسعار المنتجات",
+  "exportQuotations": "تصدير عروض السعر",
+  "addProductsPrices": "إضافة أسعار المنتجات"
 }

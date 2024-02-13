@@ -4,8 +4,7 @@
     <div class="w-full flex flex-col sm:flex-row justify-between container">
       <div>
         <h1 class="title mt-0 mb-1">{{ "purchaseOrders" | translate }}</h1>
-        <vex-breadcrumbs
-          [crumbs]="['features', 'purchaseOrders']"></vex-breadcrumbs>
+        <vex-breadcrumbs [crumbs]="['app', 'purchaseOrders']"></vex-breadcrumbs>
       </div>
     </div>
   </vex-page-layout-header>
@@ -58,6 +57,16 @@
                     {{ "NotReady" | translate }}
                   </mat-button-toggle>  -->
               </mat-button-toggle-group>
+
+              <span class="flex-1"></span>
+              <button
+                (click)="exportExcel()"
+                color="primary"
+                mat-mini-fab
+                [matTooltip]="'exportPurchaseOrders' | translate"
+                type="button">
+                <mat-icon svgIcon="mat:cloud_download"></mat-icon>
+              </button>
             </div>
 
             <div class="flex flex-col mt-4">

@@ -194,5 +194,9 @@
   "contactUs": "Contact us",
   "FAQ": "FAQ",
   "changelog": "Changelog",
-  "configuration": "Configuration"
+  "configuration": "Configuration",
+  "exportPayments": "Export payments",
+  "exportProductsPrices": "Export products prices",
+  "exportQuotations": "Export quotations",
+  "addProductsPrices": "Add products prices"
 }
