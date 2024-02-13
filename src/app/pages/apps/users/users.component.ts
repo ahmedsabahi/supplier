@@ -8,14 +8,9 @@ import {
   ViewChild
 } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import {
-  MatPaginator,
-  MatPaginatorModule,
-  PageEvent
-} from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { stagger40ms } from '@vex/animations/stagger.animation';
 import {
@@ -39,7 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { combineLatest, merge, Observable, of as observableOf, of } from 'rxjs';
+import { merge, of as observableOf, of } from 'rxjs';
 import {
   catchError,
   debounceTime,
@@ -47,14 +42,15 @@ import {
   startWith,
   switchMap
 } from 'rxjs/operators';
-import { ContactModel, ContactSearch } from './contact.model';
-import { ContactService } from './contact.service';
-import { ContactCreateUpdateComponent } from './contact-create-update/contact-create-update.component';
+import { UserModel, UserSearch } from './user.model';
+import { UserService } from './user.service';
+import { UserCreateUpdateComponent } from './user-create-update/user-create-update.component';
+
 @Component({
-  selector: 'vex-contacts',
+  selector: 'vex-users',
   standalone: true,
-  templateUrl: './contacts.component.html',
-  styleUrl: './contacts.component.scss',
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.scss',
   animations: [fadeInUp400ms, stagger40ms],
   imports: [
     VexPageLayoutComponent,
@@ -83,7 +79,7 @@ import { ContactCreateUpdateComponent } from './contact-create-update/contact-cr
     MatProgressSpinnerModule
   ]
 })
-export class ContactsComponent implements OnInit, AfterViewInit {
+export class UsersComponent implements OnInit, AfterViewInit {
   @Input()
   displayedColumns: string[] = [
     'fullName',
@@ -94,11 +90,11 @@ export class ContactsComponent implements OnInit, AfterViewInit {
     'actions'
   ];
 
-  dataSource!: MatTableDataSource<ContactModel>;
+  dataSource!: MatTableDataSource<UserModel>;
   searchCtrl = new UntypedFormControl();
   pageSizeOptions: number[] = [10, 15, 20, 30, 50];
 
-  contacts: ContactModel[] = [];
+  users: UserModel[] = [];
   totalRecords?: number;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -108,7 +104,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   private readonly destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
-    private contactService: ContactService,
+    private userService: UserService,
     private translate: TranslateService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog
@@ -121,11 +117,11 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
-      this.fetchContacts();
+      this.fetchUsers();
     }
   }
 
-  fetchContacts() {
+  fetchUsers() {
     merge(this.searchCtrl.valueChanges, this.paginator!.page)
       .pipe(
         startWith({}),
@@ -138,7 +134,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
             this.dataSource.paginator.firstPage();
           }
 
-          const search: ContactSearch = {
+          const search: UserSearch = {
             page: this.paginator!.pageIndex + 1,
             limit: this.paginator!.pageSize
           };
@@ -146,40 +142,32 @@ export class ContactsComponent implements OnInit, AfterViewInit {
           const findValue = this.searchCtrl.value;
           if (findValue) search.find = findValue;
 
-          return this.contactService
-            .contacts(search)
+          return this.userService
+            .users(search)
             .pipe(catchError(() => observableOf(null)));
         }),
         map((res) => {
-          // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = !res?.data;
 
           if (res === null) return [];
-
-          // Only refresh the result length if there is new data. In case of rate
-          // limit errors, we do not want to reset the paginator to zero, as that
-          // would prevent users from re-triggering requests.
           this.totalRecords = res.totalRecords;
           return res.data;
         })
       )
-      .subscribe((contacts) => (this.contacts = contacts ?? []));
+      .subscribe((users) => (this.users = users ?? []));
   }
 
-  createContact() {
+  createUser() {
     this.dialog
-      .open(ContactCreateUpdateComponent, {
+      .open(UserCreateUpdateComponent, {
         direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%'
       })
       .afterClosed()
-      .subscribe((contact: ContactModel) => {
-        /**
-         * Customer is the updated customer (if the user pressed Save - otherwise it's null)
-         */
-        if (contact) {
-          this.contactService.create(contact).subscribe({
+      .subscribe((user: UserModel) => {
+        if (user) {
+          this.userService.create(user).subscribe({
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
@@ -188,7 +176,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
                     : res.messageEn) ?? '',
                   'ok'
                 );
-                this.fetchContacts();
+                this.fetchUsers();
               }
             }
           });
@@ -196,20 +184,17 @@ export class ContactsComponent implements OnInit, AfterViewInit {
       });
   }
 
-  updateContact(contact: ContactModel) {
+  updateUser(user: UserModel) {
     this.dialog
-      .open(ContactCreateUpdateComponent, {
-        data: contact,
+      .open(UserCreateUpdateComponent, {
+        data: user,
         direction: this.translate.currentLang === 'ar' ? 'rtl' : 'ltr',
         width: '50%'
       })
       .afterClosed()
-      .subscribe((updatedContact: ContactModel) => {
-        /**
-         * Customer is the updated customer (if the user pressed Save - otherwise it's null)
-         */
-        if (updatedContact) {
-          this.contactService.update(updatedContact).subscribe({
+      .subscribe((updatedUser: UserModel) => {
+        if (updatedUser) {
+          this.userService.update(updatedUser).subscribe({
             next: (res) => {
               if (res.status === 1) {
                 this.snackbar.open(
@@ -218,7 +203,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
                     : res.messageEn) ?? '',
                   'ok'
                 );
-                this.fetchContacts();
+                this.fetchUsers();
               }
             }
           });

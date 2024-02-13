@@ -99,15 +99,15 @@ export const appRoutes: VexRoutes = [
               toolbarShadowEnabled: false
             }
           },
-          // {
-          //   path: 'contacts',
-          //   loadChildren: () => import('./pages/apps/contacts/contacts.routes')
-          // },
           {
             path: 'contacts',
+            loadChildren: () => import('./pages/apps/contacts/contacts.routes')
+          },
+          {
+            path: 'users',
             loadComponent: () =>
-              import('./pages/apps/contacts/contacts.component').then(
-                (m) => m.ContactsComponent
+              import('./pages/apps/users/users.component').then(
+                (m) => m.UsersComponent
               ),
             data: {
               toolbarShadowEnabled: false

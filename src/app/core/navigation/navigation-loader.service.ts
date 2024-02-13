@@ -33,7 +33,7 @@ export class NavigationLoaderService {
           }
         ]
       },
-   
+
       {
         type: 'subheading',
         label: 'App',
@@ -48,7 +48,7 @@ export class NavigationLoaderService {
             type: 'link',
             label: 'purchaseOrders',
             route: '/apps/purchase-orders',
-            icon: 'mat:monetization_on'
+            icon: 'mat:shopping_bag'
           },
           {
             type: 'link',
@@ -61,13 +61,13 @@ export class NavigationLoaderService {
             label: 'payments',
             route: '/apps/payments',
             icon: 'mat:attach_money'
-          },
+          }
         ]
       },
       {
         type: 'subheading',
         label: 'Settings',
-        children: [ 
+        children: [
           {
             type: 'link',
             label: 'users',
@@ -79,7 +79,7 @@ export class NavigationLoaderService {
             label: 'bankAccounts',
             route: '/apps/bank-accounts',
             icon: 'mat:credit_card'
-          },
+          }
         ]
       },
       {
@@ -91,25 +91,22 @@ export class NavigationLoaderService {
             label: 'Guides',
             route: '/apps/help-center/guides',
             icon: 'mat:help'
-          },  
+          },
           {
             type: 'link',
             label: 'FAQ',
             route: '/apps/help-center/faq',
             icon: 'mat:book'
-
           },
           {
             type: 'link',
             label: 'Changelog',
             route: '/documentation/changelog',
             icon: 'mat:update'
-          },
+          }
         ]
       },
-  
-      
-    
+
       {
         type: 'subheading',
         label: 'Customize',

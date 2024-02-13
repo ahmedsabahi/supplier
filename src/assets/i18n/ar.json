@@ -105,6 +105,7 @@
   "invoiceDate": "تاريخ الفاتورة",
   "purchaseOrders": "طلبات الشراء",
   "UnPaid": "غير مدفوع",
+  "Unpaid": "غير مدفوع",
   "Paid": "مدفوع",
   "PaidPart": "مدفوع جزئيًا",
   "NotReady": "غير جاهز",
@@ -169,5 +170,9 @@
   "yes": "نعم",
   "areYouSureYouWantToContinue": "هل أنت متأكد أنك تريد المتابعة؟",
   "thereIsLowerPriceForSomeItems": "هناك سعر أقل لبعض العناصر",
-  "pleaseAttachFile": "يرجى إرفاق الملف"
+  "pleaseAttachFile": "يرجى إرفاق الملف",
+  "createUser": "إنشاء مستخدم",
+  "updateUser": "تحديث المستخدم",
+  "users": "المستخدمين",
+  "addUser": "إضافة مستخدم"
 }

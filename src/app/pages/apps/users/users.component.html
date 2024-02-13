@@ -3,8 +3,8 @@
     class="pb-10 flex flex-col items-start justify-center">
     <div class="w-full flex flex-col sm:flex-row justify-between container">
       <div>
-        <h1 class="title mt-0 mb-1">{{ "contacts" | translate }}</h1>
-        <vex-breadcrumbs [crumbs]="['features', 'contacts']"></vex-breadcrumbs>
+        <h1 class="title mt-0 mb-1">{{ "users" | translate }}</h1>
+        <vex-breadcrumbs [crumbs]="['features', 'users']"></vex-breadcrumbs>
       </div>
     </div>
   </vex-page-layout-header>
@@ -37,17 +37,17 @@
 
         <span class="flex-1"></span>
         <button
-          (click)="createContact()"
+          (click)="createUser()"
           class="ml-4 flex-none"
           color="primary"
           mat-mini-fab
-          [matTooltip]="'addContact' | translate"
+          [matTooltip]="'addUser' | translate"
           type="button">
           <mat-icon svgIcon="mat:add"></mat-icon>
         </button>
       </div>
 
-      <table @stagger [dataSource]="contacts" class="w-full" mat-table matSort>
+      <table @stagger [dataSource]="users" class="w-full" mat-table matSort>
         <ng-container matColumnDef="fullName">
           <th mat-header-cell *matHeaderCellDef class="font-semibold">
             {{ "fullname" | translate }}
@@ -116,7 +116,7 @@
               <button
                 mat-icon-button
                 type="button"
-                (click)="updateContact(row)"
+                (click)="updateUser(row)"
                 class="text-teal-600 bg-teal/10">
                 <mat-icon svgIcon="mat:edit"></mat-icon>
               </button>

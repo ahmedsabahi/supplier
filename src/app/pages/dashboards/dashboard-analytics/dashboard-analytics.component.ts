@@ -88,7 +88,8 @@ export class DashboardAnalyticsComponent implements OnInit {
       height: 400,
       is3D: true,
       sliceVisibilityThreshold: 0,
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+      fontName: "'Cairo', 'sans-serif'"
     };
   }
 
@@ -101,7 +102,8 @@ export class DashboardAnalyticsComponent implements OnInit {
       height: 400,
       is3D: true,
       sliceVisibilityThreshold: 0,
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+      fontName: "'Cairo', 'sans-serif'"
     };
   }
 
@@ -114,7 +116,8 @@ export class DashboardAnalyticsComponent implements OnInit {
       height: 400,
       is3D: true,
       sliceVisibilityThreshold: 0,
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+      fontName: "'Cairo', 'sans-serif'"
     };
   }
 

@@ -13,12 +13,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { ContactModel } from '../contact.model';
+import { UserModel } from '../user.model';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
-  selector: 'vex-contact-create-update',
+  selector: 'vex-user-create-update',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -34,10 +34,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSlideToggleModule,
     MatCheckboxModule
   ],
-  templateUrl: './contact-create-update.component.html',
-  styleUrl: './contact-create-update.component.scss'
+  templateUrl: './user-create-update.component.html',
+  styleUrl: './user-create-update.component.scss'
 })
-export class ContactCreateUpdateComponent implements OnInit {
+export class UserCreateUpdateComponent implements OnInit {
   form = this.fb.group({
     supplierContactID: [this.defaults?.supplierContactID || ''],
     fullname: [
@@ -65,8 +65,8 @@ export class ContactCreateUpdateComponent implements OnInit {
   mode: 'create' | 'update' = 'create';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public defaults: ContactModel | undefined,
-    private dialogRef: MatDialogRef<ContactCreateUpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public defaults: UserModel | undefined,
+    private dialogRef: MatDialogRef<UserCreateUpdateComponent>,
     private fb: FormBuilder
   ) {}
 
@@ -74,7 +74,7 @@ export class ContactCreateUpdateComponent implements OnInit {
     if (this.defaults) {
       this.mode = 'update';
     } else {
-      this.defaults = {} as ContactModel;
+      this.defaults = {} as UserModel;
     }
 
     this.form.patchValue(this.defaults);
@@ -82,20 +82,20 @@ export class ContactCreateUpdateComponent implements OnInit {
 
   save() {
     if (this.mode === 'create') {
-      this.createContact();
+      this.createUser();
     } else if (this.mode === 'update') {
-      this.updateContact();
+      this.updateUser();
     }
   }
 
-  createContact() {
+  createUser() {
     delete this.form.value.supplierContactID;
-    const contact = this.form.value;
-    this.dialogRef.close(contact);
+    const user = this.form.value;
+    this.dialogRef.close(user);
   }
 
-  updateContact() {
-    const contact = this.form.value;
+  updateUser() {
+    const user = this.form.value;
 
     if (!this.defaults) {
       throw new Error(
@@ -103,9 +103,9 @@ export class ContactCreateUpdateComponent implements OnInit {
       );
     }
 
-    contact.supplierContactID = this.defaults.supplierContactID;
+    user.supplierContactID = this.defaults.supplierContactID;
 
-    this.dialogRef.close(contact);
+    this.dialogRef.close(user);
   }
 
   isCreateMode() {

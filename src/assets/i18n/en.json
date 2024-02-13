@@ -105,6 +105,7 @@
   "invoiceDate": "Invoice date",
   "purchaseOrders": "Purchase orders",
   "UnPaid": "Unpaid",
+  "Unpaid": "Unpaid",
   "Paid": "Paid",
   "PaidPart": "Paid part",
   "NotReady": "Not ready",
@@ -166,5 +167,9 @@
   "yes": "Yes",
   "areYouSureYouWantToContinue": "Are you sure you want to continue?",
   "thereIsLowerPriceForSomeItems": "There is a lower price for some items",
-  "pleaseAttachFile": "Please attach file"
+  "pleaseAttachFile": "Please attach file",
+  "createUser": "Create user",
+  "updateUser": "Update user",
+  "users": "Users",
+  "addUser": "Add user"
 }

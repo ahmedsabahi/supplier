@@ -4,7 +4,7 @@ html {
   height: 100%;
   overflow: hidden;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11", "salt", "calt", "case";
-  @apply font-sans leading-normal antialiased;
+  @apply font-cairo leading-normal antialiased;
 }
 
 body {
@@ -27,7 +27,7 @@ button:focus {
 }
 
 code {
-  @apply font-mono text-default bg-app-bar rounded text-sm px-2 py-1;
+  @apply font-cairo text-default bg-app-bar rounded text-sm px-2 py-1;
 }
 
 blockquote {

@@ -11,49 +11,41 @@
       You've finished all of your tasks for this week.
     </p> -->
 
-    <div class="mt-4 flex items-center">
-      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
-        {{ model.unPaidOrdersCount }}
-      </span>
-      <span class="body-2 cursor-pointer">
-        {{ "unPaidOrdersCount" | translate }}
-      </span>
-    </div>
-
-    <div class="mt-1 flex items-center">
-      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
-        {{ model.unInvoicedOrdersCount }}
-      </span>
-      <span class="body-2 cursor-pointer">
-        {{ "unInvoicedOrdersCount" | translate }}
-      </span>
-    </div>
-
-    <div class="mt-1 flex items-center">
-      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
-        {{ model.quotationsCount }}
-      </span>
-      <span class="body-2 cursor-pointer">
-        {{ "quotationsCount" | translate }}
-      </span>
-    </div>
-
-    <div class="mt-1 flex items-center">
-      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
-        {{ model.ordersCount }}
-      </span>
-      <span class="body-2 cursor-pointer">
-        {{ "ordersCount" | translate }}
-      </span>
-    </div>
-
-    <div class="mt-1 flex items-center">
-      <span class="mx-2 vex-sidenav-item__badge bg-white text-primary-600">
-        {{ model.porductsCount }}
-      </span>
-      <span class="body-2 cursor-pointer">
-        {{ "productsCount" | translate }}
-      </span>
-    </div>
+    <table class="mt-6 rtl:text-left ltr:text-right">
+      <tbody>
+        <tr>
+          <td class="body-2">
+            {{ "quotationsCount" | translate }}
+          </td>
+          <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+            {{ model.quotationsCount }}
+          </td>
+        </tr>
+        <tr>
+          <td class="body-2">
+            {{ "ordersCount" | translate }}
+          </td>
+          <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+            {{ model.ordersCount }}
+          </td>
+        </tr>
+        <tr>
+          <td class="body-2">
+            {{ "productsCount" | translate }}
+          </td>
+          <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+            {{ model.porductsCount }}
+          </td>
+        </tr>
+        <tr>
+          <td class="body-2">
+            {{ "unInvoicedOrdersCount" | translate }}
+          </td>
+          <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+            {{ model.unInvoicedOrdersCount }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

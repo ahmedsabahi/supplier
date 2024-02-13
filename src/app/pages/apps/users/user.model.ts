@@ -1,4 +1,4 @@
-export interface ContactModel {
+export interface UserModel {
   supplierContactID?: string;
   supplierID?: string;
   responsableID?: string;
@@ -16,7 +16,7 @@ export interface ContactModel {
   mfaCode?: string;
 }
 
-export class ContactSearch {
+export class UserSearch {
   find?: any;
   page?: number;
   limit?: number;
