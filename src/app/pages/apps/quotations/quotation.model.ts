@@ -11,6 +11,8 @@ export interface QuotationModel {
   createdOn?: Date;
   createdBy?: string;
   createdByName?: string;
+  createdByEmail?: string;
+  createdByMobile?: string;
   itemsTotal?: number;
   deliveryFees?: number;
   vatPer?: number;

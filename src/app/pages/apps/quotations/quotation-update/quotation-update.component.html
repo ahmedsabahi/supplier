@@ -156,6 +156,58 @@
 
     <vex-page-layout-content class="container mt-6">
       <div class="card p-6">
+        <div class="flex flex-col items-end">
+          <mat-form-field>
+            <mat-label id="deliveryFees">
+              {{ "deliveryFees" | translate }}
+            </mat-label>
+            <input
+              id="deliveryFees"
+              formControlName="deliveryFees"
+              matInput
+              (keyup)="updateTotal()" />
+          </mat-form-field>
+
+          <table class="subheading-2 font-medium pr-6">
+            <tbody>
+              <tr>
+                <td
+                  class="text-secondary uppercase ltr:text-right rtl:text-left">
+                  {{ "itemsTotal" | translate }}
+                </td>
+                <td class="ltr:pl-12 rtl:pr-12">
+                  {{ quotation?.itemsTotal | number: "1.2-2" }}
+                  {{ "sr" | translate }}
+                </td>
+              </tr>
+              <tr>
+                <td
+                  class="text-secondary uppercase ltr:text-right rtl:text-left">
+                  {{ "vat" | translate }} ({{ quotation?.vatPer }}%)
+                </td>
+                <td class="ltr:pl-12 rtl:pr-12">
+                  {{ quotation?.vat | number: "1.2-2" }} {{ "sr" | translate }}
+                </td>
+              </tr>
+
+              <tr>
+                <td
+                  class="headline font-medium uppercase ltr:text-right rtl:text-left pt-6">
+                  {{ "total" | translate }}
+                </td>
+                <td class="headline font-medium ltr:pl-12 rtl:pr-12 pt-6">
+                  {{ quotation?.total | number: "1.2-2" }}
+                  {{ "sr" | translate }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </vex-page-layout-content>
+
+    <vex-page-layout-content class="container mt-6">
+      <div class="card p-6">
         <div class="flex flex-col">
           <mat-form-field>
             <mat-label>{{ "supplierNotes" | translate }}</mat-label>
@@ -208,56 +260,8 @@
           </div>
         </div>
 
-        <div class="mt-8 flex flex-col items-end">
-          <mat-form-field>
-            <mat-label id="deliveryFees">
-              {{ "deliveryFees" | translate }}
-            </mat-label>
-            <input
-              id="deliveryFees"
-              formControlName="deliveryFees"
-              matInput
-              (keyup)="updateTotal()" />
-          </mat-form-field>
-
-          <table class="subheading-2 font-medium pr-6">
-            <tbody>
-              <tr>
-                <td
-                  class="text-secondary uppercase ltr:text-right rtl:text-left">
-                  {{ "itemsTotal" | translate }}
-                </td>
-                <td class="ltr:pl-12 rtl:pr-12">
-                  {{ quotation?.itemsTotal | number: "1.2-2" }}
-                  {{ "sr" | translate }}
-                </td>
-              </tr>
-              <tr>
-                <td
-                  class="text-secondary uppercase ltr:text-right rtl:text-left">
-                  {{ "vat" | translate }} ({{ quotation?.vatPer }}%)
-                </td>
-                <td class="ltr:pl-12 rtl:pr-12">
-                  {{ quotation?.vat | number: "1.2-2" }} {{ "sr" | translate }}
-                </td>
-              </tr>
-
-              <tr>
-                <td
-                  class="headline font-medium uppercase ltr:text-right rtl:text-left pt-6">
-                  {{ "total" | translate }}
-                </td>
-                <td class="headline font-medium ltr:pl-12 rtl:pr-12 pt-6">
-                  {{ quotation?.total | number: "1.2-2" }}
-                  {{ "sr" | translate }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
         <div
-          class="bg-base rounded-tr rounded-br border-l-3 p-4 mt-3 flex flex-col sm:flex-row gap-3 items-center">
+          class="bg-base rounded-tr rounded-br border-l-3 p-4 mt-3 flex flex-col sm:flex-row gap-3 items-center justify-center">
           <button
             color="primary"
             (click)="isThereLowerPrice(true)"
