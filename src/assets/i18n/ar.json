@@ -201,5 +201,6 @@
   "exportPayments": "تصدير المدفوعات",
   "exportProductsPrices": "تصدير أسعار المنتجات",
   "exportQuotations": "تصدير عروض السعر",
-  "addProductsPrices": "إضافة أسعار المنتجات"
+  "addProductsPrices": "إضافة أسعار المنتجات",
+  "name": "الاسم"
 }

@@ -198,5 +198,6 @@
   "exportPayments": "Export payments",
   "exportProductsPrices": "Export products prices",
   "exportQuotations": "Export quotations",
-  "addProductsPrices": "Add products prices"
+  "addProductsPrices": "Add products prices",
+  "name": "Name"
 }
