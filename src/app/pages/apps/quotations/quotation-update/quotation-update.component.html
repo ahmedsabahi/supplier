@@ -24,9 +24,27 @@
             <div class="px-6 py-4 flex flex-col">
               <div class="flex flex-col sm:flex-row sm:gap-4">
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "supplierName" | translate }}</mat-label>
+                  <mat-label>{{ "createdByName" | translate }}</mat-label>
                   <input
-                    formControlName="supplierName"
+                    formControlName="createdByName"
+                    [readonly]="true"
+                    matInput />
+                </mat-form-field>
+
+                <mat-form-field class="flex-auto">
+                  <mat-label>{{ "createdByEmail" | translate }}</mat-label>
+                  <input
+                    formControlName="createdByEmail"
+                    [readonly]="true"
+                    matInput />
+                </mat-form-field>
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:gap-4">
+                <mat-form-field class="flex-auto">
+                  <mat-label>{{ "createdByMobile" | translate }}</mat-label>
+                  <input
+                    formControlName="createdByMobile"
                     [readonly]="true"
                     matInput />
                 </mat-form-field>
@@ -40,54 +58,12 @@
                 </mat-form-field>
               </div>
 
-              <mat-form-field>
-                <mat-label>{{ "supplierNotes" | translate }}</mat-label>
-                <textarea formControlName="supplierNotes" matInput></textarea>
-              </mat-form-field>
-
-              <div
-                *ngIf="!form.value.fileContent"
-                class="px-4 py-2 mb-5 relative flex items-center cursor-pointer select-none rounded-full hover:bg-green-600/10 transition duration-400 ease-out-swift"
-                matRipple>
-                <div
-                  @scaleIn
-                  class="p-2 bg-green-600/10 text-green-600 rounded-full ltr:mr-4 rtl:ml-4">
-                  <input
-                    class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0"
-                    type="file"
-                    (change)="onFileSelected($event)"
-                    accept=".jpeg,.jpg,.png,.pdf" />
-                  <mat-icon class="block" svgIcon="mat:attach_file"></mat-icon>
-                </div>
-                <p @fadeInRight class="font-medium text-green-600">
-                  {{ "attachFile" | translate }}
-                </p>
-              </div>
-
-              <div
-                *ngIf="form.value.fileContent"
-                class="px-4 py-2 mb-5 vex-mail-compose-attachment rounded-full border flex items-center hover:bg-hover transition duration-200 ease-in-out cursor-pointer relative"
-                matRipple>
-                <mat-icon
-                  class="flex-none text-primary-600 icon-sm"
-                  svgIcon="mat:{{
-                    form.value.fileContentType == 'application/pdf'
-                      ? 'picture_as_pdf'
-                      : 'image'
-                  }}"></mat-icon>
-                <p class="flex-auto ml-4 text-sm">{{ form.value.fileName }}</p>
-                @if (selectedFile) {
-                  <p class="text-sm text-secondary mr-2 flex-none">
-                    {{ selectedFile.size | number: "1.2-2" }} kb
-                  </p>
-                }
-                <button
-                  (click)="resetFile()"
-                  class="flex-none w-8 h-8 p-0 leading-none"
-                  mat-icon-button
-                  type="button">
-                  <mat-icon class="icon-sm" svgIcon="mat:close"></mat-icon>
-                </button>
+              <div class="flex flex-col sm:flex-row sm:gap-4">
+                <mat-form-field class="flex-auto">
+                  <mat-label>{{ "notes" | translate }}</mat-label>
+                  <textarea formControlName="notes" [readonly]="true" matInput>
+                  </textarea>
+                </mat-form-field>
               </div>
             </div>
           </div>
@@ -180,6 +156,58 @@
 
     <vex-page-layout-content class="container mt-6">
       <div class="card p-6">
+        <div class="flex flex-col">
+          <mat-form-field>
+            <mat-label>{{ "supplierNotes" | translate }}</mat-label>
+            <textarea formControlName="supplierNotes" matInput></textarea>
+          </mat-form-field>
+
+          <div
+            *ngIf="!form.value.fileContent"
+            class="px-4 py-2 mb-5 relative flex items-center cursor-pointer select-none rounded-full hover:bg-green-600/10 transition duration-400 ease-out-swift"
+            matRipple>
+            <div
+              @scaleIn
+              class="p-2 bg-green-600/10 text-green-600 rounded-full ltr:mr-4 rtl:ml-4">
+              <input
+                class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0"
+                type="file"
+                (change)="onFileSelected($event)"
+                accept=".jpeg,.jpg,.png,.pdf" />
+              <mat-icon class="block" svgIcon="mat:attach_file"></mat-icon>
+            </div>
+            <p @fadeInRight class="font-medium text-green-600">
+              {{ "attachFile" | translate }}
+            </p>
+          </div>
+
+          <div
+            *ngIf="form.value.fileContent"
+            class="px-4 py-2 mb-5 vex-mail-compose-attachment rounded-full border flex items-center hover:bg-hover transition duration-200 ease-in-out cursor-pointer relative"
+            matRipple>
+            <mat-icon
+              class="flex-none text-primary-600 icon-sm"
+              svgIcon="mat:{{
+                form.value.fileContentType == 'application/pdf'
+                  ? 'picture_as_pdf'
+                  : 'image'
+              }}"></mat-icon>
+            <p class="flex-auto ml-4 text-sm">{{ form.value.fileName }}</p>
+            @if (selectedFile) {
+              <p class="text-sm text-secondary mr-2 flex-none">
+                {{ selectedFile.size | number: "1.2-2" }} kb
+              </p>
+            }
+            <button
+              (click)="resetFile()"
+              class="flex-none w-8 h-8 p-0 leading-none"
+              mat-icon-button
+              type="button">
+              <mat-icon class="icon-sm" svgIcon="mat:close"></mat-icon>
+            </button>
+          </div>
+        </div>
+
         <div class="mt-8 flex flex-col items-end">
           <mat-form-field>
             <mat-label id="deliveryFees">
@@ -243,13 +271,6 @@
             mat-stroked-button
             type="button">
             {{ "update" | translate }}
-          </button>
-          <button
-            color="warn"
-            (click)="location.back()"
-            mat-button
-            type="button">
-            {{ "back" | translate }}
           </button>
         </div>
       </div>

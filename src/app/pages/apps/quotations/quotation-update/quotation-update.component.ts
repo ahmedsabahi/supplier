@@ -102,6 +102,10 @@ export class QuotationUpdateComponent implements OnInit {
   form = this.fb.group({
     supplierName: '',
     createdOn: '',
+    createdByName: '',
+    createdByEmail: '',
+    createdByMobile: '',
+    notes: '',
     supplierNotes: '',
     fileContent: '',
     fileContentType: '',
@@ -146,6 +150,10 @@ export class QuotationUpdateComponent implements OnInit {
       createdOn: this.quotation?.createdOn
         ? formatDate(this.quotation!.createdOn!, 'dd/MM/yyyy', 'en-US')
         : '',
+      createdByName: this.quotation?.createdByName,
+      createdByEmail: this.quotation?.createdByEmail,
+      createdByMobile: this.quotation?.createdByMobile,
+      notes: this.quotation?.notes,
       supplierNotes: this.quotation?.supplierNotes,
       fileContent: this.quotation?.fileContent,
       fileContentType: this.quotation?.fileContentType,

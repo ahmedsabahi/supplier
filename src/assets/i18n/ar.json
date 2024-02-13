@@ -181,5 +181,10 @@
   "youNeedToInvoice": "تحتاج إلى فواتير",
   "purchaseOrdersToBeInvoiced": "طلبات الشراء لتكون مفوترة",
   "youHaveInvoicedAllPurchaseOrders": "لقد قمت بتقديم فواتير لجميع طلبات الشراء",
-  "unpaidPurchaseOrders": "طلبات الشراء غير المدفوعة"
+  "unpaidPurchaseOrders": "طلبات الشراء غير المدفوعة",
+  "submit": "إرسال",
+  "back": "رجوع",
+  "createdByName": "تم الإنشاء بواسطة",
+  "createdByEmail": "تم الإنشاء بواسطة البريد الإلكتروني",
+  "createdByMobile": "تم الإنشاء بواسطة الجوال"
 }

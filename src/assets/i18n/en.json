@@ -178,5 +178,10 @@
   "youNeedToInvoice": "You need to invoice",
   "purchaseOrdersToBeInvoiced": "purchase orders to be invoiced",
   "youHaveInvoicedAllPurchaseOrders": "You have invoiced all purchase orders",
-  "unpaidPurchaseOrders": "unpaid purchase orders"
+  "unpaidPurchaseOrders": "unpaid purchase orders",
+  "submit": "Submit",
+  "back": "Back",
+  "createdByName": "Created by name",
+  "createdByEmail": "Created by email",
+  "createdByMobile": "Created by mobile"
 }

@@ -85,7 +85,7 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './item-create-update.component.scss'
 })
 export class ItemCreateUpdateComponent implements OnInit {
-  mode: 'create' | 'update' = 'create';
+  mode: 'create' | 'update' = 'update';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public defaults: ItemModel | undefined,
@@ -95,16 +95,18 @@ export class ItemCreateUpdateComponent implements OnInit {
     private fb: FormBuilder,
     private translate: TranslateService,
     private snackbar: MatSnackBar
-  ) {}
-
-  ngOnInit(): void {
-    this.fetchUnits();
+  ) {
     if (this.defaults) {
       this.mode = 'update';
     } else {
-      this.defaults = {} as ItemModel;
+      this.mode = 'create';
     }
+  }
 
+  ngOnInit(): void {
+    if (!this.defaults) this.defaults = {} as ItemModel;
+
+    this.fetchUnits();
     this.form.patchValue(this.defaults);
   }
 
@@ -131,17 +133,30 @@ export class ItemCreateUpdateComponent implements OnInit {
     item: [this.defaults?.item],
     productID: [this.defaults?.productID || '', Validators.required],
     productName: [this.defaults?.productName],
-    unitID: [this.defaults?.unitID, Validators.required],
+    unitID: [
+      { value: this.defaults?.unitID || false, disabled: this.isUpdateMode() }
+    ],
     unitName: [this.defaults?.unitName],
-    qty: [this.defaults?.qty, Validators.required],
+    qty: [
+      { value: this.defaults?.qty || false, disabled: this.isUpdateMode() },
+      Validators.required
+    ],
     price: [this.defaults?.price, Validators.required],
-    isVATExcluded: [this.defaults?.isVATExcluded || false]
+    isVATExcluded: [
+      {
+        value: this.defaults?.isVATExcluded || false,
+        disabled: this.isUpdateMode()
+      }
+    ]
   });
 
   productCtrl = new UntypedFormControl({
-    id: this.defaults?.productID,
-    textAr: this.defaults?.productName,
-    textEn: this.defaults?.productName
+    value: {
+      id: this.defaults?.productID,
+      textAr: this.defaults?.productName,
+      textEn: this.defaults?.productName
+    },
+    disabled: this.isUpdateMode()
   });
 
   products: DropDownModel[] = [];
