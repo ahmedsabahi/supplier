@@ -18,6 +18,16 @@ const routes: VexRoutes = [
     data: {
       toolbarShadowEnabled: true
     }
+  },
+  {
+    path: 'quotation-details/:id',
+    loadComponent: () =>
+      import('./quotation-details/quotation-details.component').then(
+        (m) => m.QuotationDetailsComponent
+      ),
+    data: {
+      toolbarShadowEnabled: true
+    }
   }
 ];
 

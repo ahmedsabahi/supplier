@@ -124,29 +124,15 @@
 
         <!-- Action Column -->
         <ng-container matColumnDef="actions">
-          <th *matHeaderCellDef mat-header-cell></th>
-          <td *matCellDef="let row" mat-cell>
-            @if (row.fileContent && row.fileName) {
-              <button
-                mat-icon-button
-                type="button"
-                (click)="downloadFile(row)"
-                class="text-teal-600 bg-teal/10">
-                <mat-icon svgIcon="mat:download"></mat-icon>
-              </button>
-            }
-            @if (row.status === QuotationStatus.Sent) {
-              <button
-                mat-icon-button
-                type="button"
-                [routerLink]="[
-                  '/apps/quotations/update/' + row.supplierQuotationID
-                ]"
-                routerLinkActive="quotations"
-                class="text-teal-600 bg-teal/10">
-                <mat-icon svgIcon="mat:edit"></mat-icon>
-              </button>
-            }
+          <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+          <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+            <button
+              [matMenuTriggerData]="{ quotation: row }"
+              [matMenuTriggerFor]="actionsMenu"
+              mat-icon-button
+              type="button">
+              <mat-icon svgIcon="mat:more_horiz"></mat-icon>
+            </button>
           </td>
         </ng-container>
 
@@ -165,3 +151,34 @@
     </div>
   </vex-page-layout-content>
 </vex-page-layout>
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-quotation="quotation" matMenuContent>
+    @if (quotation.fileContent && quotation.fileName) {
+      <button mat-menu-item (click)="downloadFile(quotation)">
+        <mat-icon svgIcon="mat:download"></mat-icon>
+        <span>{{ "download" | translate }}</span>
+      </button>
+    }
+    @if (quotation.status === QuotationStatus.Sent) {
+      <a
+        mat-menu-item
+        [routerLink]="[
+          '/apps/quotations/update/' + quotation.supplierQuotationID
+        ]"
+        routerLinkActive="quotations">
+        <mat-icon svgIcon="mat:edit"></mat-icon>
+        <span>{{ "edit" | translate }}</span>
+      </a>
+    }
+    <a
+      mat-menu-item
+      [routerLink]="[
+        '/apps/quotations/quotation-details/' + quotation.supplierQuotationID
+      ]"
+      routerLinkActive="quotations">
+      <mat-icon svgIcon="mat:notes"></mat-icon>
+      <span>{{ "details" | translate }}</span>
+    </a>
+  </ng-template>
+</mat-menu>

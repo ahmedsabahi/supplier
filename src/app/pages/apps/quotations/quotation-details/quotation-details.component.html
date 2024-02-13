@@ -1,0 +1,207 @@
+<div class="px-6 pt-6">
+  <button
+    (click)="location.back()"
+    color="primary"
+    mat-raised-button
+    type="button">
+    <mat-icon svgIcon="mat:arrow_back"></mat-icon>
+    <span> {{ "back" | translate }}</span>
+  </button>
+</div>
+
+@if (!quotation) {
+  <div class="loading-shade">
+    <mat-spinner></mat-spinner>
+  </div>
+}
+
+<div class="p-6 container" *ngIf="quotation">
+  <div @fadeInUp class="card p-10">
+    <div class="grid grid-cols-2">
+      <div>
+        <img class="h-40" src="assets/img/logo/logo.svg" />
+
+        <table class="mt-12">
+          <tbody>
+            <tr>
+              <td class="text-secondary body-2">{{ "name" | translate }}</td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.createdByName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "email" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.createdByEmail }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "phone" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.createdByMobile }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "createdOn" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.createdOn | date: "dd/MM/yyyy" }}
+              </td>
+            </tr>
+            @if (quotation.notes) {
+              <tr>
+                <td class="text-secondary body-2">
+                  {{ "notes" | translate }}
+                </td>
+                <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                  {{ quotation.notes }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-right body-1 flex flex-col items-end">
+        <h1 class="display-2 m-0">{{ "quotation" | translate }}</h1>
+
+        <table class="mt-6">
+          <tbody>
+            <tr>
+              <td class="text-secondary body-2">{{ "orderNo" | translate }}</td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.orderNo }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "status" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.statusName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "supplierName" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.supplierName }}
+              </td>
+            </tr>
+            @if (quotation.supplierNotes) {
+              <tr>
+                <td class="text-secondary body-2">
+                  {{ "supplierNotes" | translate }}
+                </td>
+                <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                  {{ quotation.supplierNotes }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <table class="mt-40" *ngIf="quotation.pricedByName">
+          <tbody>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "pricedByName" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.pricedByName }}
+              </td>
+            </tr>
+            <tr>
+              <td class="text-secondary body-2">
+                {{ "pricedOn" | translate }}
+              </td>
+              <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
+                {{ quotation.pricedOn | date: "dd/MM/yyyy" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <table class="table w-full mt-24">
+      <thead>
+        <tr>
+          <td class="body-2 text-secondary">{{ "productName" | translate }}</td>
+          <td class="body-2 text-secondary">
+            {{ "isVATExcluded" | translate }}
+          </td>
+          <td class="body-2 text-secondary">{{ "unit" | translate }}</td>
+          <td class="body-2 text-secondary">{{ "quantity" | translate }}</td>
+          <td class="body-2 text-secondary ltr:text-right rtl:text-left">
+            {{ "price" | translate }}
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of quotation?.items">
+          <td class="py-6 border-b">{{ item.productName }}</td>
+          <td class="py-6 border-b">
+            {{
+              item.isVATExcluded ? ("true" | translate) : ("false" | translate)
+            }}
+          </td>
+          <td class="py-6 border-b">{{ item.unitName ?? "" | translate }}</td>
+          <td class="py-6 border-b">{{ item.qty }}</td>
+          <td class="py-6 border-b font-medium ltr:text-right rtl:text-left">
+            {{ item.price | number: "1.2-2" }} {{ "sr" | translate }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mt-8 flex flex-col items-end">
+      <table class="subheading-2 font-medium pr-6">
+        <tbody>
+          <tr>
+            <td class="text-secondary ltr:text-right rtl:text-left">
+              {{ "itemsTotal" | translate }}
+            </td>
+            <td class="ltr:pl-12 rtl:pr-12">
+              {{ quotation.itemsTotal | number: "1.2-2" }}
+              {{ "sr" | translate }}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-secondary ltr:text-right rtl:text-left">
+              {{ "vat" | translate }} ({{ quotation.vatPer }}%)
+            </td>
+            <td class="ltr:pl-12 rtl:pr-12">
+              {{ quotation.vat | number: "1.2-2" }} {{ "sr" | translate }}
+            </td>
+          </tr>
+          @if (quotation.deliveryFees) {
+            <tr>
+              <td class="text-secondary ltr:text-right rtl:text-left">
+                {{ "deliveryFees" | translate }}
+              </td>
+              <td class="ltr:pl-12 rtl:pr-12">
+                {{ quotation.deliveryFees | number: "1.2-2" }}
+                {{ "sr" | translate }}
+              </td>
+            </tr>
+          }
+          <tr>
+            <td class="headline font-medium ltr:text-right rtl:text-left pt-6">
+              {{ "total" | translate }}
+            </td>
+            <td class="headline font-medium ltr:pl-12 rtl:pr-12 pt-6">
+              {{ quotation.total | number: "1.2-2" }} {{ "sr" | translate }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -200,5 +200,8 @@
   "thisUserIsNotVendor": "This user is not a vendor",
   "yourProfile": "Your profile",
   "accountSettings": "Account settings",
-  "signOut": "Sign out"
+  "signOut": "Sign out",
+  "pricedByName": "Priced by",
+  "pricedOn": "Priced on",
+  "quotation": "Quotation"
 }

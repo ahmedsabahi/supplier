@@ -203,5 +203,8 @@
   "thisUserIsNotVendor": "هذا المستخدم ليس موردًا",
   "yourProfile": "ملفك الشخصي",
   "accountSettings": "إعدادات الحساب",
-  "signOut": "تسجيل الخروج"
+  "signOut": "تسجيل الخروج",
+  "pricedByName": "تم التسعير بواسطة",
+  "pricedOn": "تم التسعير في",
+  "quotation": "عرض سعر"
 }
