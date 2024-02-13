@@ -204,5 +204,6 @@
   "pricedByName": "Priced by",
   "pricedOn": "Priced on",
   "quotation": "Quotation",
-  "edit": "Edit"
+  "edit": "Edit",
+  "isReturnedPayment": "Is returned payment?"
 }

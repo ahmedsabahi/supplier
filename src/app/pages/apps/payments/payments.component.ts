@@ -93,7 +93,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     'employeeName',
     'amount',
     'notes',
-    'status',
+    'isReturnedPayment',
     'actions'
   ];
 
@@ -207,7 +207,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
           employeeName: res.employeeName,
           amount: res.amount,
           notes: res.notes,
-          status: res.statusName
+          isReturnedPayment: res.isReturnedPayment
         }));
 
         result.forEach((row: any) => {
@@ -224,7 +224,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
             this.translate.instant('employeeName'),
             this.translate.instant('amount'),
             this.translate.instant('notes'),
-            this.translate.instant('status')
+            this.translate.instant('isReturnedPayment')
           ],
           worksheetName: 'Products Prices Data',
           footerDesc: 'Products Prices Report Generated from fintech.mdd.sa at '

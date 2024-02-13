@@ -207,5 +207,6 @@
   "pricedByName": "تم التسعير بواسطة",
   "pricedOn": "تم التسعير في",
   "quotation": "عرض سعر",
-  "edit": "تعديل"
+  "edit": "تعديل",
+  "isReturnedPayment": "هل هذه المدفوعة مرتجعة؟"
 }
