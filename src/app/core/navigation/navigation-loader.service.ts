@@ -71,7 +71,7 @@ export class NavigationLoaderService {
           {
             type: 'link',
             label: 'users',
-            route: '/apps/contacts',
+            route: '/apps/users',
             icon: 'mat:perm_identity'
           },
           {

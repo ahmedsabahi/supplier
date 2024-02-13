@@ -174,5 +174,12 @@
   "createUser": "إنشاء مستخدم",
   "updateUser": "تحديث المستخدم",
   "users": "المستخدمين",
-  "addUser": "إضافة مستخدم"
+  "addUser": "إضافة مستخدم",
+  "youHave": "لديك",
+  "requestsToQuote": "طلبات للحصول على عرض سعر",
+  "youHaveQuotedAllRequests": "لقد قمت بتقديم عروض لجميع الطلبات",
+  "youNeedToInvoice": "تحتاج إلى فواتير",
+  "purchaseOrdersToBeInvoiced": "طلبات الشراء لتكون مفوترة",
+  "youHaveInvoicedAllPurchaseOrders": "لقد قمت بتقديم فواتير لجميع طلبات الشراء",
+  "unpaidPurchaseOrders": "طلبات الشراء غير المدفوعة"
 }

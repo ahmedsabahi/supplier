@@ -171,5 +171,12 @@
   "createUser": "Create user",
   "updateUser": "Update user",
   "users": "Users",
-  "addUser": "Add user"
+  "addUser": "Add user",
+  "youHave": "You have",
+  "requestsToQuote": "requests to quote",
+  "youHaveQuotedAllRequests": "You have quoted all requests",
+  "youNeedToInvoice": "You need to invoice",
+  "purchaseOrdersToBeInvoiced": "purchase orders to be invoiced",
+  "youHaveInvoicedAllPurchaseOrders": "You have invoiced all purchase orders",
+  "unpaidPurchaseOrders": "unpaid purchase orders"
 }
