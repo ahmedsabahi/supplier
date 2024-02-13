@@ -19,6 +19,6 @@ export class WidgetAssistantComponent implements OnInit {
   ngOnInit() {}
 
   fullName() {
-    return this.encryptStorageService.getCurrentUser().fullName;
+    return this.encryptStorageService.getCurrentUser()?.fullName;
   }
 }

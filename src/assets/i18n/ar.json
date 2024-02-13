@@ -202,5 +202,9 @@
   "exportProductsPrices": "تصدير أسعار المنتجات",
   "exportQuotations": "تصدير عروض السعر",
   "addProductsPrices": "إضافة أسعار المنتجات",
-  "name": "الاسم"
+  "name": "الاسم",
+  "thisUserIsNotVendor": "هذا المستخدم ليس موردًا",
+  "yourProfile": "ملفك الشخصي",
+  "accountSettings": "إعدادات الحساب",
+  "signOut": "تسجيل الخروج"
 }

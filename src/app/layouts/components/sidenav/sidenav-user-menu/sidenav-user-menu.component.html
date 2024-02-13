@@ -8,7 +8,9 @@
     <mat-icon
       class="vex-user-menu-item__icon icon-sm"
       svgIcon="mat:account_circle"></mat-icon>
-    <div class="vex-user-menu-item__label">Your Profile</div>
+    <div class="vex-user-menu-item__label">
+      {{ "yourProfile" | translate }}
+    </div>
   </a>
 
   <a
@@ -20,7 +22,9 @@
     <mat-icon
       class="vex-user-menu-item__icon icon-sm"
       svgIcon="mat:settings"></mat-icon>
-    <div class="vex-user-menu-item__label">Account Settings</div>
+    <div class="vex-user-menu-item__label">
+      {{ "accountSettings" | translate }}
+    </div>
   </a>
 
   <div class="border-b border-divider mx-4"></div>
@@ -34,6 +38,6 @@
     <mat-icon
       class="vex-user-menu-item__icon icon-sm"
       svgIcon="mat:logout"></mat-icon>
-    <div class="vex-user-menu-item__label">Sign Out</div>
+    <div class="vex-user-menu-item__label">{{ "signOut" | translate }}</div>
   </a>
 </div>

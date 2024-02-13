@@ -199,5 +199,9 @@
   "exportProductsPrices": "Export products prices",
   "exportQuotations": "Export quotations",
   "addProductsPrices": "Add products prices",
-  "name": "Name"
+  "name": "Name",
+  "thisUserIsNotVendor": "This user is not a vendor",
+  "yourProfile": "Your profile",
+  "accountSettings": "Account settings",
+  "signOut": "Sign out"
 }

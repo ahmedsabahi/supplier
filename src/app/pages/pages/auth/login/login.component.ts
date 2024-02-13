@@ -14,10 +14,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
 import { UserLoginCommand } from '../auth.model';
 import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'vex-login',
@@ -55,6 +56,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private cd: ChangeDetectorRef,
     private authService: AuthService,
+    private translate: TranslateService,
     private encryptStorageService: EncryptStorageService
   ) {}
 
@@ -76,8 +78,15 @@ export class LoginComponent {
           if (res.data) {
             let user = res.data;
             if (res.result.status === 1) {
-              this.encryptStorageService.cacheUser(user);
-              this.router.navigate(['/']);
+              if (user.userType === 'S') {
+                this.encryptStorageService.cacheUser(user);
+                this.router.navigate(['/']);
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: this.translate.instant('thisUserIsNotVendor')
+                });
+              }
             }
           }
         },

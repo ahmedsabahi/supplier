@@ -26,7 +26,7 @@ const baseConfig: VexConfig = {
       }
     }
   },
-  direction: localStorage.getItem('selectedLanguage') == 'en' ? 'ltr' : 'rtl',
+  direction: localStorage.getItem('selectedLanguage') === 'en' ? 'ltr' : 'rtl',
   imgSrc: '//vex-landing.visurel.com/assets/img/layouts/apollo.png',
   layout: 'horizontal',
   boxed: false,

@@ -42,7 +42,7 @@ export const appConfig: ApplicationConfig = {
       HttpClientModule,
       SweetAlert2Module.forRoot(),
       TranslateModule.forRoot({
-        defaultLanguage: localStorage.getItem('selectedLanguage') || 'en',
+        defaultLanguage: localStorage.getItem('selectedLanguage') ?? 'en',
         loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
