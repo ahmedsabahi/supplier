@@ -28,7 +28,6 @@ export class SidenavUserMenuComponent implements OnInit {
 
   logout(): void {
     this.encryptStorageService.clear();
-    localStorage.clear();
     this.close();
   }
 }

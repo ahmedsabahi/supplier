@@ -45,6 +45,8 @@ export class EncryptStorageService {
   }
 
   clear() {
-    this.#encryptStorage.clear();
+    this.#encryptStorage.removeItem('CurrentUser');
+    this.#encryptStorage.removeItem('Token');
+    this.#encryptStorage.removeItem('TokenExpiryDate');
   }
 }

@@ -87,6 +87,9 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    localStorage.getItem('selectedLanguage') === 'ar'
+      ? (this.siteLanguage = this.languageList[1])
+      : (this.siteLanguage = this.languageList[0]);
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
@@ -140,7 +143,7 @@ export class ToolbarComponent implements OnInit {
     this.layoutService.openSearch();
   }
 
-  siteLanguage = { code: 'en', label: 'English', flag: 'flag:united-states' };
+  siteLanguage: any = {};
 
   languageList = [
     { code: 'en', label: 'English', flag: 'flag:united-states' },
