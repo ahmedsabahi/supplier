@@ -224,3 +224,54 @@ p {
 .text-3xl {
   letter-spacing: -0.021em;
 }
+
+//  status colors
+.Sent{
+  color: #4CAF50;
+  background-color: #E8F5E9;
+}
+
+.Priced{
+  color: #FFC107;
+  background-color: #FFFDE7;
+}
+
+.UnPaid{
+  color: #F44336;
+  background-color: #FFEBEE;
+}
+
+.Paid{
+  color: #4CAF50;
+  background-color: #E8F5E9;
+}
+
+.PaidPart{
+  color: lightcoral;
+  background-color: #FFFDE7;
+}
+
+.Pending{
+  color: #FFC107;
+  background-color: #FFFDE7;
+}
+
+.Waiting{
+  color: grey;
+  background-color: #F5F5F5;
+}
+
+.Uploaded{
+  color: coral;
+  background-color: #FFFDE7;
+}
+
+.Rejected{
+  color: #F44336;
+  background-color: #FFEBEE;
+}
+
+.Approved{
+  color: #4CAF50;
+  background-color: #E8F5E9;
+}

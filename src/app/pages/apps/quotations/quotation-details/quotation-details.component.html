@@ -148,9 +148,7 @@
         <tr *ngFor="let item of quotation?.items">
           <td class="py-6 border-b">{{ item.productName }}</td>
           <td class="py-6 border-b">
-            {{
-              item.isVATExcluded ? ("true" | translate) : ("false" | translate)
-            }}
+            {{ item.isVATExcluded ? "&#x2705;" : "&#x274C;" }}
           </td>
           <td class="py-6 border-b">{{ item.unitName ?? "" | translate }}</td>
           <td class="py-6 border-b">{{ item.qty }}</td>

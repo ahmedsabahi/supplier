@@ -24,8 +24,7 @@
     }
 
     <div class="card overflow-auto -mt-16">
-      <div
-        class="bg-app-bar px-6 h-16 border-b sticky left-0 flex items-center">
+      <div class="px-6 h-16 border-b sticky left-0 flex items-center">
         <mat-form-field subscriptSizing="dynamic">
           <mat-icon matIconPrefix svgIcon="mat:search"></mat-icon>
           <input
@@ -98,11 +97,7 @@
             {{ "isReturnedPayment" | translate }}
           </th>
           <td mat-cell *matCellDef="let row">
-            {{
-              row.isReturnedPayment
-                ? ("true" | translate)
-                : ("false" | translate)
-            }}
+            {{ row.isReturnedPayment ? "&#x2705;" : "&#x274C;" }}
           </td>
         </ng-container>
 

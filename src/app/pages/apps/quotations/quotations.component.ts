@@ -201,7 +201,8 @@ export class QuotationsComponent implements OnInit, AfterViewInit {
           orderNo: res.orderNo,
           total: res.total,
           createdOn: res.createdOn,
-          createdBy: res.createdBy,
+          createdBy: res.createdByName,
+          pricedBy: res.pricedByName,
           notes: res.notes,
           status: res.statusName
         }));
@@ -218,6 +219,7 @@ export class QuotationsComponent implements OnInit, AfterViewInit {
             this.translate.instant('total'),
             this.translate.instant('createdOn'),
             this.translate.instant('createdBy'),
+            this.translate.instant('pricedBy'),
             this.translate.instant('notes'),
             this.translate.instant('status')
           ],

@@ -4,6 +4,7 @@ export interface DashboardModel {
   leftAmount?: number;
   porductsCount?: number;
   quotationsCount?: number;
+  quotationsNewCount?: number;
   ordersCount?: number;
   unPaidOrdersCount?: number;
   unInvoicedOrdersCount?: number;

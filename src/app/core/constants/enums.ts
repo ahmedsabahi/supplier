@@ -11,7 +11,7 @@ export enum InvoiceStatus {
 }
 
 export enum PurchaseOrderStatus {
-  UnPaid = 0,
+  Unpaid = 0,
   PaidPart = 1,
   Paid = 2
 }

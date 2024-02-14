@@ -140,12 +140,7 @@ export class ItemCreateUpdateComponent implements OnInit {
       Validators.required
     ],
     price: [this.defaults?.price, Validators.required],
-    isVATExcluded: [
-      {
-        value: this.defaults?.isVATExcluded || false,
-        disabled: this.isUpdateMode()
-      }
-    ]
+    isVATExcluded: [this.defaults?.isVATExcluded || false]
   });
 
   productCtrl = new UntypedFormControl({
@@ -202,6 +197,7 @@ export class ItemCreateUpdateComponent implements OnInit {
 
   updateProduct() {
     this.defaults!.price! = Number(this.form.value.price)!;
+    this.defaults!.isVATExcluded! = this.form.value.isVATExcluded ?? false;
 
     if (!this.defaults) {
       throw new Error(
