@@ -12,7 +12,7 @@
   <vex-page-layout-content class="-mt-6 container">
     @if (isLoadingResults || isRateLimitReached || isLoading) {
       <div class="loading-shade">
-        @if (isLoadingResults) {
+        @if (isLoadingResults || isLoading) {
           <mat-spinner></mat-spinner>
         }
         @if (isRateLimitReached) {

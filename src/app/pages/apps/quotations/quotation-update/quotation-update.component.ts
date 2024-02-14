@@ -276,8 +276,6 @@ export class QuotationUpdateComponent implements OnInit {
   isSubmitLoading = false;
 
   update() {
-    this.isUpdateLoading = true;
-
     this.quotationService.update(this.quotation!).subscribe({
       next: (res) => {
         this.isUpdateLoading = false;
@@ -304,7 +302,6 @@ export class QuotationUpdateComponent implements OnInit {
       return;
     }
 
-    this.isSubmitLoading = true;
     this.quotationService.submit(this.quotation!).subscribe({
       next: (res) => {
         this.isSubmitLoading = false;
@@ -323,6 +320,7 @@ export class QuotationUpdateComponent implements OnInit {
   }
 
   isThereLowerPrice(isSubmit: boolean) {
+    isSubmit ? (this.isSubmitLoading = true) : (this.isUpdateLoading = true);
     this.quotationService
       .isThereLowerPrice(this.quotation!)
       .subscribe((res) => {
