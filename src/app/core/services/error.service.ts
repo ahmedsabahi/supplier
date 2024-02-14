@@ -20,8 +20,7 @@ export class ErrorService {
     //   horizontalPosition: 'right'
     // });
     this.snackBar.open(
-      this.getApiErrorMessage(err) ?? this.getHttpErrorMessage(err.status),
-      'Error'
+      this.getApiErrorMessage(err) ?? this.getHttpErrorMessage(err.status)
     );
   }
 

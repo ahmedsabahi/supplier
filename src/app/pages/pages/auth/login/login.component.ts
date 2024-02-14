@@ -16,9 +16,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
-import { UserLoginCommand } from '../auth.model';
 import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
 import Swal from 'sweetalert2';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'vex-login',
@@ -38,6 +38,7 @@ import Swal from 'sweetalert2';
     MatCheckboxModule,
     RouterLink,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     TranslateModule
   ]
 })
@@ -90,7 +91,7 @@ export class LoginComponent {
             }
           }
         },
-        error: (e) => (this.isLoading = false)
+        error: (e) => ((this.isLoading = false), this.cd.detectChanges())
       });
   }
 

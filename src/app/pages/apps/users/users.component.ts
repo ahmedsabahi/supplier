@@ -158,6 +158,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
       .subscribe((users) => (this.users = users ?? []));
   }
 
+  isLoading = false;
+
   createUser() {
     this.dialog
       .open(UserCreateUpdateComponent, {
@@ -167,8 +169,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .subscribe((user: UserModel) => {
         if (user) {
+          this.isLoading = true;
+
           this.userService.create(user).subscribe({
             next: (res) => {
+              this.isLoading = false;
+
               if (res.status === 1) {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
@@ -177,7 +183,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
                 );
                 this.fetchUsers();
               }
-            }
+            },
+            error: (e) => (this.isLoading = false)
           });
         }
       });
@@ -193,8 +200,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .subscribe((updatedUser: UserModel) => {
         if (updatedUser) {
+          this.isLoading = true;
+
           this.userService.update(updatedUser).subscribe({
             next: (res) => {
+              this.isLoading = false;
+
               if (res.status === 1) {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
@@ -203,7 +214,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
                 );
                 this.fetchUsers();
               }
-            }
+            },
+            error: (e) => (this.isLoading = false)
           });
         }
       });

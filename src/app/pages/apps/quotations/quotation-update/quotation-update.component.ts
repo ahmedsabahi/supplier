@@ -44,6 +44,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'vex-quotation-update',
@@ -81,6 +82,7 @@ import Swal from 'sweetalert2';
     MatDialogModule,
     CommonModule,
     SweetAlert2Module,
+    MatProgressSpinnerModule,
     MatDividerModule
   ],
   templateUrl: './quotation-update.component.html',
@@ -270,16 +272,26 @@ export class QuotationUpdateComponent implements OnInit {
     this.quotation!.total = total;
   }
 
+  isUpdateLoading = false;
+  isSubmitLoading = false;
+
   update() {
-    this.quotationService.update(this.quotation!).subscribe((res) => {
-      if (res.status === 1) {
-        this.snackbar.open(
-          (this.translate.defaultLang === 'ar'
-            ? res.messageAr
-            : res.messageEn) ?? ''
-        );
-        this.location.back();
-      }
+    this.isUpdateLoading = true;
+
+    this.quotationService.update(this.quotation!).subscribe({
+      next: (res) => {
+        this.isUpdateLoading = false;
+
+        if (res.status === 1) {
+          this.snackbar.open(
+            (this.translate.defaultLang === 'ar'
+              ? res.messageAr
+              : res.messageEn) ?? ''
+          );
+          this.location.back();
+        }
+      },
+      error: (e) => (this.isUpdateLoading = false)
     });
   }
 
@@ -292,15 +304,21 @@ export class QuotationUpdateComponent implements OnInit {
       return;
     }
 
-    this.quotationService.submit(this.quotation!).subscribe((res) => {
-      if (res.status === 1) {
-        this.snackbar.open(
-          (this.translate.defaultLang === 'ar'
-            ? res.messageAr
-            : res.messageEn) ?? ''
-        );
-        this.location.back();
-      }
+    this.isSubmitLoading = true;
+    this.quotationService.submit(this.quotation!).subscribe({
+      next: (res) => {
+        this.isSubmitLoading = false;
+
+        if (res.status === 1) {
+          this.snackbar.open(
+            (this.translate.defaultLang === 'ar'
+              ? res.messageAr
+              : res.messageEn) ?? ''
+          );
+          this.location.back();
+        }
+      },
+      error: (e) => (this.isSubmitLoading = false)
     });
   }
 

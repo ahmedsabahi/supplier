@@ -165,6 +165,8 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
       .subscribe((products) => (this.productsPrices = products ?? []));
   }
 
+  isLoading = false;
+
   createProductsPrice() {
     this.dialog
       .open(ProductPriceCreateUpdateComponent, {
@@ -174,8 +176,12 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .subscribe((productPrice: ProductPriceModel) => {
         if (productPrice) {
+          this.isLoading = true;
+
           this.productPriceService.create(productPrice).subscribe({
             next: (res) => {
+              this.isLoading = false;
+
               if (res.status === 1) {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
@@ -184,7 +190,8 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
                 );
                 this.fetchProductsPrices();
               }
-            }
+            },
+            error: (e) => (this.isLoading = false)
           });
         }
       });

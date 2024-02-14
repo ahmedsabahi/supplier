@@ -72,7 +72,11 @@
         color="primary"
         mat-raised-button
         type="button">
-        {{ "signIn" | translate }}
+        @if (isLoading) {
+          <mat-spinner [diameter]="20"> </mat-spinner>
+        } @else {
+          {{ "signIn" | translate }}
+        }
       </button>
       <p class="text-secondary text-center">
         {{ "dontHaveAnAccount" | translate }}

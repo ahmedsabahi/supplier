@@ -181,6 +181,8 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
     downloadLink.click();
   }
 
+  isLoading = false;
+
   createBankAccount() {
     this.dialog
       .open(BankAccountCreateUpdateComponent, {
@@ -190,8 +192,10 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .subscribe((bankAccount: BankAccountModel) => {
         if (bankAccount) {
+          this.isLoading = true;
           this.bankAccountService.create(bankAccount).subscribe({
             next: (res) => {
+              this.isLoading = false;
               if (res.status === 1) {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
@@ -200,7 +204,8 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
                 );
                 this.fetchBankAccounts();
               }
-            }
+            },
+            error: (e) => (this.isLoading = false)
           });
         }
       });
@@ -216,8 +221,10 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .subscribe((updatedBankAccount: BankAccountModel) => {
         if (updatedBankAccount) {
+          this.isLoading = true;
           this.bankAccountService.update(updatedBankAccount).subscribe({
             next: (res) => {
+              this.isLoading = false;
               if (res.status === 1) {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
@@ -226,7 +233,8 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
                 );
                 this.fetchBankAccounts();
               }
-            }
+            },
+            error: (e) => (this.isLoading = false)
           });
         }
       });

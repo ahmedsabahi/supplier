@@ -239,6 +239,8 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
     downloadLink.click();
   }
 
+  isLoading = false;
+
   uploadInvoice(model: PurchaseOrderModel) {
     this.dialog
       .open(UploadInvoiceComponent, {
@@ -249,8 +251,10 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
       .afterClosed()
       .subscribe((model: UploadInvoiceCommand) => {
         if (model) {
+          this.isLoading = true;
           this.purchaseOrderService.uploadInvoice(model).subscribe({
             next: (res) => {
+              this.isLoading = false;
               if (res.status === 1) {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
@@ -259,7 +263,8 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
                 );
                 this.fetchPurchaseOrders();
               }
-            }
+            },
+            error: (e) => (this.isLoading = false)
           });
         }
       });

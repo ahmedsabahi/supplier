@@ -288,18 +288,28 @@
         <div
           class="bg-base rounded-tr rounded-br border-l-3 p-4 mt-3 flex flex-col sm:flex-row gap-3 items-center justify-center">
           <button
+            [disabled]="isSubmitLoading"
             color="primary"
             (click)="isThereLowerPrice(true)"
             mat-raised-button
             type="button">
-            {{ "submit" | translate }}
+            @if (isSubmitLoading) {
+              <mat-spinner [diameter]="20"> </mat-spinner>
+            } @else {
+              {{ "submit" | translate }}
+            }
           </button>
           <button
+            [disabled]="isUpdateLoading"
             color="primary"
             (click)="isThereLowerPrice(false)"
             mat-stroked-button
             type="button">
-            {{ "update" | translate }}
+            @if (isUpdateLoading) {
+              <mat-spinner [diameter]="20"> </mat-spinner>
+            } @else {
+              {{ "update" | translate }}
+            }
           </button>
         </div>
       </div>
