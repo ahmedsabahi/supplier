@@ -229,7 +229,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
 
   downloadFile(model: any) {
     if (!model.fileContent || !model.fileName) {
-      this.snackbar.open(this.translate.instant('fileNotExists'), 'ok');
+      this.snackbar.open(this.translate.instant('fileNotExists'));
       return;
     }
     const linkSource = 'data:application/pdf;base64,' + model.fileContent;
@@ -255,8 +255,7 @@ export class PurchaseOrdersComponent implements OnInit, AfterViewInit {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
                     ? res.messageAr
-                    : res.messageEn) ?? '',
-                  'ok'
+                    : res.messageEn) ?? ''
                 );
                 this.fetchPurchaseOrders();
               }

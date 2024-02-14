@@ -27,6 +27,17 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AuthInterceptorService } from './core/services/auth-interceptor.service';
 import { LoggingInterceptorService } from './core/services/logging-interceptor.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import {
+  MatSnackBarModule,
+  MatSnackBarConfig,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS
+} from '@angular/material/snack-bar';
+
+const matSnackbarDefaultConfig: MatSnackBarConfig = {
+  verticalPosition: 'top',
+  horizontalPosition: 'right',
+  duration: 2500
+};
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
@@ -34,6 +45,10 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: matSnackbarDefaultConfig
+    },
     importProvidersFrom(
       BrowserModule,
       MatDialogModule,
@@ -41,6 +56,7 @@ export const appConfig: ApplicationConfig = {
       MatNativeDateModule,
       HttpClientModule,
       SweetAlert2Module.forRoot(),
+
       TranslateModule.forRoot({
         defaultLanguage: localStorage.getItem('selectedLanguage') ?? 'en',
         loader: {

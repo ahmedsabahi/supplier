@@ -171,7 +171,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
 
   downloadFile(model: BankAccountModel) {
     if (!model.fileContent || !model.fileName) {
-      this.snackbar.open(this.translate.instant('fileNotExists'), 'ok');
+      this.snackbar.open(this.translate.instant('fileNotExists'));
       return;
     }
     const linkSource = 'data:application/pdf;base64,' + model.fileContent;
@@ -196,8 +196,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
                     ? res.messageAr
-                    : res.messageEn) ?? '',
-                  'ok'
+                    : res.messageEn) ?? ''
                 );
                 this.fetchBankAccounts();
               }
@@ -223,8 +222,7 @@ export class BankAccountsComponent implements OnInit, AfterViewInit {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
                     ? res.messageAr
-                    : res.messageEn) ?? '',
-                  'ok'
+                    : res.messageEn) ?? ''
                 );
                 this.fetchBankAccounts();
               }

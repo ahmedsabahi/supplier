@@ -180,7 +180,7 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
   downloadFile(model: PaymentModel) {
     if (!model.fileContent || !model.fileName) {
-      this.snackbar.open(this.translate.instant('fileNotExists'), 'ok');
+      this.snackbar.open(this.translate.instant('fileNotExists'));
       return;
     }
     const linkSource = 'data:application/pdf;base64,' + model.fileContent;

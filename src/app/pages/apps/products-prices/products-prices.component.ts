@@ -180,8 +180,7 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
                 this.snackbar.open(
                   (this.translate.defaultLang === 'ar'
                     ? res.messageAr
-                    : res.messageEn) ?? '',
-                  'ok'
+                    : res.messageEn) ?? ''
                 );
                 this.fetchProductsPrices();
               }

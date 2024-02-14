@@ -79,10 +79,7 @@ export class UploadInvoiceComponent {
     const max_size = 20971520;
     if (!filePicked) return;
     if (filePicked.size > max_size) {
-      this.snackbar.open(
-        'Maximum size allowed is ' + max_size / 1000 + 'Mb',
-        'ok'
-      );
+      this.snackbar.open('Maximum size allowed is ' + max_size / 1000 + 'Mb');
     }
     const reader = new FileReader();
     reader.onload = (e: any) => {

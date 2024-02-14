@@ -55,8 +55,7 @@ export class ForgotPasswordComponent {
         this.snackbar.open(
           (this.translate.defaultLang === 'ar'
             ? res.messageAr
-            : res.messageEn) ?? '',
-          'ok'
+            : res.messageEn) ?? ''
         );
       },
       error: (e) => (console.log(e), (this.isLoading = false))
