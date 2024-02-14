@@ -205,5 +205,6 @@
   "pricedOn": "Priced on",
   "quotation": "Quotation",
   "edit": "Edit",
-  "isReturnedPayment": "Is returned payment?"
+  "isReturnedPayment": "Is returned payment?",
+  "itemTotal": "Item total"
 }

@@ -208,5 +208,6 @@
   "pricedOn": "تم التسعير في",
   "quotation": "عرض سعر",
   "edit": "تعديل",
-  "isReturnedPayment": "هل هذه المدفوعة مسترجعة؟"
+  "isReturnedPayment": "هل هذه المدفوعة مسترجعة؟",
+  "itemTotal": "إجمالي المنتج"
 }

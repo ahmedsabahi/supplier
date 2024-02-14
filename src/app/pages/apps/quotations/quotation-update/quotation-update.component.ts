@@ -96,6 +96,7 @@ export class QuotationUpdateComponent implements OnInit {
     'unitName',
     'price',
     'isVATExcluded',
+    'itemTotal',
     'actions'
   ];
 
