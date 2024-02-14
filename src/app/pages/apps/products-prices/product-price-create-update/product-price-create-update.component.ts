@@ -85,10 +85,11 @@ export class ProductPriceCreateUpdateComponent implements OnInit {
       [Validators.required]
     ],
     productID: [this.defaults?.productID || '', [Validators.required]],
+    productName: [this.defaults?.productName || '', [Validators.required]],
     price: [this.defaults?.price || '', [Validators.required]],
     skuNumber: [this.defaults?.skuNumber || '', [Validators.required]],
     expiryDate: [this.defaults?.expiryDate || '', [Validators.required]],
-    isFixedPrice: this.defaults?.isFixedPrice || false,
+    isFixedPrice: [this.defaults?.isFixedPrice || false],
     description: [this.defaults?.description || '']
   });
 
@@ -121,11 +122,15 @@ export class ProductPriceCreateUpdateComponent implements OnInit {
 
   createProductPrice() {
     const productPrice = this.form.value;
-
+    const product = this.productCtrl.value;
     delete productPrice.productPriceID;
 
     productPrice.expiryDate = new Date(productPrice.expiryDate!);
-    productPrice.productID = this.productCtrl.value?.id;
+    product?.id === ''
+      ? delete productPrice.productID
+      : (productPrice.productID = product?.id);
+    productPrice.productName = product?.textAr;
+
     this.dialogRef.close(productPrice);
   }
 
@@ -151,7 +156,11 @@ export class ProductPriceCreateUpdateComponent implements OnInit {
     return this.mode === 'update';
   }
 
-  productCtrl = new UntypedFormControl();
+  productCtrl = new UntypedFormControl({
+    id: this.defaults?.productID,
+    textAr: this.defaults?.productName,
+    textEn: this.defaults?.productName
+  });
 
   products: DropDownModel[] = [];
 
@@ -165,7 +174,9 @@ export class ProductPriceCreateUpdateComponent implements OnInit {
     switchMap((find) => {
       return this.productPriceService.products(find).pipe(
         map((res) => {
-          return res.data;
+          return (res.data?.length ?? 0) > 0
+            ? res.data
+            : [{ id: '', textAr: find, textEn: find }];
         })
       );
     })

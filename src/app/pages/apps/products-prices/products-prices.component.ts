@@ -151,7 +151,6 @@ export class ProductsPricesComponent implements OnInit, AfterViewInit {
 
           return this.productPriceService
             .productsPrices(search)
-
             .pipe(catchError(() => observableOf(null)));
         }),
         map((res) => {

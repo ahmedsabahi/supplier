@@ -164,7 +164,9 @@ export class ItemCreateUpdateComponent implements OnInit {
     switchMap((find) => {
       return this.productPriceService.products(find).pipe(
         map((res) => {
-          return res.data;
+          return (res.data?.length ?? 0) > 0
+            ? res.data
+            : [{ id: '', textAr: find, textEn: find }];
         })
       );
     })
@@ -184,8 +186,11 @@ export class ItemCreateUpdateComponent implements OnInit {
 
   createProduct() {
     const product = this.form.value;
-    product.productID = this.productCtrl.value?.id;
-    product.productName = this.productCtrl.value?.textAr;
+    const selectedProduct = this.productCtrl.value;
+    selectedProduct?.id === ''
+      ? delete product.productID
+      : (product.productID = selectedProduct?.id);
+    product.productName = selectedProduct?.textAr;
     let unit = this.units?.find((u) => u.id === product.unitID);
     product.unitID = unit?.id;
     product.unitName = unit?.textAr;
