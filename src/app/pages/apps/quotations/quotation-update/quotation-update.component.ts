@@ -339,6 +339,10 @@ export class QuotationUpdateComponent implements OnInit {
           }).then((result) => {
             if (result.isConfirmed) {
               isSubmit ? this.submit() : this.update();
+            } else {
+              isSubmit
+                ? (this.isSubmitLoading = false)
+                : (this.isUpdateLoading = false);
             }
           });
         }
