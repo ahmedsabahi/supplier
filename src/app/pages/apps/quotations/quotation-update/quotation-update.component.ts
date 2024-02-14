@@ -92,8 +92,8 @@ export class QuotationUpdateComponent implements OnInit {
   @Input()
   displayedColumns: string[] = [
     'productName',
-    'qty',
     'unitName',
+    'qty',
     'price',
     'isVATExcluded',
     'itemTotal',
