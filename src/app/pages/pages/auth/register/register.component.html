@@ -16,8 +16,8 @@
     <div [formGroup]="registerationForm" class="p-6 flex flex-col">
       <div class="flex flex-col sm:flex-row sm:gap-4 mb-3">
         <mat-form-field class="flex-auto">
-          <mat-label>{{ "fullname" | translate }}</mat-label>
-          <input formControlName="fullname" matInput required />
+          <mat-label id="fullname">{{ "fullname" | translate }}</mat-label>
+          <input id="fullname" formControlName="fullname" matInput required />
           <mat-error
             *ngIf="registerationForm.controls['fullname'].hasError('required')">
             {{ "requiredFullname" | translate }}
@@ -31,8 +31,14 @@
         </mat-form-field>
 
         <mat-form-field class="flex-auto">
-          <mat-label>{{ "companyName" | translate }}</mat-label>
-          <input formControlName="companyName" matInput required />
+          <mat-label id="companyName">{{
+            "companyName" | translate
+          }}</mat-label>
+          <input
+            id="companyName"
+            formControlName="companyName"
+            matInput
+            required />
           <mat-error
             *ngIf="
               registerationForm.controls['companyName'].hasError('required')
@@ -43,8 +49,8 @@
       </div>
 
       <mat-form-field class="flex-1 block mb-3">
-        <mat-label>{{ "phone" | translate }}</mat-label>
-        <input formControlName="phone" matInput required />
+        <mat-label id="phone">{{ "phone" | translate }}</mat-label>
+        <input id="phone" formControlName="phone" matInput required />
         <mat-error
           *ngIf="registerationForm.controls['phone'].hasError('required')">
           {{ "requiredPhone" | translate }}
@@ -70,8 +76,8 @@
       </mat-form-field>
 
       <mat-form-field class="flex-1 block mb-3">
-        <mat-label>{{ "email" | translate }}</mat-label>
-        <input formControlName="email" matInput required />
+        <mat-label id="email">{{ "email" | translate }}</mat-label>
+        <input id="email" formControlName="email" matInput required />
         <mat-error
           *ngIf="registerationForm.controls['email'].hasError('required')">
           {{ "requiredEmail" | translate }}
@@ -84,8 +90,9 @@
 
       <div class="flex flex-col sm:flex-row sm:gap-4 mb-3">
         <mat-form-field class="flex-auto">
-          <mat-label>{{ "password" | translate }}</mat-label>
+          <mat-label id="password">{{ "password" | translate }}</mat-label>
           <input
+            id="password"
             [type]="inputType"
             formControlName="password"
             matInput
@@ -116,8 +123,11 @@
         </mat-form-field>
 
         <mat-form-field class="flex-auto">
-          <mat-label>{{ "confirmPassword" | translate }}</mat-label>
+          <mat-label id="confirmPassword">{{
+            "confirmPassword" | translate
+          }}</mat-label>
           <input
+            id="confirmPassword"
             [type]="inputType"
             formControlName="confirmPassword"
             [errorStateMatcher]="matcher"

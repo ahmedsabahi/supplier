@@ -24,16 +24,18 @@
             <div class="px-6 py-4 flex flex-col">
               <div class="flex flex-col sm:flex-row sm:gap-4">
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "name" | translate }}</mat-label>
+                  <mat-label id="name">{{ "name" | translate }}</mat-label>
                   <input
+                    id="name"
                     formControlName="createdByName"
                     [readonly]="true"
                     matInput />
                 </mat-form-field>
 
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "email" | translate }}</mat-label>
+                  <mat-label id="email">{{ "email" | translate }}</mat-label>
                   <input
+                    id="email"
                     formControlName="createdByEmail"
                     [readonly]="true"
                     matInput />
@@ -42,16 +44,20 @@
 
               <div class="flex flex-col sm:flex-row sm:gap-4">
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "phone" | translate }}</mat-label>
+                  <mat-label id="phone">{{ "phone" | translate }}</mat-label>
                   <input
+                    id="phone"
                     formControlName="createdByMobile"
                     [readonly]="true"
                     matInput />
                 </mat-form-field>
 
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "createdOn" | translate }}</mat-label>
+                  <mat-label id="createdOn">
+                    {{ "createdOn" | translate }}
+                  </mat-label>
                   <input
+                    id="createdOn"
                     formControlName="createdOn"
                     [readonly]="true"
                     matInput />
@@ -60,8 +66,12 @@
 
               <div class="flex flex-col sm:flex-row sm:gap-4">
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "notes" | translate }}</mat-label>
-                  <textarea formControlName="notes" [readonly]="true" matInput>
+                  <mat-label id="notes">{{ "notes" | translate }}</mat-label>
+                  <textarea
+                    id="notes"
+                    formControlName="notes"
+                    [readonly]="true"
+                    matInput>
                   </textarea>
                 </mat-form-field>
               </div>

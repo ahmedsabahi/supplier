@@ -16,8 +16,8 @@
     <div [formGroup]="form" class="p-6 flex flex-col gap-4">
       <div class="flex flex-col">
         <mat-form-field class="flex-1 mb-4">
-          <mat-label>{{ "email" | translate }}</mat-label>
-          <input formControlName="username" matInput required />
+          <mat-label id="email">{{ "email" | translate }}</mat-label>
+          <input id="email" formControlName="username" matInput required />
           <mat-error *ngIf="form.controls.username.hasError('required')">
             {{ "requiredEmail" | translate }}
           </mat-error>
@@ -26,8 +26,9 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="flex-1">
-          <mat-label>{{ "password" | translate }}</mat-label>
+          <mat-label id="password">{{ "password" | translate }}</mat-label>
           <input
+            id="password"
             [type]="inputType"
             formControlName="password"
             matInput

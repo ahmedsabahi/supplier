@@ -82,15 +82,21 @@
                     placeholder="{{ 'enterAmountFrom' | translate }}&hellip;" />
                 </mat-form-field>
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "amountTo" | translate }}</mat-label>
+                  <mat-label id="amountTo">
+                    {{ "amountTo" | translate }}
+                  </mat-label>
                   <input
+                    id="amountTo"
                     formControlName="amountTo"
                     matInput
                     placeholder="{{ 'enterAmountTo' | translate }}&hellip;" />
                 </mat-form-field>
                 <mat-form-field class="flex-auto">
-                  <mat-label>{{ "invoiceStatus" | translate }}</mat-label>
+                  <mat-label id="invoiceStatus">
+                    {{ "invoiceStatus" | translate }}
+                  </mat-label>
                   <mat-select
+                    id="invoiceStatus"
                     formControlName="invoiceStatus"
                     placeholder="{{
                       'selectInvoiceStatus' | translate

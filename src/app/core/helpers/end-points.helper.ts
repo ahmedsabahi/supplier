@@ -13,13 +13,13 @@ export class EndPoints {
   static payments = '/Vendor/Payments'; //get
 
   /* ------ product -------*/
-  static productPrices = '/Vendor/productPrices'; //get
+  static productPrices = '/Vendor/productPrices'; //get, post
 
   /* ------ contact -------*/
   static contacts = '/Vendor/Contacts'; //get
 
   /* ------ bankAccount -------*/
-  static bankAccounts = '/vendor/Accounts'; //get
+  static bankAccounts = '/vendor/Accounts'; //get, post, put
 
   /* ------ Lookups -------*/
   static banks = '/Shared/Lookups/BanksList'; //get

@@ -22,8 +22,9 @@
 
   <mat-dialog-content class="flex flex-col sm:gap-3">
     <mat-form-field>
-      <mat-label>{{ "invoiceDate" | translate }}</mat-label>
+      <mat-label id="invoiceDate">{{ "invoiceDate" | translate }}</mat-label>
       <input
+        id="invoiceDate"
         [matDatepicker]="datepickerRef"
         formControlName="invoiceDate"
         matInput

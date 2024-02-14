@@ -21,8 +21,9 @@
 
   <mat-dialog-content class="flex flex-col sm:gap-3">
     <mat-form-field class="mt-6">
-      <mat-label>{{ "productName" | translate }}</mat-label>
+      <mat-label id="productName">{{ "productName" | translate }}</mat-label>
       <input
+        id="productName"
         [formControl]="productCtrl"
         [matAutocomplete]="auto"
         matInput
@@ -47,8 +48,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "unit" | translate }}</mat-label>
-      <mat-select formControlName="unitID" required>
+      <mat-label id="unit">{{ "unit" | translate }}</mat-label>
+      <mat-select id="unit" formControlName="unitID" required>
         @for (unit of units; track unit) {
           <mat-option [value]="unit.id">
             {{ unit.textAr ?? unit.textEn }}
@@ -61,16 +62,16 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "quantity" | translate }}</mat-label>
-      <input formControlName="qty" matInput required />
+      <mat-label id="quantity">{{ "quantity" | translate }}</mat-label>
+      <input id="quantity" formControlName="qty" matInput required />
       <mat-error *ngIf="form.controls['qty'].hasError('required')">
         {{ "requiredQuantity" | translate }}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "price" | translate }}</mat-label>
-      <input formControlName="price" matInput required />
+      <mat-label id="price">{{ "price" | translate }}</mat-label>
+      <input id="price" formControlName="price" matInput required />
       <mat-error *ngIf="form.controls['price'].hasError('required')">
         {{ "requiredPrice" | translate }}
       </mat-error>

@@ -25,8 +25,13 @@
     </mat-slide-toggle>
 
     <mat-form-field>
-      <mat-label>{{ "accountName" | translate }}</mat-label>
-      <input cdkFocusInitial formControlName="name" matInput required />
+      <mat-label id="accountName">{{ "accountName" | translate }}</mat-label>
+      <input
+        id="accountName"
+        cdkFocusInitial
+        formControlName="name"
+        matInput
+        required />
       <mat-error *ngIf="form.controls['name'].hasError('required')">
         {{ "requiredAccountName" | translate }}
       </mat-error>
@@ -36,8 +41,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "iban" | translate }}</mat-label>
-      <input formControlName="iban" matInput required />
+      <mat-label id="email">{{ "iban" | translate }}</mat-label>
+      <input id="email" formControlName="iban" matInput required />
       <mat-error *ngIf="form.controls['iban'].hasError('required')">
         {{ "requiredIBAN" | translate }}
       </mat-error>
@@ -50,8 +55,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "accountNo" | translate }}</mat-label>
-      <input formControlName="accountNo" matInput required />
+      <mat-label id="accountNo">{{ "accountNo" | translate }}</mat-label>
+      <input id="accountNo" formControlName="accountNo" matInput required />
       <mat-error *ngIf="form.controls['accountNo'].hasError('required')">
         {{ "requiredAccountNo" | translate }}
       </mat-error>
@@ -61,16 +66,16 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "branch" | translate }}</mat-label>
-      <input formControlName="branch" matInput required />
+      <mat-label id="branch">{{ "branch" | translate }}</mat-label>
+      <input id="branch" formControlName="branch" matInput required />
       <mat-error *ngIf="form.controls['branch'].hasError('required')">
         {{ "requiredBranch" | translate }}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="vex-flex-form-field flex-none">
-      <mat-label>{{ "bankName" | translate }}</mat-label>
-      <mat-select formControlName="bankID" required>
+      <mat-label id="bankName">{{ "bankName" | translate }}</mat-label>
+      <mat-select id="bankName" formControlName="bankID" required>
         @for (bank of banks; track bank) {
           <mat-option [value]="bank.id">
             {{ bank.textAr ?? bank.textEn }}

@@ -20,8 +20,13 @@
 
   <mat-dialog-content class="flex flex-col sm:gap-3">
     <mat-form-field class="mt-6">
-      <mat-label>{{ "fullname" | translate }}</mat-label>
-      <input cdkFocusInitial formControlName="fullname" matInput required />
+      <mat-label id="fullname">{{ "fullname" | translate }}</mat-label>
+      <input
+        id="fullname"
+        cdkFocusInitial
+        formControlName="fullname"
+        matInput
+        required />
       <mat-icon matIconPrefix svgIcon="mat:person"></mat-icon>
       <mat-error *ngIf="form.controls['fullname'].hasError('required')">
         {{ "requiredFullname" | translate }}
@@ -32,8 +37,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "phone" | translate }}</mat-label>
-      <input formControlName="mobile" matInput required />
+      <mat-label id="phone">{{ "phone" | translate }}</mat-label>
+      <input id="phone" formControlName="mobile" matInput required />
       <mat-icon matIconPrefix svgIcon="mat:phone"></mat-icon>
       <mat-error *ngIf="form.controls['mobile'].hasError('required')">
         {{ "requiredPhone" | translate }}
@@ -70,8 +75,8 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ "address" | translate }}</mat-label>
-      <input formControlName="address" matInput required />
+      <mat-label id="address">{{ "address" | translate }}</mat-label>
+      <input id="address" formControlName="address" matInput required />
       <mat-icon matIconPrefix svgIcon="mat:my_location"></mat-icon>
       <mat-error *ngIf="form.controls['address'].hasError('required')">
         {{ "requiredAddress" | translate }}
