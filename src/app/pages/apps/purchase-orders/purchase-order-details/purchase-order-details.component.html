@@ -73,7 +73,7 @@
                 {{ "status" | translate }}
               </td>
               <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
-                {{ purchaseOrder.statusName }}
+                {{ purchaseOrder.statusName ?? "" | translate }}
               </td>
             </tr>
             <tr>
@@ -89,7 +89,7 @@
                 {{ "invoiceStatus" | translate }}
               </td>
               <td class="ltr:text-left rtl:text-right ltr:pl-4 rtl:pr-4">
-                {{ purchaseOrder.invoiceStatusName }}
+                {{ purchaseOrder.invoiceStatusName ?? "" | translate }}
               </td>
             </tr>
             @if (purchaseOrder.notes) {
