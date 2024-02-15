@@ -14,20 +14,7 @@ const routes: VexRoutes = [
         redirectTo: 'getting-started',
         pathMatch: 'full'
       },
-      {
-        path: 'getting-started',
-        loadComponent: () =>
-          import(
-            './help-center-getting-started/help-center-getting-started.component'
-          ).then((m) => m.HelpCenterGettingStartedComponent)
-      },
-      {
-        path: 'pricing',
-        loadComponent: () =>
-          import('./help-center-pricing/help-center-pricing.component').then(
-            (m) => m.HelpCenterPricingComponent
-          )
-      },
+    
       {
         path: 'faq',
         loadComponent: () =>

@@ -29,16 +29,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class HelpCenterComponent implements OnInit {
   links: (Link & { icon: string })[] = [
     {
-      label: 'Getting Started',
-      route: 'getting-started',
-      icon: 'mat:flag'
-    },
-    {
-      label: 'Pricing & Plans',
-      route: 'pricing',
-      icon: 'mat:attach_money'
-    },
-    {
       label: 'FAQ',
       route: 'faq',
       icon: 'mat:contact_support'
