@@ -15,7 +15,7 @@ import { NgIf } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
 import Swal from 'sweetalert2';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';

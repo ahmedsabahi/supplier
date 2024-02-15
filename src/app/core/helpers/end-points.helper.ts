@@ -8,6 +8,7 @@ export class EndPoints {
   static vendor = '/Vendor/Info'; //get
   static vendorUpdate = '/Vendor/Info/Profile'; //put
   static vendorRegister = '/Vendor/Info/Register'; //post
+  static vendorConfirmEmail = '/Vendor/Info/ConfirmEmail'; //post
 
   /* ------ payment -------*/
   static payments = '/Vendor/Payments'; //get

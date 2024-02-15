@@ -206,5 +206,8 @@
   "quotation": "Quotation",
   "edit": "Edit",
   "isReturnedPayment": "Is returned payment?",
-  "itemTotal": "Item total"
+  "itemTotal": "Item total",
+  "confirmingEmail": "Confirming email...",
+  "inCaseEmailConfirmedYouWillBeRedirectedToLogin": "In case email confirmed, you will be redirected to login",
+  "emailConfirmed": "Email confirmed"
 }

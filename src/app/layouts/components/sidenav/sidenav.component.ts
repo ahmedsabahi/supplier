@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
-import { UserModel } from 'src/app/pages/pages/auth/auth.model';
+import { UserModel } from 'src/app/pages/pages/auth/models/auth.model';
 
 @Component({
   selector: 'vex-sidenav',

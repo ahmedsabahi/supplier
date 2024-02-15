@@ -5,25 +5,8 @@ import { authGuard } from './auth.guard';
 
 export const appRoutes: VexRoutes = [
   {
-    path: 'login',
-    loadComponent: () =>
-      import('./pages/pages/auth/login/login.component').then(
-        (m) => m.LoginComponent
-      )
-  },
-  {
-    path: 'register',
-    loadComponent: () =>
-      import('./pages/pages/auth/register/register.component').then(
-        (m) => m.RegisterComponent
-      )
-  },
-  {
-    path: 'forgot-password',
-    loadComponent: () =>
-      import(
-        './pages/pages/auth/forgot-password/forgot-password.component'
-      ).then((m) => m.ForgotPasswordComponent)
+    path: 'auth',
+    loadChildren: () => import('./pages/pages/auth/auth.routes')
   },
   {
     path: 'coming-soon',

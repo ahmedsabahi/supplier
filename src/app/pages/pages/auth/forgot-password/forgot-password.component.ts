@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'vex-forgot-password',
@@ -51,7 +51,7 @@ export class ForgotPasswordComponent {
     this.authService.resetPassword(this.form.value.email!).subscribe({
       next: (res) => {
         this.isLoading = false;
-        if (res.status === 1) this.router.navigate(['/login']);
+        if (res.status === 1) this.router.navigate(['/auth/login']);
         this.snackbar.open(
           (this.translate.defaultLang === 'ar'
             ? res.messageAr

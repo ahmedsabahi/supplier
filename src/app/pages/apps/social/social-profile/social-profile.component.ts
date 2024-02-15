@@ -6,11 +6,11 @@ import { stagger40ms } from '@vex/animations/stagger.animation';
 import { MatButtonModule } from '@angular/material/button';
 import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { UserModel } from 'src/app/pages/pages/auth/auth.model';
+import { UserModel } from 'src/app/pages/pages/auth/models/auth.model';
 import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { VendorModel } from '../vendor.model';
-import { VendorService } from '../vendor.service';
+import { VendorModel } from '../../../pages/auth/models/vendor.model';
+import { VendorService } from '../../../pages/auth/services/vendor.service';
 
 @Component({
   selector: 'vex-social-profile',

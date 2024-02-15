@@ -6,7 +6,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
-import { UserModel } from '../../pages/auth/auth.model';
+import { UserModel } from '../../pages/auth/models/auth.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 export interface FriendSuggestion {

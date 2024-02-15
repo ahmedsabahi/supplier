@@ -5,7 +5,7 @@ import {
   BaseResponse,
   ResultResponse
 } from 'src/app/core/models/api-response.model';
-import { UserLoginCommand, UserModel } from './auth.model';
+import { UserLoginCommand, UserModel } from '../models/auth.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
 
 @Injectable({

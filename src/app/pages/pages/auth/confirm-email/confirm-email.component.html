@@ -1,0 +1,23 @@
+<div
+  @fadeInUp
+  class="card shadow-xl text-center w-full max-w-md overflow-hidden">
+  <div class="p-6 flex flex-col items-center">
+    <img class="w-2/3" src="assets/img/logo/logo.svg" />
+  </div>
+
+  @if (isLoading) {
+    <h1 class="headline font-medium m-5">
+      {{ "confirmingEmail" | translate }}
+    </h1>
+    <div class="flex items-center justify-center">
+      <mat-spinner [diameter]="20"> </mat-spinner>
+    </div>
+    <h3 class="body-2 my-5">
+      {{ "inCaseEmailConfirmedYouWillBeRedirectedToLogin" | translate }}
+    </h3>
+  } @else {
+    <h1 class="headline font-medium m-5">
+      {{ "emailConfirmed" | translate }}
+    </h1>
+  }
+</div>
