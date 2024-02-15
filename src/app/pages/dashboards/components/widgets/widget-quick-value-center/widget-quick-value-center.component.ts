@@ -8,7 +8,6 @@ import {
   MatBottomSheet,
   MatBottomSheetModule
 } from '@angular/material/bottom-sheet';
-import { ShareBottomSheetComponent } from '../../share-bottom-sheet/share-bottom-sheet.component';
 import { scaleInOutAnimation } from '@vex/animations/scale-in-out.animation';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,8 +45,4 @@ export class WidgetQuickValueCenterComponent implements OnInit {
   constructor(private _bottomSheet: MatBottomSheet) {}
 
   ngOnInit() {}
-
-  openSheet() {
-    this._bottomSheet.open(ShareBottomSheetComponent);
-  }
 }

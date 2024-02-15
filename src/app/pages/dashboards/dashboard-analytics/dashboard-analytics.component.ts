@@ -1,15 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { defaultChartOptions } from '@vex/utils/default-chart-options';
-import {
-  Order,
-  tableSalesData
-} from '../../../../static-data/table-sales-data';
-import { TableColumn } from '@vex/interfaces/table-column.interface';
 import { WidgetTableComponent } from '../components/widgets/widget-table/widget-table.component';
 import { WidgetLargeChartComponent } from '../components/widgets/widget-large-chart/widget-large-chart.component';
 import { WidgetQuickValueCenterComponent } from '../components/widgets/widget-quick-value-center/widget-quick-value-center.component';
 import { WidgetLargeGoalChartComponent } from '../components/widgets/widget-large-goal-chart/widget-large-goal-chart.component';
-import { WidgetQuickLineChartComponent } from '../components/widgets/widget-quick-line-chart/widget-quick-line-chart.component';
 import { WidgetAssistantComponent } from '../components/widgets/widget-assistant/widget-assistant.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,7 +30,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatIconModule,
     WidgetAssistantComponent,
-    WidgetQuickLineChartComponent,
     WidgetLargeGoalChartComponent,
     WidgetQuickValueCenterComponent,
     WidgetLargeChartComponent,

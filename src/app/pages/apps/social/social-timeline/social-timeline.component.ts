@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { friendSuggestions } from '../../../../../static-data/friend-suggestions';
-import { FriendSuggestion } from '../social.component';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
 import { fadeInRight400ms } from '@vex/animations/fade-in-right.animation';
 import { scaleIn400ms } from '@vex/animations/scale-in.animation';
