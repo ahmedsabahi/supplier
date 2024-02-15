@@ -8,13 +8,7 @@ export const appRoutes: VexRoutes = [
     path: 'auth',
     loadChildren: () => import('./pages/pages/auth/auth.routes')
   },
-  {
-    path: 'coming-soon',
-    loadComponent: () =>
-      import('./pages/pages/coming-soon/coming-soon.component').then(
-        (m) => m.ComingSoonComponent
-      )
-  },
+
   {
     path: '',
     component: LayoutComponent,
