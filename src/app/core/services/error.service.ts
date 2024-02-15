@@ -65,7 +65,7 @@ export class ErrorService {
   }
 
   handleUnauthorizedError() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 }
 

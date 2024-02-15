@@ -9,8 +9,9 @@ import { EndPoints } from 'src/app/core/helpers/end-points.helper';
 import {
   UpdateVendorCommend,
   RegisterVendorCommand,
-  VendorModel
-} from './vendor.model';
+  VendorModel,
+  ConfirmEmailCommand
+} from '../models/vendor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,9 @@ export class VendorService {
 
   register(model: RegisterVendorCommand): Observable<ResultResponse> {
     return this.http.post<ResultResponse>(EndPoints.vendorRegister, model);
+  }
+
+  confirmEmail(model: ConfirmEmailCommand): Observable<ResultResponse> {
+    return this.http.post<ResultResponse>(EndPoints.vendorConfirmEmail, model);
   }
 }

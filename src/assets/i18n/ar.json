@@ -209,5 +209,8 @@
   "quotation": "عرض سعر",
   "edit": "تعديل",
   "isReturnedPayment": "هل هذه المدفوعة مسترجعة؟",
-  "itemTotal": "إجمالي المنتج"
+  "itemTotal": "إجمالي المنتج",
+  "confirmingEmail": "... جاري تأكيد البريد الإلكتروني",
+  "inCaseEmailConfirmedYouWillBeRedirectedToLogin": "في حال تأكيد البريد الإلكتروني، سيتم توجيهك إلى صفحة تسجيل الدخول",
+  "emailConfirmed": "تم تأكيد البريد الإلكتروني"
 }

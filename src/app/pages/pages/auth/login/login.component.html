@@ -61,7 +61,7 @@
         <mat-checkbox class="caption" color="primary">
           {{ "rememberMe" | translate }}
         </mat-checkbox>
-        <a [routerLink]="['/forgot-password']" class="caption">
+        <a [routerLink]="['/auth/forgot-password']" class="caption">
           {{ "forgotPassword" | translate }}
         </a>
       </div>
@@ -81,7 +81,7 @@
       <p class="text-secondary text-center">
         {{ "dontHaveAnAccount" | translate }}
         <br />
-        <a [routerLink]="['/register']">
+        <a [routerLink]="['/auth/register']">
           {{ "clickHereToCreateOne" | translate }}
         </a>
       </p>

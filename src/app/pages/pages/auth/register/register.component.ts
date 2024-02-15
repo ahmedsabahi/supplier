@@ -22,9 +22,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { VendorService } from 'src/app/pages/apps/social/vendor.service';
+import { VendorService } from 'src/app/pages/pages/auth/services/vendor.service';
 
 @Component({
   selector: 'vex-register',
@@ -111,7 +111,7 @@ export class RegisterComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.isLoading = false;
-          if (res.status === 1) this.router.navigate(['/login']);
+          if (res.status === 1) this.router.navigate(['/auth/login']);
           this.snackbar.open(
             (this.translate.defaultLang === 'ar'
               ? res.messageAr

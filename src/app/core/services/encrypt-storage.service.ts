@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { EncryptStorage } from 'encrypt-storage';
-import { UserModel } from 'src/app/pages/pages/auth/auth.model';
+import { UserModel } from 'src/app/pages/pages/auth/models/auth.model';
 
 @Injectable({
   providedIn: 'root'

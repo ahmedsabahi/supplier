@@ -146,3 +146,8 @@ export interface RegisterVendorCommand {
   crNumber?: string;
   vatNumber?: string;
 }
+
+export interface ConfirmEmailCommand {
+  code?: string;
+  type?: string;
+}
