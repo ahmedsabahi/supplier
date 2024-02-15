@@ -31,7 +31,7 @@ const baseConfig: VexConfig = {
   layout: 'horizontal',
   boxed: false,
   sidenav: {
-    title: 'Vendor Portal',
+    title: 'vendorPortal',
     imageUrl: 'assets/img/logo/logo.svg',
     showCollapsePin: true,
     user: {

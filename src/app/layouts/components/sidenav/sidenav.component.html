@@ -11,7 +11,7 @@
         alt="Logo"
         class="w-6 select-none flex-none" />
       <h2 class="vex-sidenav-toolbar__headline flex-auto">
-        {{ title$ | async }}
+        {{ title ?? "" | translate }}
       </h2>
       <button
         (click)="toggleCollapse()"

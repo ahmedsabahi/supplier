@@ -212,5 +212,6 @@
   "itemTotal": "إجمالي المنتج",
   "confirmingEmail": "... جاري تأكيد البريد الإلكتروني",
   "inCaseEmailConfirmedYouWillBeRedirectedToLogin": "في حال تأكيد البريد الإلكتروني، سيتم توجيهك إلى صفحة تسجيل الدخول",
-  "emailConfirmed": "تم تأكيد البريد الإلكتروني"
+  "emailConfirmed": "تم تأكيد البريد الإلكتروني",
+  "vendorPortal": "منصة المورد"
 }

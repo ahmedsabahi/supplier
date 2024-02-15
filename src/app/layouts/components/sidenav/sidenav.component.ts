@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { EncryptStorageService } from 'src/app/core/services/encrypt-storage.service';
 import { UserModel } from 'src/app/pages/pages/auth/models/auth.model';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'vex-sidenav',
@@ -31,6 +32,7 @@ import { UserModel } from 'src/app/pages/pages/auth/models/auth.model';
     VexScrollbarComponent,
     NgFor,
     SidenavItemComponent,
+    TranslateModule,
     AsyncPipe
   ]
 })
@@ -58,16 +60,20 @@ export class SidenavComponent implements OnInit {
   items$: Observable<NavigationItem[]> = this.navigationService.items$;
 
   user: UserModel;
-
+  title?: string;
   constructor(
     private navigationService: NavigationService,
     private layoutService: VexLayoutService,
     private configService: VexConfigService,
     private readonly popoverService: VexPopoverService,
     private readonly dialog: MatDialog,
+    private translateService: TranslateService,
     private readonly encryptStorageService: EncryptStorageService
   ) {
     this.user = this.getUser();
+    this.title$.subscribe((value) => {
+      this.title = value;
+    });
   }
 
   ngOnInit() {}

@@ -209,5 +209,6 @@
   "itemTotal": "Item total",
   "confirmingEmail": "Confirming email...",
   "inCaseEmailConfirmedYouWillBeRedirectedToLogin": "In case email confirmed, you will be redirected to login",
-  "emailConfirmed": "Email confirmed"
+  "emailConfirmed": "Email confirmed",
+  "vendorPortal": "Vendor Portal"
 }

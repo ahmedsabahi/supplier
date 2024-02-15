@@ -69,8 +69,8 @@ export class ToolbarComponent implements OnInit {
   userVisible$: Observable<boolean> = this.configService.config$.pipe(
     map((config) => config.toolbar.user.visible)
   );
-  title$: Observable<string> = this.configService.select(
-    (config) => config.sidenav.title
+  title$: Observable<string> = this.configService.select((config) =>
+    this.translateService.instant(config.sidenav.title)
   );
 
   isDesktop$: Observable<boolean> = this.layoutService.isDesktop$;
