@@ -36,7 +36,7 @@ export class NavigationLoaderService {
 
       {
         type: 'subheading',
-        label: 'app',
+        label: 'operations',
         children: [
           {
             type: 'link',
@@ -105,12 +105,6 @@ export class NavigationLoaderService {
             icon: 'mat:update'
           }
         ]
-      },
-      {
-        type: 'link',
-        label: 'configuration',
-        route: () => this.layoutService.openConfigpanel(),
-        icon: 'mat:settings'
       }
     ]);
   }
