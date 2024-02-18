@@ -17,9 +17,9 @@ export interface FriendSuggestion {
 }
 
 @Component({
-  selector: 'vex-social',
-  templateUrl: './social.component.html',
-  styleUrls: ['./social.component.scss'],
+  selector: 'vex-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
   animations: [scaleIn400ms, fadeInRight400ms],
   standalone: true,
   imports: [
@@ -31,7 +31,7 @@ export interface FriendSuggestion {
     TranslateModule
   ]
 })
-export class SocialComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   links: Link[] = [
     {
       label: 'profile',
@@ -40,7 +40,7 @@ export class SocialComponent implements OnInit {
     },
     {
       label: 'editProfile',
-      route: './timeline'
+      route: './edit'
     }
   ];
 

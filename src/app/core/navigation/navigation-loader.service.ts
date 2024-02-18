@@ -41,25 +41,25 @@ export class NavigationLoaderService {
           {
             type: 'link',
             label: 'quotations',
-            route: '/apps/quotations',
+            route: '/operations/quotations',
             icon: 'mat:monetization_on'
           },
           {
             type: 'link',
             label: 'purchaseOrders',
-            route: '/apps/purchase-orders',
+            route: '/operations/purchase-orders',
             icon: 'mat:shopping_bag'
           },
           {
             type: 'link',
             label: 'productsPrices',
-            route: '/apps/products-prices',
+            route: '/operations/products-prices',
             icon: 'mat:assignment'
           },
           {
             type: 'link',
             label: 'payments',
-            route: '/apps/payments',
+            route: '/operations/payments',
             icon: 'mat:attach_money'
           }
         ]
@@ -71,13 +71,13 @@ export class NavigationLoaderService {
           {
             type: 'link',
             label: 'users',
-            route: '/apps/users',
+            route: '/operations/users',
             icon: 'mat:perm_identity'
           },
           {
             type: 'link',
             label: 'bankAccounts',
-            route: '/apps/bank-accounts',
+            route: '/operations/bank-accounts',
             icon: 'mat:credit_card'
           }
         ]
@@ -89,13 +89,13 @@ export class NavigationLoaderService {
           {
             type: 'link',
             label: 'guides',
-            route: '/apps/help-center/guides',
+            route: '/operations/help-center/guides',
             icon: 'mat:help'
           },
           {
             type: 'link',
             label: 'FAQ',
-            route: '/apps/help-center/faq',
+            route: '/operations/help-center/faq',
             icon: 'mat:book'
           },
           {

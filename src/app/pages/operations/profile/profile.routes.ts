@@ -1,10 +1,10 @@
-import { SocialComponent } from './social.component';
 import { VexRoutes } from '@vex/interfaces/vex-route.interface';
+import { ProfileComponent } from './profile.component';
 
 const routes: VexRoutes = [
   {
     path: '',
-    component: SocialComponent,
+    component: ProfileComponent,
     data: {
       toolbarShadowEnabled: true
     },
@@ -12,15 +12,15 @@ const routes: VexRoutes = [
       {
         path: '',
         loadComponent: () =>
-          import('./social-profile/social-profile.component').then(
-            (m) => m.SocialProfileComponent
+          import('./view-profile/view-profile.component').then(
+            (m) => m.ViewProfileComponent
           )
       },
       {
-        path: 'timeline',
+        path: 'edit',
         loadComponent: () =>
-          import('./social-timeline/social-timeline.component').then(
-            (m) => m.SocialTimelineComponent
+          import('./edit-profile/edit-profile.component').then(
+            (m) => m.EditProfileComponent
           )
       }
     ]

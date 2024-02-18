@@ -27,16 +27,17 @@ export const appRoutes: VexRoutes = [
           ).then((m) => m.DashboardAnalyticsComponent)
       },
       {
-        path: 'apps',
+        path: 'operations',
         children: [
           {
-            path: 'social',
-            loadChildren: () => import('./pages/apps/social/social.routes')
+            path: 'profile',
+            loadChildren: () =>
+              import('./pages/operations/profile/profile.routes')
           },
           {
             path: 'payments',
             loadComponent: () =>
-              import('./pages/apps/payments/payments.component').then(
+              import('./pages/operations/payments/payments.component').then(
                 (m) => m.PaymentsComponent
               ),
             data: {
@@ -47,7 +48,7 @@ export const appRoutes: VexRoutes = [
             path: 'products-prices',
             loadComponent: () =>
               import(
-                './pages/apps/products-prices/products-prices.component'
+                './pages/operations/products-prices/products-prices.component'
               ).then((m) => m.ProductsPricesComponent),
             data: {
               toolbarShadowEnabled: false
@@ -56,7 +57,7 @@ export const appRoutes: VexRoutes = [
           {
             path: 'users',
             loadComponent: () =>
-              import('./pages/apps/users/users.component').then(
+              import('./pages/operations/users/users.component').then(
                 (m) => m.UsersComponent
               ),
             data: {
@@ -66,9 +67,9 @@ export const appRoutes: VexRoutes = [
           {
             path: 'bank-accounts',
             loadComponent: () =>
-              import('./pages/apps/bank-accounts/bank-accounts.component').then(
-                (m) => m.BankAccountsComponent
-              ),
+              import(
+                './pages/operations/bank-accounts/bank-accounts.component'
+              ).then((m) => m.BankAccountsComponent),
             data: {
               toolbarShadowEnabled: false
             }
@@ -76,17 +77,19 @@ export const appRoutes: VexRoutes = [
           {
             path: 'quotations',
             loadChildren: () =>
-              import('./pages/apps/quotations/quotation.routes')
+              import('./pages/operations/quotations/quotation.routes')
           },
           {
             path: 'purchase-orders',
             loadChildren: () =>
-              import('./pages/apps/purchase-orders/purchase-orders.routes')
+              import(
+                './pages/operations/purchase-orders/purchase-orders.routes'
+              )
           },
           {
             path: 'help-center',
             loadChildren: () =>
-              import('./pages/apps/help-center/help-center.routes')
+              import('./pages/operations/help-center/help-center.routes')
           }
         ]
       },

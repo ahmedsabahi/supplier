@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { HelpCenterGuidesGuideComponent } from '../../apps/help-center/help-center-guides/help-center-guides-guide/help-center-guides-guide.component';
+import { HelpCenterGuidesGuideComponent } from '../../operations/help-center/help-center-guides/help-center-guides-guide/help-center-guides-guide.component';
 import {
   Guide,
   GuideCategory
-} from '../../apps/help-center/help-center-guides/help-center-guides.component';
+} from '../../operations/help-center/help-center-guides/help-center-guides.component';
 import { trackById } from '@vex/utils/track-by';
 import { stagger60ms } from '@vex/animations/stagger.animation';
 import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
@@ -27,7 +27,7 @@ export class GuidesComponent implements OnInit {
       id: 1,
       label: 'How to create users',
       icon: 'mat:description',
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       category: GuideCategory.accountSettings,
       onClick: (guide) => this.openDialog(guide)
     },
@@ -35,7 +35,7 @@ export class GuidesComponent implements OnInit {
       id: 2,
       label: 'How to set user as Account Manager?',
       icon: 'mat:description',
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       category: GuideCategory.accountSettings,
       onClick: (guide) => this.openDialog(guide)
     },
@@ -43,7 +43,7 @@ export class GuidesComponent implements OnInit {
       id: 3,
       label: 'How to re-send login infomation to user?',
       icon: 'mat:movie_filter',
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       category: GuideCategory.accountSettings,
       onClick: (guide) => this.openDialog(guide)
     },
@@ -51,7 +51,7 @@ export class GuidesComponent implements OnInit {
       id: 4,
       label: 'Where can I change my timezone?',
       icon: 'mat:description',
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       category: GuideCategory.accountSettings,
       onClick: (guide) => this.openDialog(guide)
     },
@@ -60,7 +60,7 @@ export class GuidesComponent implements OnInit {
       label: 'How do I change my password?',
       icon: 'mat:movie_filter',
       category: GuideCategory.accountSettings,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -68,7 +68,7 @@ export class GuidesComponent implements OnInit {
       label: 'Which technologies are used?',
       icon: 'mat:description',
       category: GuideCategory.apiHelp,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -76,7 +76,7 @@ export class GuidesComponent implements OnInit {
       label: 'How do I make a request?',
       icon: 'mat:movie_filter',
       category: GuideCategory.apiHelp,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -84,7 +84,7 @@ export class GuidesComponent implements OnInit {
       label: 'What are the API Limits?',
       icon: 'mat:description',
       category: GuideCategory.apiHelp,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -92,7 +92,7 @@ export class GuidesComponent implements OnInit {
       label: 'How can I apply for the API?',
       icon: 'mat:movie_filter',
       category: GuideCategory.apiHelp,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -100,7 +100,7 @@ export class GuidesComponent implements OnInit {
       label: 'When can I start developing?',
       icon: 'mat:description',
       category: GuideCategory.apiHelp,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -108,7 +108,7 @@ export class GuidesComponent implements OnInit {
       label: 'Can I get a refund?',
       icon: 'mat:description',
       category: GuideCategory.billing,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -116,7 +116,7 @@ export class GuidesComponent implements OnInit {
       label: 'How do I pay?',
       icon: 'mat:movie_filter',
       category: GuideCategory.billing,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -124,7 +124,7 @@ export class GuidesComponent implements OnInit {
       label: 'Which payment methods are supported?',
       icon: 'mat:movie_filter',
       category: GuideCategory.billing,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -132,7 +132,7 @@ export class GuidesComponent implements OnInit {
       label: 'Do I need to pay VAT?',
       icon: 'mat:description',
       category: GuideCategory.billing,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -140,7 +140,7 @@ export class GuidesComponent implements OnInit {
       label: 'Where do I find my purchase code?',
       icon: 'mat:description',
       category: GuideCategory.billing,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -148,7 +148,7 @@ export class GuidesComponent implements OnInit {
       label: 'How do I download the template?',
       icon: 'mat:description',
       category: GuideCategory.firstSteps,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -156,7 +156,7 @@ export class GuidesComponent implements OnInit {
       label: 'Installation Guide',
       icon: 'mat:movie_filter',
       category: GuideCategory.firstSteps,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -164,7 +164,7 @@ export class GuidesComponent implements OnInit {
       label: 'Creating your first page',
       icon: 'mat:movie_filter',
       category: GuideCategory.firstSteps,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -172,7 +172,7 @@ export class GuidesComponent implements OnInit {
       label: 'Customizing your template',
       icon: 'mat:description',
       category: GuideCategory.firstSteps,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     },
     {
@@ -180,7 +180,7 @@ export class GuidesComponent implements OnInit {
       label: 'How do I contact support?',
       icon: 'mat:description',
       category: GuideCategory.firstSteps,
-      content:"this is the conten in how to secure my passeword",
+      content: 'this is the conten in how to secure my passeword',
       onClick: (guide) => this.openDialog(guide)
     }
   ];

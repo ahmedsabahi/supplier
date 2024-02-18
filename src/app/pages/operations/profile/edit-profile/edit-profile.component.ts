@@ -10,9 +10,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 
 @Component({
-  selector: 'vex-social-timeline',
-  templateUrl: './social-timeline.component.html',
-  styleUrls: ['./social-timeline.component.scss'],
+  selector: 'vex-edit-profile',
+  templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.scss'],
   animations: [fadeInUp400ms, fadeInRight400ms, scaleIn400ms, stagger40ms],
   standalone: true,
   imports: [
@@ -24,7 +24,7 @@ import { MatRippleModule } from '@angular/material/core';
     NgIf
   ]
 })
-export class SocialTimelineComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}

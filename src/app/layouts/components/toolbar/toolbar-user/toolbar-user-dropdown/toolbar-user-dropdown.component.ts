@@ -48,7 +48,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
       label: 'My Profile',
       description: 'Personal Information',
       colorClass: 'text-teal-600',
-      route: '/apps/social'
+      route: '/operations/social'
     },
     {
       id: '2',
@@ -56,7 +56,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
       label: 'My Inbox',
       description: 'Messages & Latest News',
       colorClass: 'text-primary-600',
-      route: '/apps/chat'
+      route: '/operations/chat'
     },
     {
       id: '3',
@@ -64,7 +64,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
       label: 'My Projects',
       description: 'Tasks & Active Projects',
       colorClass: 'text-amber-600',
-      route: '/apps/scrumboard'
+      route: '/operations/scrumboard'
     },
     {
       id: '4',
