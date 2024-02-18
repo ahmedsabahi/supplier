@@ -81,31 +81,31 @@ export class NavigationLoaderService {
             icon: 'mat:credit_card'
           }
         ]
-      },
-      {
-        type: 'subheading',
-        label: 'help',
-        children: [
-          {
-            type: 'link',
-            label: 'guides',
-            route: '/operations/help-center/guides',
-            icon: 'mat:help'
-          },
-          {
-            type: 'link',
-            label: 'FAQ',
-            route: '/operations/help-center/faq',
-            icon: 'mat:book'
-          },
-          {
-            type: 'link',
-            label: 'changelog',
-            route: '/documentation/changelog',
-            icon: 'mat:update'
-          }
-        ]
       }
+      // {
+      //   type: 'subheading',
+      //   label: 'help',
+      //   children: [
+      //     {
+      //       type: 'link',
+      //       label: 'guides',
+      //       route: '/operations/help-center/guides',
+      //       icon: 'mat:help'
+      //     },
+      //     {
+      //       type: 'link',
+      //       label: 'FAQ',
+      //       route: '/operations/help-center/faq',
+      //       icon: 'mat:book'
+      //     },
+      //     {
+      //       type: 'link',
+      //       label: 'changelog',
+      //       route: '/documentation/changelog',
+      //       icon: 'mat:update'
+      //     }
+      //   ]
+      // }
     ]);
   }
 }
