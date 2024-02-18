@@ -27,13 +27,37 @@ export const appRoutes: VexRoutes = [
           ).then((m) => m.DashboardAnalyticsComponent)
       },
       {
-        path: 'operations',
+        path: 'settings',
         children: [
           {
-            path: 'profile',
-            loadChildren: () =>
-              import('./pages/operations/profile/profile.routes')
+            path: 'users',
+            loadComponent: () =>
+              import('./pages/operations/users/users.component').then(
+                (m) => m.UsersComponent
+              ),
+            data: {
+              toolbarShadowEnabled: false
+            }
           },
+          {
+            path: 'bank-accounts',
+            loadComponent: () =>
+              import(
+                './pages/operations/bank-accounts/bank-accounts.component'
+              ).then((m) => m.BankAccountsComponent),
+            data: {
+              toolbarShadowEnabled: false
+            }
+          }
+        ]
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./pages/operations/profile/profile.routes')
+      },
+      {
+        path: 'operations',
+        children: [
           {
             path: 'payments',
             loadComponent: () =>
@@ -54,26 +78,7 @@ export const appRoutes: VexRoutes = [
               toolbarShadowEnabled: false
             }
           },
-          {
-            path: 'users',
-            loadComponent: () =>
-              import('./pages/operations/users/users.component').then(
-                (m) => m.UsersComponent
-              ),
-            data: {
-              toolbarShadowEnabled: false
-            }
-          },
-          {
-            path: 'bank-accounts',
-            loadComponent: () =>
-              import(
-                './pages/operations/bank-accounts/bank-accounts.component'
-              ).then((m) => m.BankAccountsComponent),
-            data: {
-              toolbarShadowEnabled: false
-            }
-          },
+
           {
             path: 'quotations',
             loadChildren: () =>

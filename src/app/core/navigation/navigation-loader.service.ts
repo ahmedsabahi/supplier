@@ -71,13 +71,13 @@ export class NavigationLoaderService {
           {
             type: 'link',
             label: 'users',
-            route: '/operations/users',
+            route: '/settings/users',
             icon: 'mat:perm_identity'
           },
           {
             type: 'link',
             label: 'bankAccounts',
-            route: '/operations/bank-accounts',
+            route: '/settings/bank-accounts',
             icon: 'mat:credit_card'
           }
         ]
