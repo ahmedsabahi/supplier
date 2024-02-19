@@ -19,10 +19,10 @@ export const authGuard: CanActivateFn = (
   if (!encryptStorageService.isTokenExpired) {
     let user = encryptStorageService.getCurrentUser();
 
-    if (!user || user === null) router.navigate(['/login']);
+    if (!user || user === null) router.navigate(['/auth/login']);
 
     return true;
   }
-  router.navigate(['/login']);
+  router.navigate(['/auth/login']);
   return false;
 };
