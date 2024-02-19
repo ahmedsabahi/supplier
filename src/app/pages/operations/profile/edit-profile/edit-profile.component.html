@@ -1,164 +1,137 @@
 <div class="mt-6 flex flex-col md:flex-row md:items-start">
-  <div class="flex-auto">
-    <div class="flex justify-between">
-      <div
-        class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-1 hover:bg-primary-600/10 transition duration-400 ease-out-swift"
-        matRipple>
-        <div
-          @scaleIn
-          class="p-2 bg-primary-600/10 text-primary-600 rounded-full ltr:mr-4 rtl:ml-4">
-          <mat-icon class="block" svgIcon="mat:add"></mat-icon>
-        </div>
-        <p @fadeInRight class="font-medium text-primary-600">
-          Share your thoughts
-        </p>
-      </div>
+  <div class="w-full">
+    <form (ngSubmit)="updateVendor()" [formGroup]="form">
+      <div class="card">
+        <div class="px-6 py-3">
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="name">{{ "name" | translate }}</mat-label>
+            <input
+              id="name"
+              cdkFocusInitial
+              formControlName="name"
+              matInput
+              required />
+            <mat-error *ngIf="form.controls['name'].hasError('required')">
+              {{ "requiredName" | translate }}
+            </mat-error>
+            <mat-error *ngIf="form.controls['name'].hasError('minlength')">
+              {{ "minLengthName" | translate }}
+            </mat-error>
+          </mat-form-field>
 
-      <div
-        class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-green-600/10 transition duration-400 ease-out-swift"
-        matRipple>
-        <div
-          @scaleIn
-          class="p-2 bg-green-600/10 text-green-600 rounded-full ltr:mr-4 rtl:ml-4">
-          <mat-icon class="block" svgIcon="mat:add_a_photo"></mat-icon>
-        </div>
-        <p @fadeInRight class="font-medium text-green-600">Take a picture</p>
-      </div>
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="phone">{{ "phone" | translate }}</mat-label>
+            <input id="phone" formControlName="mobile" matInput required />
+            <mat-error *ngIf="form.controls['mobile'].hasError('required')">
+              {{ "requiredPhone" | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                form.controls['mobile'].hasError('minlength') &&
+                !form.controls['mobile'].hasError('pattern')
+              ">
+              {{ "minLengthPhone" | translate }}
+            </mat-error>
+            <mat-error
+              *ngIf="
+                form.controls['mobile'].hasError('maxlength') &&
+                !form.controls['mobile'].hasError('pattern')
+              ">
+              {{ "maxLengthPhone" | translate }}
+            </mat-error>
+            <mat-error *ngIf="form.controls['mobile'].hasError('pattern')">
+              {{ "errorPatternPhone" | translate }}
+            </mat-error>
+          </mat-form-field>
 
-      <div
-        class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-cyan-600/10 transition duration-400 ease-out-swift"
-        matRipple>
-        <div
-          class="p-2 bg-cyan-600/10 text-cyan-600 rounded-full ltr:mr-4 rtl:ml-4">
-          <mat-icon class="block" svgIcon="mat:photo_filter"></mat-icon>
-        </div>
-        <p @fadeInRight class="font-medium text-cyan-600">Create a story</p>
-      </div>
-    </div>
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="email">{{ "email" | translate }}</mat-label>
+            <input id="email" formControlName="email" matInput required />
+            <mat-error *ngIf="form.controls['email'].hasError('required')">
+              {{ "requiredEmail" | translate }}
+            </mat-error>
+            <mat-error *ngIf="form.controls['email'].hasError('email')">
+              {{ "errorEmail" | translate }}
+            </mat-error>
+          </mat-form-field>
 
-    <div @fadeInUp class="card mt-6">
-      <div (click)="textarea.focus()" class="bg-foreground rounded-t flex">
-        <textarea
-          #textarea
-          class="outline-none bg-foreground p-6 rounded-t flex-auto"
-          placeholder="Share your thoughts..."></textarea>
-      </div>
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="address">{{ "address" | translate }}</mat-label>
+            <input id="address" formControlName="address" matInput required />
+            <mat-error *ngIf="form.controls['address'].hasError('required')">
+              {{ "requiredAddress" | translate }}
+            </mat-error>
+          </mat-form-field>
 
-      <div class="bg-app-bar flex">
-        <button
-          class="text-secondary uppercase font-medium rounded-none ltr:rounded-bl rtl:rounded-br"
-          mat-button
-          type="button">
-          <mat-icon matButtonIcon svgIcon="mat:add_a_photo"></mat-icon>
-          <span class="text-xs">Photo</span>
-        </button>
-        <button
-          class="text-secondary uppercase font-medium rounded-none"
-          mat-button
-          type="button">
-          <mat-icon matButtonIcon svgIcon="mat:attach_file"></mat-icon>
-          <span class="text-xs">File/Document</span>
-        </button>
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="cityName">{{ "cityName" | translate }}</mat-label>
+            <mat-select id="cityName" formControlName="cityID" required>
+              @for (city of cities; track city) {
+                <mat-option [value]="city.id">
+                  {{ city.textAr ?? city.textEn }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (form.controls["cityID"].hasError("required")) {
+              <mat-error> {{ "requiredCityName" | translate }} </mat-error>
+            }
+          </mat-form-field>
 
-        <span class="flex-1"></span>
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="categoryName">
+              {{ "categoryName" | translate }}
+            </mat-label>
+            <mat-select
+              id="categoryName"
+              formControlName="categoryIDs"
+              required
+              [multiple]="true">
+              @for (category of categories; track category) {
+                <mat-option [value]="category.id">
+                  {{ category.textAr ?? category.textEn }}
+                </mat-option>
+              }
+            </mat-select>
+            @if (form.controls["categoryIDs"].hasError("required")) {
+              <mat-error> {{ "requiredCategoryName" | translate }} </mat-error>
+            }
+          </mat-form-field>
 
-        <button
-          class="uppercase font-medium rounded-none ltr:rounded-br rtl:rounded-bl"
-          color="primary"
-          mat-flat-button
-          type="button">
-          <span>Post</span>
-          <mat-icon
-            iconPositionEnd
-            matButtonIcon
-            svgIcon="mat:keyboard_arrow_right"></mat-icon>
-        </button>
-      </div>
-    </div>
-  </div>
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="crNumber">{{ "crNumber" | translate }}</mat-label>
+            <input id="crNumber" formControlName="crNumber" matInput required />
+            <mat-error *ngIf="form.controls['crNumber'].hasError('required')">
+              {{ "requiredCrNumber" | translate }}
+            </mat-error>
+          </mat-form-field>
 
-  <div
-    class="flex-none max-w-unset md:max-w-xs w-full md:ltr:ml-6 md:rtl:mr-6 mt-6 md:mt-0">
-    <div class="card">
-      <div class="px-6 py-4 border-b">
-        <h2 class="title m-0">About</h2>
-      </div>
+          <mat-form-field class="py-3 flex items-center">
+            <mat-label id="vatNumber">{{ "vatNumber" | translate }}</mat-label>
+            <input
+              id="vatNumber"
+              formControlName="vatNumber"
+              matInput
+              required />
+            <mat-error *ngIf="form.controls['vatNumber'].hasError('required')">
+              {{ "requiredVatNumber" | translate }}
+            </mat-error>
+          </mat-form-field>
 
-      <div class="px-6 py-3">
-        <div class="py-3 flex items-center">
-          <div
-            @scaleIn
-            class="w-10 h-10 rounded-full bg-primary-600/10 text-primary-600 ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-            <mat-icon class="icon-sm" svgIcon="mat:phone"></mat-icon>
+          <div class="flex justify-end">
+            <button
+              mat-raised-button
+              color="primary"
+              [disabled]="isLoading"
+              type="submit">
+              @if (isLoading) {
+                <mat-spinner [diameter]="20"> </mat-spinner>
+              } @else {
+                {{ "update" | translate }}
+              }
+            </button>
           </div>
-
-          <div @fadeInRight>
-            <p class="m-0 body-1">+1 (930) 502-3182</p>
-            <p class="m-0 caption text-hint">Business</p>
-          </div>
-        </div>
-
-        <div class="py-3 flex items-center">
-          <div
-            @scaleIn
-            class="w-10 h-10 rounded-full bg-primary-600/10 text-primary-600 ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-            <mat-icon class="icon-sm" svgIcon="mat:work"></mat-icon>
-          </div>
-
-          <div @fadeInRight>
-            <p class="m-0 body-1">Web Developer at IceCube</p>
-            <p class="m-0 caption text-hint">Previously Designer at HotStuff</p>
-          </div>
-        </div>
-
-        <div class="py-3 flex items-center">
-          <div
-            @scaleIn
-            class="w-10 h-10 rounded-full bg-primary-600/10 text-primary-600 ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-            <mat-icon class="icon-sm" svgIcon="mat:mail"></mat-icon>
-          </div>
-
-          <div @fadeInRight>
-            <p class="m-0 body-1">david.smith&#64;example.com</p>
-            <p class="m-0 caption text-hint">Business inquiries only</p>
-          </div>
-        </div>
-
-        <div class="py-3 flex items-center">
-          <div
-            @scaleIn
-            class="w-10 h-10 rounded-full bgbg-primary-60010 text-primary-600 ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-            <mat-icon class="icon-sm" svgIcon="mat:access_time"></mat-icon>
-          </div>
-
-          <div @fadeInRight>
-            <p class="m-0 body-1">Usually available 9am-5pm</p>
-            <p class="m-0 caption text-hint">Call +1 (930) 242-5186</p>
-          </div>
-        </div>
-
-        <div class="py-3 flex items-center">
-          <div
-            @scaleIn
-            class="w-10 h-10 rounded-full bg-gray-600/10 text-dark ltr:mr-3 rtl:ml-3 cursor-pointer flex items-center justify-center">
-            <mat-icon class="icon-sm" svgIcon="mat:add"></mat-icon>
-          </div>
-
-          <p @fadeInRight class="m-0 body-1 cursor-pointer">Add an address</p>
-        </div>
-
-        <div class="py-3 flex items-center">
-          <div
-            @scaleIn
-            class="w-10 h-10 rounded-full bg-gray-600/10 text-dark ltr:mr-3 rtl:ml-3 cursor-pointer flex items-center justify-center">
-            <mat-icon class="icon-sm" svgIcon="mat:whatshot"></mat-icon>
-          </div>
-
-          <p @fadeInRight class="m-0 body-1 cursor-pointer">
-            Add social profiles
-          </p>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </div>

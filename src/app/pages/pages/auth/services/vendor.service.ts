@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   BaseResponse,
+  DropDownModel,
   ResultResponse
 } from 'src/app/core/models/api-response.model';
 import { EndPoints } from 'src/app/core/helpers/end-points.helper';
@@ -33,5 +34,13 @@ export class VendorService {
 
   confirmEmail(model: ConfirmEmailCommand): Observable<ResultResponse> {
     return this.http.post<ResultResponse>(EndPoints.vendorConfirmEmail, model);
+  }
+
+  cities(): Observable<BaseResponse<DropDownModel[]>> {
+    return this.http.get<BaseResponse<DropDownModel[]>>(EndPoints.cities);
+  }
+
+  categories(): Observable<BaseResponse<DropDownModel[]>> {
+    return this.http.get<BaseResponse<DropDownModel[]>>(EndPoints.categories);
   }
 }

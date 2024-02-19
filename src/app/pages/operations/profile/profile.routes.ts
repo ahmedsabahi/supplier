@@ -15,14 +15,14 @@ const routes: VexRoutes = [
           import('./view-profile/view-profile.component').then(
             (m) => m.ViewProfileComponent
           )
+      },
+      {
+        path: 'edit',
+        loadComponent: () =>
+          import('./edit-profile/edit-profile.component').then(
+            (m) => m.EditProfileComponent
+          )
       }
-      // {
-      //   path: 'edit',
-      //   loadComponent: () =>
-      //     import('./edit-profile/edit-profile.component').then(
-      //       (m) => m.EditProfileComponent
-      //     )
-      // }
     ]
   }
 ];

@@ -213,5 +213,11 @@
   "confirmingEmail": "... جاري تأكيد البريد الإلكتروني",
   "inCaseEmailConfirmedYouWillBeRedirectedToLogin": "في حال تأكيد البريد الإلكتروني، سيتم توجيهك إلى صفحة تسجيل الدخول",
   "emailConfirmed": "تم تأكيد البريد الإلكتروني",
-  "vendorPortal": "منصة المورد"
+  "vendorPortal": "منصة المورد",
+  "cityName": "اسم المدينة",
+  "requiredCityName": "اسم المدينة مطلوب",
+  "categoryName": "اسم الفئة",
+  "requiredCategoryName": "اسم الفئة مطلوب",
+  "requiredCrNumber": "رقم السجل التجاري مطلوب",
+  "requiredVatNumber": "الرقم الضريبي مطلوب"
 }

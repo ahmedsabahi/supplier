@@ -17,7 +17,7 @@ export class EndPoints {
   static productPrices = '/Vendor/productPrices'; //get, post
 
   /* ------ contact -------*/
-  static contacts = '/Vendor/Contacts'; //get
+  static contacts = '/Vendor/Contacts'; //get , post, put
 
   /* ------ bankAccount -------*/
   static bankAccounts = '/vendor/Accounts'; //get, post, put
@@ -26,6 +26,8 @@ export class EndPoints {
   static banks = '/Shared/Lookups/BanksList'; //get
   static units = '/Shared/Lookups/UnitsList'; //get
   static products = '/Shared/Lookups/ProductsList'; //get
+  static cities = '/Shared/Lookups/CitiesList'; //get
+  static categories = '/Shared/Lookups/CateogiesList'; //get
 
   /* ------ purchaseOrder -------*/
   static purchaseOrders = '/Vendor/PurchaseOrders'; //get

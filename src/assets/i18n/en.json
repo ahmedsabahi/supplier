@@ -210,5 +210,11 @@
   "confirmingEmail": "Confirming email...",
   "inCaseEmailConfirmedYouWillBeRedirectedToLogin": "In case email confirmed, you will be redirected to login",
   "emailConfirmed": "Email confirmed",
-  "vendorPortal": "Vendor Portal"
+  "vendorPortal": "Vendor Portal",
+  "cityName": "City name",
+  "requiredCityName": "City name is required",
+  "categoryName": "Category name",
+  "requiredCategoryName": "Category name is required",
+  "requiredCrNumber": "CR number is required",
+  "requiredVatNumber": "VAT number is required"
 }
